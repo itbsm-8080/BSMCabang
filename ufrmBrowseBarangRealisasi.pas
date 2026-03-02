@@ -1,4 +1,4 @@
-unit ufrmBrowsePermintaanBarang;
+unit ufrmBrowseBarangRealisasi;
 
 interface
 
@@ -20,14 +20,13 @@ uses
   cxButtons, ExtCtrls, AdvPanel, DBClient, cxLookAndFeels, MyAccess;
 
 type
-  TfrmBrowsePermintaanBarang = class(TfrmCxBrowse)
+  TfrmBrowseBarangRealisasi = class(TfrmCxBrowse)
     PopupMenu1: TPopupMenu;
     UpdateStatusKembali1: TMenuItem;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
     cxStyle2: TcxStyle;
     cxButton5: TcxButton;
-    btn1: TcxButton;
     procedure btnRefreshClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
@@ -39,7 +38,6 @@ type
     procedure cxGrdMasterStylesGetContentStyle(
       Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
       AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
-    procedure btn1Click(Sender: TObject);
 //    procedure cxButton9Click(Sender: TObject);
 
   private
@@ -51,50 +49,57 @@ type
   end;
 
 var
-  frmBrowsePermintaanBarang: TfrmBrowsePermintaanBarang;
+  frmBrowseBarangRealisasi: TfrmBrowseBarangRealisasi;
 
 implementation
    uses ufrmPermintaanBarang,Ulib, MAIN, uModuleConnection;
 {$R *.dfm}
 
-procedure TfrmBrowsePermintaanBarang.btnRefreshClick(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.btnRefreshClick(Sender: TObject);
 begin
-  Self.SQLMaster := 'SELECT pb_nomor Nomor, pb_tanggal Tanggal, pb_memo Memo, if(pb_isclosed=0,"Belum","Sudah") Closed, user_create User, date_create'
-                  + ' FROM tpermintaanbarang_hdr'
-                  + ' WHERE pb_tanggal BETWEEN ' + QuotD(startdate.DateTime) + ' and ' + QuotD(enddate.DateTime)
-                  + ' GROUP BY pb_nomor, pb_tanggal, pb_memo; ';
+  Self.SQLMaster := ' SELECT brg_kode SKU, brg_nama NamaBarang, SUM(pbd_qty) Minta, SUM(pbd_qtyterima) Terima, SUM(pbd_qty - pbd_qtyterima) Kurang '
+                  + ' FROM tbarang '
+                  + ' INNER JOIN tpermintaanbarang_dtl ON pbd_brg_kode = brg_kode '
+                  + ' WHERE pbd_qty > pbd_qtyterima '
+                  + ' GROUP BY brg_kode, brg_nama';
 
-  Self.SQLDetail := ' SELECT pbd_pb_nomor Nomor, pbd_brg_kode SKU, brg_nama NamaBarang, pbd_satuan Satuan, pbd_qty QTY, pbd_qtyterima QtyTerima, pbd_stoknow StokNow, pbd_avgsale AvgSale  '
-                    + ' FROM tpermintaanbarang_dtl a'
-                    + ' INNER JOIN tpermintaanbarang_hdr b ON b.pb_nomor = a.pbd_pb_nomor'
-                    + ' INNER JOIN tbarang c ON c.brg_kode = a.pbd_brg_kode'
-                    + ' WHERE pb_tanggal BETWEEN ' + QuotD(startdate.DateTime) + ' and ' + QuotD(enddate.DateTime)
-                    + ' ORDER BY pb_nomor; ';
+  Self.SQLDetail := ' SELECT pbd_pb_nomor Nomor, pbd_qty Minta, pbd_qtyterima Terima, pbd_qty - pbd_qtyterima Kurang, brg_kode SKU'
+                  + ' FROM tbarang '
+                  + ' INNER JOIN tpermintaanbarang_dtl ON pbd_brg_kode = brg_kode '
+                  + ' WHERE pbd_qty > pbd_qtyterima '
+                  + ' ORDER BY brg_kode';
 
- Self.MasterKeyField := 'Nomor';
+ Self.MasterKeyField := 'SKU';
    inherited;
     cxGrdMaster.ApplyBestFit();
     cxGrdMaster.Columns[0].Width :=100;
-    cxGrdMaster.Columns[1].Width :=100;
-    cxGrdMaster.Columns[2].Width :=200;
-    cxGrdMaster.Columns[3].Width :=200;
-    cxGrdMaster.Columns[4].Width :=200;
+    cxGrdMaster.Columns[1].Width :=200;
+    cxGrdMaster.Columns[2].Width :=100;
+    cxGrdMaster.Columns[3].Width :=100;
+    cxGrdMaster.Columns[4].Width :=100;
 
     cxGrdDetail.Columns[0].Width :=100;
     cxGrdDetail.Columns[1].Width :=100;
-    cxGrdDetail.Columns[2].Width :=200;
-    cxGrdDetail.Columns[3].Width :=80;
+    cxGrdDetail.Columns[2].Width :=100;
+    cxGrdDetail.Columns[3].Width :=100;
+    cxGrdDetail.Columns[4].Width :=100;
 
+    cxGrdMaster.Columns[2].Summary.FooterKind:=skSum;
+    cxGrdMaster.Columns[2].Summary.FooterFormat:='###,###,###,###';
+    cxGrdMaster.Columns[3].Summary.FooterKind:=skSum;
+    cxGrdMaster.Columns[3].Summary.FooterFormat:='###,###,###,###';
+    cxGrdMaster.Columns[4].Summary.FooterKind:=skSum;
+    cxGrdMaster.Columns[4].Summary.FooterFormat:='###,###,###,###';
 end;
 
-procedure TfrmBrowsePermintaanBarang.FormShow(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.FormShow(Sender: TObject);
 begin
     ShowWindowAsync(Handle, SW_MAXIMIZE);
   inherited;
   btnRefreshClick(Self);
 end;
 
-procedure TfrmBrowsePermintaanBarang.cxButton2Click(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.cxButton2Click(Sender: TObject);
 var
   frmPermintaanBarang: TfrmPermintaanBarang;
 begin
@@ -108,7 +113,7 @@ begin
    frmPermintaanBarang.Show;
 end;
 
-procedure TfrmBrowsePermintaanBarang.cxButton1Click(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.cxButton1Click(Sender: TObject);
 var
   frmPermintaanBarang: TfrmPermintaanBarang;
 begin
@@ -126,7 +131,7 @@ begin
    frmPermintaanBarang.Show;
 end;
 
-procedure TfrmBrowsePermintaanBarang.cxButton6Click(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.cxButton6Click(Sender: TObject);
 begin
   inherited;
   refreshdata;
@@ -138,7 +143,7 @@ end;
 //  frmPermintaanBarang.doslip(CDSMaster.FieldByname('Nomor').AsString);
 //end;
 
-procedure TfrmBrowsePermintaanBarang.cxButton4Click(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.cxButton4Click(Sender: TObject);
 var
   s:string;
 begin
@@ -175,7 +180,7 @@ begin
 end;
 
 
-procedure TfrmBrowsePermintaanBarang.cxGrdMasterStylesGetContentStyle(
+procedure TfrmBrowseBarangRealisasi.cxGrdMasterStylesGetContentStyle(
   Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
   AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
 var
@@ -188,7 +193,7 @@ begin
     AStyle := cxStyle1;
 end;
 
-procedure TfrmBrowsePermintaanBarang.cxButton5Click(Sender: TObject);
+procedure TfrmBrowseBarangRealisasi.cxButton5Click(Sender: TObject);
 var
  ss,s,anoreferensi:String;
   ttt,tt : TStrings;
@@ -311,44 +316,5 @@ begin
   showmessage('file terbentuk di '+cGetReportPath+'datapermintaan'+frmmenu.NMCABANG+FormatDateTime('yyymmdd',date)+'.sql');
 end;
 
-procedure TfrmBrowsePermintaanBarang.btn1Click(Sender: TObject);
-var
-  s:string;
-begin
-  inherited;
-  try
-       if not cekedit(frmMenu.KDUSER,'frmPesanan') then
-      begin
-         MessageDlg('Anda tidak berhak EDIT ',mtWarning, [mbOK],0);
-         Exit;
-      End;
-
-     if CDSMaster.FieldByname('closed').AsString = 'Belum' then
-     begin
-      if MessageDlg('Yakin Closed Permintaan ?',mtCustom,
-                                  [mbYes,mbNo], 0)= mrNo
-      then Exit ;
-       s:='UPDATE tpermintaanbarang_hdr set pb_isclosed=1 '
-        + ' where pb_nomor = ' + quot(CDSMaster.FieldByname('Nomor').AsString) + ';' ;
-        EnsureConnected(frmMenu.conn);
-        ExecSQLDirect(frmMenu.conn, s);
-     end
-     else
-     begin
-       if MessageDlg('Yakin Membatalkan Closed Permintaan ?',mtCustom,
-                                  [mbYes,mbNo], 0)= mrNo
-      then Exit ;
-       s:='UPDATE tpermintaanbarang_hdr set pb_isclosed=0 '
-        + ' where pb_nomor = ' + quot(CDSMaster.FieldByname('Nomor').AsString) + ';' ;
-        EnsureConnected(frmMenu.conn);
-        ExecSQLDirect(frmMenu.conn, s);
-     end;
-   except
-     MessageDlg('Gagal Closed SO',mtError, [mbOK],0);
-     Exit;
-   end;
-    
-   btnRefreshClick(self);
-end;
 
 end.

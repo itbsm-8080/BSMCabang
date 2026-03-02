@@ -660,6 +660,11 @@ object frmPembayaranLain: TfrmPembayaranLain
           item
             Format = ',0;(,0)'
             Kind = skSum
+          end
+          item
+            Format = ',0;(,0)'
+            Kind = skSum
+            Column = cxgrdbclmnKilometer
           end>
         DataController.Summary.SummaryGroups = <>
         FilterRow.ApplyChanges = fracImmediately
@@ -760,6 +765,13 @@ object frmPembayaranLain: TfrmPembayaranLain
           HeaderAlignmentHorz = taCenter
           HeaderAlignmentVert = vaCenter
           Width = 80
+        end
+        object cxgrdbclmnKilometer: TcxGridDBColumn
+          DataBinding.FieldName = 'Kilometer'
+          PropertiesClassName = 'TcxSpinEditProperties'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 90
         end
         object cIEkspedisi: TcxGridDBColumn
           Caption = 'Ekspedisi'

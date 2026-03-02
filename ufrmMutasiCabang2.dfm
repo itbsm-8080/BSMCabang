@@ -257,6 +257,7 @@ object frmMutasiCabang2: TfrmMutasiCabang2
       Left = 121
       Top = 34
       Properties.ImmediatePost = True
+      Properties.MaxLength = 0
       Properties.OnValidate = cxLookupGudangAsalPropertiesValidate
       Style.Color = clWindow
       Style.LookAndFeel.Kind = lfFlat
@@ -272,6 +273,7 @@ object frmMutasiCabang2: TfrmMutasiCabang2
       Left = 121
       Top = 10
       Properties.ImmediatePost = True
+      Properties.MaxLength = 0
       Properties.OnEditValueChanged = cxLookupGudangAsalPropertiesEditValueChanged
       Properties.OnValidate = cxLookupGudangAsalPropertiesValidate
       Style.Color = clWindow
@@ -349,6 +351,7 @@ object frmMutasiCabang2: TfrmMutasiCabang2
       Left = 121
       Top = 56
       Properties.ImmediatePost = True
+      Properties.MaxLength = 0
       Properties.OnValidate = cxLookupGudangAsalPropertiesValidate
       Style.Color = clWindow
       Style.LookAndFeel.Kind = lfFlat
@@ -600,6 +603,13 @@ object frmMutasiCabang2: TfrmMutasiCabang2
           HeaderAlignmentHorz = taCenter
           HeaderAlignmentVert = vaCenter
           Width = 118
+        end
+        object cxgrdbclmnPermintaan: TcxGridDBColumn
+          Caption = 'Permintaan'
+          DataBinding.FieldName = 'permintaan'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 110
         end
       end
       object cxGrdDetail: TcxGridDBTableView

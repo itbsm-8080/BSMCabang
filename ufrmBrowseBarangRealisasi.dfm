@@ -1,27 +1,51 @@
-inherited frmBrowseMutasiCabang: TfrmBrowseMutasiCabang
-  Left = 454
-  Top = 137
-  Caption = 'Browse Mutasi Cabang'
+inherited frmBrowseBarangRealisasi: TfrmBrowseBarangRealisasi
+  Left = 507
+  Top = 249
+  Caption = 'Laporan Permintaan Barang vs Realisasi'
+  ClientWidth = 939
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited AdvPanel1: TAdvPanel
+    Width = 939
     FullHeight = 0
     inherited cxButton1: TcxButton
+      Visible = False
       OnClick = cxButton1Click
     end
     inherited cxButton2: TcxButton
+      Visible = False
       OnClick = cxButton2Click
     end
     inherited cxButton3: TcxButton
-      Left = 281
-      OnClick = cxButton3Click
+      Left = 368
+      Visible = False
     end
     inherited cxButton4: TcxButton
-      Width = 105
-      Caption = '&Kirim Data'
+      Left = 281
       Visible = False
       OnClick = cxButton4Click
+    end
+    inherited cxButton7: TcxButton
+      Left = 455
+      Visible = False
+    end
+    inherited cxButton6: TcxButton
+      Left = 542
+    end
+    inherited cxButton8: TcxButton
+      Left = 850
+    end
+    object cxButton5: TcxButton
+      Left = 176
+      Top = 2
+      Width = 105
+      Height = 32
+      Caption = '&Kirim Data'
+      TabOrder = 7
+      Visible = False
+      OnClick = cxButton5Click
+      Align = alLeft
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000000000000000000000000000000000000FF00FF00FF00
@@ -57,69 +81,56 @@ inherited frmBrowseMutasiCabang: TfrmBrowseMutasiCabang
         F700FFF7F700FFF7F700FFF7F700DEA57300FF00FF00FF00FF00F7E7D600F7C6
         AD00EFBD9C00EFBD9C00EFBD9C00EFBD9400E7B59400E7B58C00E7B58C00E7AD
         8400E7AD8400DEAD7B00DEA57B00E7B59400FF00FF00FF00FF00}
-    end
-    inherited cxButton7: TcxButton
-      Left = 368
-    end
-    inherited cxButton6: TcxButton
-      Left = 455
-    end
-    object cxButton5: TcxButton
-      Left = 556
-      Top = 2
-      Width = 87
-      Height = 32
-      Caption = '&Cetak V2'
-      TabOrder = 7
-      OnClick = cxButton5Click
-      Align = alLeft
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        2000000000000004000000000000000000000000000000000000FF00FF00FF00
-        FF00FF00FF00FFFFFF00EFE7E700EFE7E700EFE7E700EFE7E700EFE7E700E7E7
-        E700E7DEDE00DEDEDE00EFEFEF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-        FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00EFE7E700FF00FF00FF00FF00FF00FF00FF00FF00DEDE
-        DE00DED6D600E7DEDE00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00E7DEDE00DED6D600FF00FF00FF00FF00FF00FF00FFEF
-        EF00D6CECE006B6B6B00BDBDBD00C6C6C600BDBDBD00BDBDBD00BDBDBD00BDBD
-        BD00C6C6C600ADADAD0073737300E7DEDE00A59C9C00FF00FF00FF00FF00E7D6
-        D600CEBDBD00524A4A006B6B6B00736B73007373730073737B0073737B007373
-        7300737373006B636B00635A5A00D6BDBD00EFD6D600FF00FF00FF00FF00D6BD
-        BD00CEB5B500D6BDBD00DEBDA500E7BD9C00E7AD8400E79C6300E79C6B00E7B5
-        8C00E7BD9C00DEBDAD00CEBDBD00CEB5B500D6BDBD00FF00FF00FF00FF00F7EF
-        EF00EFEFEF00EFD6B500FF840000FF7B0000FF840000FF840000FF840000FF84
-        0000FF840000F77B0000E7CEAD00EFE7EF00EFDEDE00FF00FF00FF00FF00FFFF
-        FF00EFEFEF00DEC6B500F7BD6B00FFC65A00FFAD3100FFAD2900FFAD2900FFAD
-        2900FFAD2900EFA53900D6C6BD00EFDEE700FFF7F700FF00FF00FF00FF00FFFF
-        FF00EFEFEF00DECECE00E7D6BD00FFEFD600FFEFD600FFE7CE00FFE7C600F7DE
-        BD00FFDEB500E7CEB500D6CED600B5BD9C00F7E7EF00FF00FF00FF00FF00C6BD
-        BD00FFFFFF00F7EFEF00D6CEC600F7F7F700F7F7EF00F7F7F700F7F7F700F7F7
-        F700EFEFF700CEBDB500FFF7F700FFF7F700B5ADAD00FF00FF00FF00FF00FF00
-        FF00FF00FF00FF00FF00DEDEDE00F7FFFF00F7FFFF00EFFFFF00EFFFFF00F7FF
-        FF00F7FFFF00DEDEDE00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-        FF00FF00FF00FF00FF00DEDEDE00FFFFFF00F7FFFF00F7FFFF00F7FFFF00F7FF
-        FF00FFFFFF00DEDEDE00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-        FF00FF00FF00FF00FF00DEDEDE00FFFFFF00F7FFFF00F7FFFF00F7FFFF00F7FF
-        FF00FFFFFF00DEDEDE00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-        FF00FF00FF00FF00FF00DEDEDE00FFFFFF00F7FFFF00F7FFFF00F7FFFF00F7FF
-        FF00FFFFFF00DEDEDE00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-        FF00FF00FF00FF00FF00DEDEDE00FFFFFF00F7FFFF00F7FFFF00F7FFFF00F7FF
-        FF00FFFFFF00DEDEDE00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-        FF00FF00FF00FF00FF00DEDEDE00EFE7E700DEDEDE00DEDEDE00DEDEDE00DEDE
-        DE00EFE7E700DEDEDE00FF00FF00FF00FF00FF00FF00FF00FF00}
       LookAndFeel.Kind = lfStandard
       LookAndFeel.SkinName = 'LondonLiquidSky'
     end
   end
   inherited AdvPanel2: TAdvPanel
+    Width = 939
     FullHeight = 0
+    inherited Label1: TLabel
+      Visible = False
+    end
+    inherited Label2: TLabel
+      Visible = False
+    end
+    inherited btnRefresh: TcxButton
+      Left = 850
+    end
+    inherited startdate: TDateTimePicker
+      Visible = False
+    end
+    inherited enddate: TDateTimePicker
+      Visible = False
+    end
   end
   inherited AdvPanel3: TAdvPanel
+    Width = 939
     FullHeight = 0
+    inherited cxGrid: TcxGrid
+      Width = 935
+      PopupMenu = PopupMenu1
+      inherited cxGrdMaster: TcxGridDBTableView
+        Styles.OnGetContentStyle = cxGrdMasterStylesGetContentStyle
+      end
+    end
   end
-  object SaveDialog1: TSaveDialog
-    Left = 368
-    Top = 297
+  object PopupMenu1: TPopupMenu
+    Left = 360
+    Top = 273
+    object UpdateStatusKembali1: TMenuItem
+      Caption = 'Update Status Kembali'
+    end
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    Left = 216
+    Top = 185
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svColor]
+      Color = clAqua
+    end
+    object cxStyle2: TcxStyle
+    end
   end
 end

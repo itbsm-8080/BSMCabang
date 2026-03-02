@@ -139,9 +139,9 @@ begin
 
         //         loadaksesmenu(Fields[0].AsSTRING);
         frmMenu.StatusBar1.Panels[0].Text := frmMenu.NMUSER;
-        frmMenu.LoadMenu(Fields[0].AsString);
-        frmMenu.ApplyNavBarItems(frmMenu.dxNavBar2);
-        frmMenu.ApplyNavBarGroups(frmMenu.dxNavBar2);
+        frmMenu.LoadHakUser;
+        frmMenu.ApplyHakAkses;
+        frmMenu.UpdateGroupVisibility;
         frmMenu.ApplyMainMenu(frmMenu.MainMenu1);
         frmMenu.dxNavBar2.Visible := True;
         self.Hide;

@@ -54,6 +54,7 @@ type
     clCustomer: TcxGridDBColumn;
     clKendaraan: TcxGridDBColumn;
     cIEkspedisi: TcxGridDBColumn;
+    cxgrdbclmnKilometer: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -226,7 +227,7 @@ begin
    if (CDS.FieldByName('nilai').AsFloat >  0) and (CDS.FieldByName('account').AsString <> '') then
    begin
         s:='insert into tjurnalitem '
-          + ' (jurd_jur_no,jurd_rek_kode,jurd_kredit,jurd_debet,jurd_cc_kode,jurd_keterangan,jurd_nourut,jurd_cus_kode, jurd_nopol, jurd_ekspedisi) values ( '
+          + ' (jurd_jur_no,jurd_rek_kode,jurd_kredit,jurd_debet,jurd_cc_kode,jurd_keterangan,jurd_nourut,jurd_cus_kode, jurd_nopol, jurd_ekspedisi, jurd_kilometer) values ( '
           +  Quot(anomor) + ','
           +  Quot(CDS.FieldByName('account').AsString) + ',0,'
           +  floattostr(CDS.FieldByName('nilai').AsFloat) + ','
@@ -235,7 +236,8 @@ begin
           +  IntToStr(i) + ','
           + Quot(CDS.FieldByName('customer').Asstring) + ','
           + Quot(CDS.FieldByName('Kendaraan').Asstring) + ','
-          + Quot(CDS.FieldByName('Ekspedisi').Asstring)
+          + Quot(CDS.FieldByName('Ekspedisi').Asstring) + ','
+          + floattostr(CDS.FieldByName('kilometer').AsFloat)
           +');';
        tt.Append(s);
      end;
@@ -265,7 +267,7 @@ begin
     Exit ;
   end;
   s := ' select jur_no,jur_tanggal,jur_keterangan,jurd_debet,jurd_rek_kode,'
-     + ' jurd_kredit,jurd_keterangan,jurd_cc_kode,rek_nama,jurd_cus_kode, jurd_nopol, ekspedisi_nama '
+     + ' jurd_kredit,jurd_keterangan,jurd_cc_kode,rek_nama,jurd_cus_kode, jurd_nopol, ekspedisi_nama, jurd_kilometer '
      + ' from tjurnal a'
      + ' inner join tjurnalitem d on a.jur_no=d.jurd_jur_no '
      + ' inner join trekening b on d.jurd_rek_kode = b.rek_kode '
@@ -300,7 +302,7 @@ begin
             edtNilai.Text := fieldbyname('jurd_kredit').AsString;
 
             s := ' select jur_no,jur_tanggal,jur_keterangan,jurd_debet,jurd_rek_kode,'
-                 + ' jurd_kredit,jurd_keterangan,jurd_cc_kode,rek_nama,jurd_cus_kode, jurd_nopol, jurd_ekspedisi '
+                 + ' jurd_kredit,jurd_keterangan,jurd_cc_kode,rek_nama,jurd_cus_kode, jurd_nopol, jurd_ekspedisi, jurd_kilometer '
                  + ' from tjurnal a'
                  + ' inner join tjurnalitem d on a.jur_no=d.jurd_jur_no '
                  + ' inner join trekening b on d.jurd_rek_kode = b.rek_kode '
@@ -322,6 +324,7 @@ begin
                       CDS.FieldByName('customer').AsString  :=  fieldbyname('jurd_cus_kode').AsString;
                       CDS.FieldByName('Kendaraan').AsString  :=  fieldbyname('jurd_nopol').AsString;
                       CDS.FieldByName('Ekspedisi').AsString  :=  fieldbyname('jurd_ekspedisi').AsString;
+                      CDS.FieldByName('kilometer').AsFloat   := fieldbyname('jurd_kilometer').AsFloat;
                       CDS.Post;
                    i:=i+1;
                    next;
@@ -424,14 +427,12 @@ begin
    try
     for i:=0 to tt.Count -1 do
     begin
-        EnsureConnected(frmMenu.conn);
-ExecSQLDirect(frmMenu.conn, tt[i]);
+      EnsureConnected(frmMenu.conn);
+      ExecSQLDirect(frmMenu.conn, tt[i]);
     end;
   finally
     tt.Free;
   end;
-    
-
 end;
 
 function TfrmPembayaranLain.getmaxkode:string;
@@ -475,6 +476,7 @@ begin
     zAddField(FCDS, 'CostCenter', ftString, False,5);
     zAddField(FCDS, 'customer', ftString, False,20);
     zAddField(FCDS, 'Kendaraan', ftString, False,11);
+    zAddField(FCDS, 'Kilometer', ftFloat, False,18);
     zAddField(FCDS, 'Ekspedisi', ftString, False,11);
     FCDS.CreateDataSet;
   end;
@@ -583,9 +585,7 @@ begin
      
      Exit;
    end;
-    
 end;
-
 
 function TfrmPembayaranLain.cekdata:Boolean;
 var
@@ -639,6 +639,16 @@ begin
       end;
     end;
 
+    if CDS.FieldByName('kendaraan').AsString <> '' then
+    begin
+      if CDS.FieldByName('kilometer').AsString = '' then
+      begin
+        ShowMessage('Kilometer harus diisi');
+        Result := False;
+        Exit;
+      end;
+    end;
+
     if cekaccount2(CDS.FieldByName('account').AsString) then
     begin
       if CDS.FieldByName('ekspedisi').AsString = '' then
@@ -658,16 +668,12 @@ begin
       result:=false;
       Exit;
     end;
-
 end;
-
-
 
 function TfrmPembayaranLain.cekbiaya(akode:string):Boolean;
 var
   s:string;
   tsql : TmyQuery;
-
 begin
     result:=False;
   s:= 'select * from trekening where rek_kol_id in (12,13) and rek_kode='+Quot(akode) ;
@@ -681,8 +687,6 @@ begin
       Free;
     end;
   end;
-
-
 end;
 
 function TfrmPembayaranLain.cekbiaya2(akode:string):Boolean;
@@ -703,8 +707,6 @@ begin
       Free;
     end;
   end;
-
-
 end;
 
 procedure TfrmPembayaranLain.initgrid;
@@ -714,10 +716,7 @@ begin
   CDS.FieldByName('nilai').AsInteger    := 0;
   CDS.FIELDBYname('memo').asstring := '';
   CDS.Post;
-
 end;
-
-
 
 procedure TfrmPembayaranLain.HapusRecord1Click(Sender: TObject);
 begin

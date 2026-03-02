@@ -184,17 +184,22 @@ object frmKomisisalesman: TfrmKomisisalesman
               end
               item
                 Caption = 'Target'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 89
               end
               item
                 Caption = 'Realisasi Tempo'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 103
+              end
+              item
+                Caption = 'Penjualan Others'
+                Styles.Header = cxstyl1
+                Width = 300
               end
               item
                 Caption = 'Product Focus'
@@ -207,7 +212,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               end
               item
                 Caption = 'Realisasi All'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 3
                 Styles.Header = cxstyl1
                 Width = 90
@@ -221,53 +226,48 @@ object frmKomisisalesman: TfrmKomisisalesman
               end
               item
                 Caption = '%'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 4
                 Styles.Header = cxstyl1
                 Width = 49
               end
               item
                 Caption = '%'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 2
                 Styles.Header = cxstyl1
                 Width = 51
               end
               item
                 Caption = 'Realisasi'
-                Position.BandIndex = 6
+                Position.BandIndex = 7
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 80
               end
               item
                 Caption = '%'
-                Position.BandIndex = 6
+                Position.BandIndex = 7
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
               end
               item
-                Caption = 'Penjualan Others'
-                Styles.Header = cxstyl1
-                Width = 300
-              end
-              item
                 Caption = 'Target'
-                Position.BandIndex = 14
+                Position.BandIndex = 6
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 86
               end
               item
                 Caption = 'Realisasi'
-                Position.BandIndex = 14
+                Position.BandIndex = 6
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 120
               end
               item
                 Caption = '%'
-                Position.BandIndex = 14
+                Position.BandIndex = 6
                 Position.ColIndex = 2
                 Styles.Header = cxstyl1
                 Width = 51
@@ -327,7 +327,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Properties.ReadOnly = True
-              Position.BandIndex = 8
+              Position.BandIndex = 9
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -336,7 +336,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Presentase2'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
-              Position.BandIndex = 9
+              Position.BandIndex = 10
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -346,7 +346,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
               Options.Editing = False
-              Position.BandIndex = 10
+              Position.BandIndex = 11
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -355,7 +355,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Persentase'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
-              Position.BandIndex = 11
+              Position.BandIndex = 12
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -365,7 +365,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Properties.OnEditValueChanged = clPFPropertiesEditValueChanged
-              Position.BandIndex = 12
+              Position.BandIndex = 13
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -374,7 +374,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'ratiopf'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
-              Position.BandIndex = 13
+              Position.BandIndex = 14
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True

@@ -655,7 +655,7 @@ object frmCustomer: TfrmCustomer
       Persistence.Enable = False
       Persistence.Location = plInifile
       Color = clWhite
-      Enabled = True
+      Enabled = False
       HintShowLargeText = False
       MaxLength = 20
       OleDropTarget = False
@@ -827,6 +827,7 @@ object frmCustomer: TfrmCustomer
       Height = 17
       Caption = 'Update Ke Online (GOKU)'
       TabOrder = 12
+      Visible = False
     end
     object edtMarketing: TAdvEditBtn
       Left = 95

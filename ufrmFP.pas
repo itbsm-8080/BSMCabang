@@ -707,8 +707,6 @@ begin
           + ' and bpd_brg_kode = ' + inttostr(cds.fieldbyname('sku').asinteger);
           abiayapromosi :=0;
           abiayapromosi2:=0;
-          afeemarketing :=0;
-          afeemarketing2 :=0;
        tsql2 := xOpenQuery(ss,frmMenu.conn);
        with tsql2 do
        begin
@@ -717,7 +715,25 @@ begin
            begin
              abiayapromosi:=Fields[0].AsFloat/100*anetharga;
              abiayapromosi2 := Fields[1].AsFloat;
-             
+           end;
+         finally
+           Free;
+         end;
+       end;
+
+       //   ambil fee marketing
+       ss:= ' select fmd_persen,fmd_rupiah from tfeemarketing_dtl inner join '
+          + ' tfeemarketing_hdr on fmh_nomor=fmd_fmh_nomor '
+          + ' where fmh_cus_kode = ' + Quot(cxLookupCustomer.EditValue)
+          + ' and fmd_brg_kode = ' + inttostr(cds.fieldbyname('sku').asinteger);
+          afeemarketing :=0;
+          afeemarketing2 :=0;
+       tsql2 := xOpenQuery(ss,frmMenu.conn);
+       with tsql2 do
+       begin
+         try
+           if not eof then
+           begin
              afeemarketing:=Fields[0].AsFloat/100*anetharga;
              afeemarketing2 := Fields[1].AsFloat;
            end;

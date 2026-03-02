@@ -25,7 +25,7 @@ object frmPermintaanBarang: TfrmPermintaanBarang
     Left = 0
     Top = 41
     Width = 1008
-    Height = 112
+    Height = 96
     Align = alTop
     BevelInner = bvRaised
     Color = clWhite
@@ -190,8 +190,8 @@ object frmPermintaanBarang: TfrmPermintaanBarang
       OnKeyPress = FormKeyPress
     end
     object Button1: TButton
-      Left = 130
-      Top = 78
+      Left = 522
+      Top = 46
       Width = 115
       Height = 25
       Caption = 'Ambil Data Minggu Lalu'
@@ -538,9 +538,9 @@ object frmPermintaanBarang: TfrmPermintaanBarang
   end
   object AdvPanel4: TAdvPanel
     Left = 0
-    Top = 153
+    Top = 137
     Width = 1008
-    Height = 348
+    Height = 364
     Align = alClient
     BevelInner = bvRaised
     Color = clWhite
@@ -607,7 +607,7 @@ object frmPermintaanBarang: TfrmPermintaanBarang
       Left = 2
       Top = 2
       Width = 1004
-      Height = 344
+      Height = 360
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -695,6 +695,15 @@ object frmPermintaanBarang: TfrmPermintaanBarang
           Options.Focusing = False
           Width = 84
         end
+        object cxGrdMainColumn3: TcxGridDBColumn
+          DataBinding.FieldName = 'Sisa'
+          GroupSummaryAlignment = taCenter
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Options.Editing = False
+          Options.Focusing = False
+          Width = 75
+        end
         object cxGrdMainColumn2: TcxGridDBColumn
           Caption = 'Realisasi IN'
           DataBinding.FieldName = 'realisasiIn'
@@ -704,15 +713,6 @@ object frmPermintaanBarang: TfrmPermintaanBarang
           Options.Editing = False
           Options.Focusing = False
           Width = 85
-        end
-        object cxGrdMainColumn3: TcxGridDBColumn
-          DataBinding.FieldName = 'Sisa'
-          GroupSummaryAlignment = taCenter
-          HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-          Options.Editing = False
-          Options.Focusing = False
-          Width = 75
         end
         object clQTY: TcxGridDBColumn
           DataBinding.FieldName = 'QTY'

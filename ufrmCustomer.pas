@@ -462,6 +462,9 @@ begin
 
   with TcxExtLookupHelper(cxExtgolongan.Properties) do
     LoadFromCDS(CDSGolonganCustomer, 'Kode', 'Nama', ['Kode'], Self);
+
+    if frmMenu.KDUSER = 'FINANCE' then
+      edtTOP.Enabled := True;
 end;
 
 function TfrmCustomer.GetCDSJenisCustomer: TClientDataset;

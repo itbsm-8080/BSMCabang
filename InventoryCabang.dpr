@@ -168,7 +168,8 @@ uses
   ufrmLapBulanan5 in 'ufrmLapBulanan5.pas' {frmLapBulanan5},
   ufrmBrowseSetingFeeMarketing in 'ufrmBrowseSetingFeeMarketing.pas' {frmBrowseSetingFeeMarketing},
   ufrmSetingFeeMarketing in 'ufrmSetingFeeMarketing.pas' {frmSetingFeeMarketing},
-  ufrmProsesFeeMarketing in 'ufrmProsesFeeMarketing.pas' {frmProsesFeeMarketing};
+  ufrmProsesFeeMarketing in 'ufrmProsesFeeMarketing.pas' {frmProsesFeeMarketing},
+  ufrmBrowseBarangRealisasi in 'ufrmBrowseBarangRealisasi.pas' {frmBrowseBarangRealisasi};
 
 {$R *.res}
 

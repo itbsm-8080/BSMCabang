@@ -10832,6 +10832,10 @@ object frmMenu: TfrmMenu
         Caption = 'Laporan Stok Item terlaris'
         OnClick = LaporanItemterlarisStok1Click
       end
+      object LaporanPermintaanBarangvsRealisasi1: TMenuItem
+        Caption = 'Laporan Permintaan Barang vs Realisasi'
+        OnClick = LaporanPermintaanBarangvsRealisasi1Click
+      end
       object N3: TMenuItem
         Caption = '-'
       end
@@ -11730,5 +11734,9 @@ object frmMenu: TfrmMenu
     OnTimer = tmrHeartbeatTimer
     Left = 448
     Top = 240
+  end
+  object DM: TMyQuery
+    Left = 384
+    Top = 264
   end
 end

@@ -52,6 +52,7 @@ type
     clharga: TcxGridDBColumn;
     Label3: TLabel;
     edtNomorMutasi: TAdvEditBtn;
+    cxgrdbclmnPermintaan: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -89,20 +90,23 @@ type
       var Error: Boolean);
     procedure edtNomorMutasiClickBtn(Sender: TObject);
     procedure loaddataMutasi(akode : string);
-    private
-     buttonSelected  : integer;
-     FID : STRING;
-     FCDSSKU : TClientDataset;
-     FCDSGudang: TClientDataset;
-     FCDSCabang: TClientDataset;
-        FFLAGEDIT: Boolean;
-     xtotal : Double;
-         function GetCDSGudang: TClientDataset;
-         function GetCDSCabang: TClientDataset;
+    function getdatabase(akode:string):string;
+    procedure simpandata2;
+  private
+    buttonSelected  : integer;
+    FID : STRING;
+    FCDSSKU : TClientDataset;
+    FCDSGudang: TClientDataset;
+    FCDSCabang: TClientDataset;
+    FFLAGEDIT: Boolean;
+    xtotal : Double;
+    adatabase :string;
+    function GetCDSGudang: TClientDataset;
+    function GetCDSCabang: TClientDataset;
 
-         procedure initViewSKU;
-      { Private declarations }
-     protected
+    procedure initViewSKU;
+  { Private declarations }
+  protected
     FCDS: TClientDataSet;
   public
       property CDS: TClientDataSet read GetCDS write FCDS;
@@ -158,10 +162,10 @@ begin
   dttanggal.DateTime := Date;
   edtnomormutasi.clear ;
   edtNomor.Text := getmaxkode;
-   cxLookupCabangAsal.EditValue := frmMenu.KDCABANG;
-   cxLookupCabangTujuan.EditValue := '';
-   cxLookupGudang.EditValue := '';
-   edtNomorMutasi.SetFocus;
+  cxLookupCabangAsal.EditValue := frmMenu.KDCABANG;
+  cxLookupCabangTujuan.EditValue := '';
+  cxLookupGudang.EditValue := '';
+  edtNomorMutasi.SetFocus;
   initgrid;
 end;
 
@@ -213,31 +217,136 @@ while not CDS.Eof do
    if (CDS.FieldByName('qty').AsInteger >  0) and (CDS.FieldByName('sku').AsInteger >  0) then
    begin
         s:='insert into tmutcabin_dtl '
-          + ' (mutcid_mutci_nomor,mutcid_brg_kode,mutcid_qty,mutcid_harga,mutcid_keterangan,mutcid_expired,mutcid_nourut) values ( '
+          + ' (mutcid_mutci_nomor,mutcid_brg_kode,mutcid_qty,mutcid_harga,mutcid_keterangan,mutcid_expired,mutcid_nourut, mutcid_pb_nomor) values ( '
           +  Quot(anomor) + ','
           +  IntToStr(CDS.FieldByName('SKU').AsInteger) + ','
           +  IntToStr(CDS.FieldByName('qty').AsInteger) + ','
           + FloatToStr(CDS.FieldByName('harga').AsFloat) + ','
           +  Quot(CDS.FieldByName('keterangan').Asstring) + ','
           + QuotD(CDS.FieldByName('expired').Asdatetime) +','
-          +  IntToStr(i)
+          +  IntToStr(i)  +','
+          + Quot(CDS.FieldByName('permintaan').Asstring)
           +');';
        tt.Append(s);
      end;
      CDS.next;
        Inc(i);
    end;
-  
+
      try
         for i:=0 to tt.Count -1 do
         begin
-            EnsureConnected(frmMenu.conn);
-ExecSQLDirect(frmMenu.conn, tt[i]);
+          EnsureConnected(frmMenu.conn);
+          ExecSQLDirect(frmMenu.conn, tt[i]);
         end;
       finally
         tt.Free;
       end;
+      simpandata2;
 end;
+
+procedure TfrmMutasiCabang2.simpandata2;
+var
+  s:string;
+  i:integer;
+  tt : TStrings;
+  anomor : string;
+  tsql :TmyQuery;
+begin
+//  adatabase := getdatabase(cxLookupCabangAsal.EditValue)+'.';
+  tt:=TStringList.Create;
+  s:= 'select * from '+adatabase+'tmutcab_hdr inner join '+adatabase+'tmutcab_dtl on mutc_nomor=mutcd_mutc_nomor and mutc_nomor = ' + Quot(edtNomorMutasi.Text);
+  tsql:= xOpenQuery(s,frmMenu.conn);
+
+  with tsql do
+  begin
+     try
+       if not Eof then
+          s:= 'insert ignore into tmutcab_hdr (mutc_nomor,mutc_tanggal,mutc_cbg_asal,mutc_cbg_tujuan,mutc_keterangan) values ('
+            + Quot(fieldbyname('mutc_nomor').AsString) + ','
+            + Quotd(fieldbyname('mutc_tanggal').AsDateTime) + ','
+            + Quot(fieldbyname('mutc_cbg_asal').AsString) + ','
+            + Quot(fieldbyname('mutc_cbg_tujuan').AsString) + ','
+            + Quot(fieldbyname('mutc_keterangan').AsString) + ');' ;
+         tt.Append(s);
+         while not Eof do
+         begin
+           s:= 'insert ignore into tmutcab_dtl (mutcd_mutc_nomor,mutcd_brg_kode,mutcd_qty,mutcd_expired,mutcd_keterangan,mutcd_harga,mutcd_nourut) values ('
+            + Quot(fieldbyname('mutc_nomor').AsString) + ','
+            + Quot(fieldbyname('mutcd_brg_kode').AsString) + ','
+            + fieldbyname('mutcd_qty').AsString + ','
+            + Quotd(fieldbyname('mutcd_expired').AsDateTime) + ','
+            + Quot(fieldbyname('mutcd_keterangan').AsString) + ','
+            + fieldbyname('mutcd_harga').AsString +','
+            + fieldbyname('mutcd_nourut').AsString
+            + ');'  ;
+         tt.Append(s);
+
+          Next;
+         end;
+
+
+       finally
+         free;
+     end;
+
+     try
+        for i:=0 to tt.Count -1 do
+        begin
+          EnsureConnected(frmMenu.conn);
+          ExecSQLDirect(frmMenu.conn, tt[i]);
+        end;
+      finally
+        tt.Free;
+      end;
+
+     tt:=TStringList.Create;
+   s:= 'select a.* from tbarang a inner join tmutcab_dtl on mutcd_brg_kode=brg_kode and mutcd_mutc_nomor = ' + Quot(edtNomorMutasi.Text);
+  tsql:= xOpenQuery(s,frmMenu.conn);
+
+  with tsql do
+  begin
+     try
+         while not Eof do
+         begin
+         s :=  ' insert ignore into tbarang '
+             + ' (brg_kode,brg_nama,brg_satuan,brg_gr_kode,brg_ktg_kode,brg_gdg_DEFAULT,brg_sup_kode ,'
+             + ' brg_hrgjual,brg_hrgbeli,brg_isaktif,brg_isstok,brg_isexpired,date_create,user_create'
+             + ' ) '
+             + ' values ( '
+             + Quot(fieldbyname('brg_kode').AsString) + ','
+             + Quot(fieldbyname('brg_nama').AsString) + ','
+             + Quot(fieldbyname('brg_satuan').AsString) + ','
+             + Quot(fieldbyname('brg_gr_kode').AsString) + ','
+             + Quot(fieldbyname('brg_ktg_kode').AsString) + ','
+             + Quot(fieldbyname('brg_gdg_default').AsString) + ','
+             + Quot(fieldbyname('brg_sup_kode').AsString) + ','
+             + FloatToStr(fieldbyname('brg_hrgjual').Asfloat) + ','
+             + FloatToStr(fieldbyname('brg_hrgjual').Asfloat) + ',1,1,0,'
+             + QuotD(cGetServerTime,True) + ','
+             + Quot(frmMenu.KDUSER)+');';
+         tt.Append(s);
+
+          Next;
+         end;
+
+
+       finally
+         free;
+     end;
+  end;
+    try
+        for i:=0 to tt.Count -1 do
+        begin
+          EnsureConnected(frmMenu.conn);
+          ExecSQLDirect(frmMenu.conn, tt[i]);
+        end;
+      finally
+        tt.Free;
+      end;
+  end;
+end;
+
 procedure TfrmMutasiCabang2.loaddataall(akode : string);
 var
   s: string ;
@@ -251,7 +360,7 @@ begin
   end;
   s := ' select mutci_nomor,mutci_tanggal,mutci_nomormutasi,mutci_cbg_asal,gdg_nama,mutci_cbg_tujuan,'
      + ' mutcid_brg_kode,brg_nama,brg_satuan,mutcid_qty,mutcid_harga,mutcid_expired,mutci_gdg_kode,'
-     + ' mutcid_keterangan'
+     + ' mutcid_keterangan, mutcid_pb_nomor '
      + ' from tmutcabin_hdr a'
      + ' inner join tmutcabin_dtl d on a.mutci_nomor=d.mutcid_mutci_nomor '
      + ' inner join tbarang b on d.mutcid_brg_kode = b.brg_kode '
@@ -286,7 +395,7 @@ begin
                       CDS.FieldByName('harga').AsFloat        := fieldbyname('mutcid_harga').AsFloat;
                       CDS.FieldByName('expired').AsDateTime := fieldbyname('mutcid_expired').AsDateTime;
                       CDS.FieldByName('keterangan').AsString  :=  fieldbyname('mutcid_keterangan').AsString;
-
+                      CDS.FieldByName('permintaan').AsString  :=  fieldbyname('mutcid_pb_nomor').AsString;
                       CDS.Post;
                    i:=i+1;
                    next;
@@ -443,6 +552,7 @@ begin
     zAddField(FCDS, 'expired', ftDate, False,255);
     zAddField(FCDS, 'Keterangan', ftString, False,255);
     zAddField(FCDS, 'harga', ftFloat, False);
+    zAddField(FCDS, 'permintaan', ftString, False,100);
     FCDS.CreateDataSet;
   end;
   Result := FCDS;
@@ -782,12 +892,16 @@ procedure TfrmMutasiCabang2.edtNomorMutasiClickBtn(Sender: TObject);
 var
     SQLbantuan :string;
 begin
- sqlbantuan := ' SELECT MUTC_NOMOR Nomor,MUTC_TANGGAL Tanggal,b.CBG_NAMA Asal,c.cbG_nama Tujuan from tmutcab_hdr a '
+  adatabase := getdatabase(cxLookupCabangAsal.EditValue)+'.';
+
+ sqlbantuan := ' SELECT MUTC_NOMOR Nomor,MUTC_TANGGAL Tanggal,b.CBG_NAMA Asal,c.cbG_nama Tujuan from '+ adatabase+'tmutcab_hdr a '
             + ' inner join tcabang b on a.mutc_cbg_asal=b.cbg_kode'
             + ' inner join tcabang c on a.mutc_cbg_tujuaN=c.cbg_kode'
             + ' left join tmutcabin_hdr d on a.mutc_nomor=mutci_nomormutasi '
             + ' where mutci_nomor is null '
-            + ' and a.mutc_cbg_tujuan = ' + Quot(frmMenu.KDCABANG);
+            + ' and a.mutc_cbg_tujuan = ' + Quot(frmMenu.KDCABANG)
+            + ' and a.mutc_cbg_Asal = ' + Quot(cxLookupCabangAsal.EditValue);
+
  Application.CreateForm(Tfrmbantuan,frmbantuan);
  frmBantuan.SQLMaster := SQLbantuan;
   frmBantuan.ShowModal;
@@ -797,19 +911,16 @@ begin
 
 end;
 
-
 procedure TfrmMutasiCabang2.loaddataMutasi(akode : string);
 var
   s: string ;
   tsql : TmyQuery;
   i:Integer;
 begin
-
- 
   s := ' select *'
-     + ' from tMUTCAB_hdr a'
-     + ' inner join tmutcab_dtl b on a.mutc_nomor=b.mutcd_mutc_nomor'
-     + ' inner join tbarang c on B.mutcd_brg_kode=c.brg_kode '
+     + ' from ' + adatabase+'tMUTCAB_hdr a'
+     + ' inner join ' + adatabase+'tmutcab_dtl b on a.mutc_nomor=b.mutcd_mutc_nomor'
+     + ' inner join ' + adatabase+'tbarang c on B.mutcd_brg_kode=c.brg_kode '
      + ' where a.mutc_nomor = '+ Quot(akode)
      + ' order by mutcd_nourut';
     tsql := xOpenQuery(s,frmMenu.conn) ;
@@ -838,6 +949,7 @@ begin
                       CDS.FieldByName('harga').AsFloat        := fieldbyname('mutcd_harga').AsFloat;
                       CDS.FieldByName('expired').AsDateTime   := fieldbyname('mutcd_expired').AsDateTime;
                       CDS.FieldByName('keterangan').AsString  :=  fieldbyname('mutcd_keterangan').AsString;
+                      CDS.FieldByName('permintaan').AsString  :=  fieldbyname('mutcd_pb_nomor').AsString;
                       CDS.Post;
                    i:=i+1;
                    next;
@@ -852,6 +964,27 @@ begin
    finally
      tsql.Free;
    end;
+
+end;
+
+function TfrmMutasiCabang2.getdatabase(akode:string):string;
+var
+  s:string;
+  tsql:TmyQuery;
+begin
+  Result := 'bsm';
+  s:=' select cbg_database from bsm.tcabang where cbg_kode ='+ Quot(akode);
+
+
+  tsql:= xOpenQuery(s,frmMenu.conn);
+  with tsql do begin
+    try
+      if not Eof then
+         Result :=Fields[0].AsString;
+    finally
+      free;
+    end;
+  end;
 
 end;
 

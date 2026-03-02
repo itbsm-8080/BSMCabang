@@ -73,7 +73,7 @@ uses
   dxSkinsdxRibbonPainter,
    cxPC, dxDockControl,
   dxDockPanel, dxSkinsdxNavBar2Painter, ImgList  , ShellAPI, DBAccess,
-  MyAccess, dxSkinDarkRoom, dxSkinFoggy, dxSkinSeven, dxSkinSharp;
+  MyAccess, dxSkinDarkRoom, dxSkinFoggy, dxSkinSeven, dxSkinSharp, MemDS;
 
 type
   TfrmMenu = class(TForm)
@@ -230,6 +230,8 @@ type
     tmr1: TTimer;
     dxSettingFeeMarketing: TdxNavBarItem;
     ProsesFeeMarketing1: TMenuItem;
+    DM: TMyQuery;
+    LaporanPermintaanBarangvsRealisasi1: TMenuItem;
     procedure FileExit1Execute(Sender: TObject);
     function ShowForm(AFormClass: TFormClass): TForm;
     procedure Maximized1Click(Sender: TObject);
@@ -361,9 +363,6 @@ type
     procedure dxekspedisiClick(Sender: TObject);
     procedure dxserahterima2Click(Sender: TObject);
     procedure LaporanSalesBulananNew1Click(Sender: TObject);
-    procedure LoadMenu(const AUser: string);
-    procedure ApplyNavBarItems(ANavBar: TdxNavBar);
-    procedure ApplyNavBarGroups(ANavBar: TdxNavBar);
     procedure tmrHeartbeatTimer(Sender: TObject);
     procedure dxSettingFeeMarketingClick(Sender: TObject);
     procedure ProsesFeeMarketing1Click(Sender: TObject);
@@ -371,6 +370,10 @@ type
     function ApplyMainMenuAccess(AMenuItem: TMenuItem): Boolean;
     procedure ApplyMainMenu(AMainMenu: TMainMenu);
     procedure HideMenuItem(AMenuItem: TMenuItem);
+    procedure LoadHakUser;
+    procedure ApplyHakAkses;
+    procedure UpdateGroupVisibility;
+    procedure LaporanPermintaanBarangvsRealisasi1Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -420,6 +423,7 @@ var
   zVersi:string;
   apath:string;
   hakUser: TStringList;
+  ListHak: TStringList;
 
 implementation
 uses Ulib,uModuleConnection,ufrmUser, UfrmLogin,ufrmBrowseGudang,ufrmBrowseCostCenter,
@@ -443,7 +447,7 @@ ufrmBrowseInkasoBawahHet,ufrmLapBulananMarketing,ufrmLapKunjunganMarketing,
 ufrmListJualMarketing,ufrmBrowseEstimasiSales,ufrmPencapaianMarketing2,ufrmLapBulananMarketing2,
 ufrmupload,ufrmBrowsePermintaanBarang,ufrmBrowseTagihanEkspedisi,ufrmprosesgunggung,ufrmfakturpajak3,
 ufrmVerifikasiAbsensi,ufrmBrowseJenisKendaraan,ufrmBrowseEkspedisi,ufrmBrowseSerahTerimaFaktur2,
-ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing;
+ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing,ufrmBrowseBarangRealisasi;
 {$R *.dfm}
 
 
@@ -521,7 +525,7 @@ begin
   DecimalSeparator := '.';
   Application.UpdateFormatSettings := True;
 
-  zVersi := '6.0.21';
+  zVersi := '6.0.23';
   StatusBar1.Panels[4].Text := 'Versi ' + zVersi;
 
   // cek ver si
@@ -1596,33 +1600,6 @@ begin
 
 end;
 
-procedure TfrmMenu.LoadMenu(const AUser: string);
-  var
-  s: string;
-  tsql: TmyQuery;
-begin
-   hakUser := TStringList.Create;
-  hakUser.Sorted := True;
-  hakUser.Duplicates := dupIgnore;
-
-  s := 'SELECT hak_men_id FROM thakuser WHERE trim(hak_user_kode) = '+Quot(AUser)+';';
-  tsql:=xOpenQuery(s,frmmenu.conn);
-
-  try
-
-       with  tsql do
-       begin
-         if not eof then
-         begin
-            hakUser.Add(fieldbyname('hak_men_id').AsString);
-            Next;
-        end;
-      end;
-   finally
-     tsql.Free;
-   end;
-end;
-
 procedure TfrmMenu.SembunyikanMenu(AMainMenu: TMainMenu);
 var
   i: Integer;
@@ -1641,40 +1618,11 @@ begin
     HideMenuItem(AMenuItem.Items[i]);
 end;
 
-procedure TfrmMenu.ApplyNavBarItems(ANavBar: TdxNavBar);
-var
-  i: Integer;
-begin
-  for i := 0 to ANavBar.Items.Count - 1 do
-  begin
-    ANavBar.Items[i].Visible :=
-      hakUser.IndexOf(IntToStr(ANavBar.Items[i].Tag)) >= 0;
-  end;
-end;
-
-procedure TfrmMenu.ApplyNavBarGroups(ANavBar: TdxNavBar);
-var
-  g, l: Integer;
-  AGroup: TdxNavBarGroup;
-begin
-  for g := 0 to ANavBar.Groups.Count - 1 do
-  begin
-    AGroup := ANavBar.Groups[g];
-    AGroup.Visible := False;
-
-    for l := 0 to AGroup.LinkCount - 1 do
-      if AGroup.Links[l].Item.Visible then
-      begin
-        AGroup.Visible := True;
-        Break;
-      end;
-  end;
-end;
-
 function TfrmMenu.ApplyMainMenuAccess(AMenuItem: TMenuItem): Boolean;
 var
   i: Integer;
   ChildVisible: Boolean;
+  HasAccess: Boolean;
 begin
   ChildVisible := False;
 
@@ -1682,14 +1630,16 @@ begin
     if ApplyMainMenuAccess(AMenuItem.Items[i]) then
       ChildVisible := True;
 
-  if AMenuItem.Tag <> 0 then
-    AMenuItem.Visible :=
-      hakUser.IndexOf(IntToStr(AMenuItem.Tag)) >= 0
+  HasAccess := hakUser.IndexOf(AMenuItem.Name) >= 0;
+
+  if AMenuItem.Count = 0 then
+    AMenuItem.Visible := HasAccess
   else
     AMenuItem.Visible := ChildVisible;
 
-  Result := AMenuItem.Visible or ChildVisible;
+  Result := AMenuItem.Visible;
 end;
+
 
 procedure TfrmMenu.ApplyMainMenu(AMainMenu: TMainMenu);
 var
@@ -1719,6 +1669,60 @@ begin
   end;
 end;
 
+procedure TfrmMenu.LoadHakUser;
+begin
+  ListHak := TStringList.Create;
+  hakUser := TStringList.Create;
+  DM.Connection := conn;
+  with DM do
+  begin
+    Close;
+    SQL.Text := 'select men_menu_name, men_menu_name2 from tmenu inner join thakuser on men_id=hak_men_id where hak_user_kode = :u';
+    ParamByName('u').AsString := KDUSER;
+    Open;
+
+    while not Eof do
+    begin
+      ListHak.Add(FieldByName('men_menu_name').AsString);
+      hakUser.Add(FieldByName('men_menu_name2').AsString);
+      Next;
+    end;
+  end;
+end;
+
+procedure TfrmMenu.ApplyHakAkses;
+var
+  i: Integer;
+begin
+  for i := 0 to dxNavBar2.Items.Count - 1 do
+  begin
+    dxNavBar2.Items[i].Visible :=
+      ListHak.IndexOf(dxNavBar2.Items[i].Name) <> -1;
+  end;
+end;
+
+procedure TfrmMenu.UpdateGroupVisibility;
+var
+  i, j: Integer;
+  AdaVisible: Boolean;
+begin
+  for i := 0 to dxNavBar2.Groups.Count - 1 do
+  begin
+    AdaVisible := False;
+
+    for j := 0 to dxNavBar2.Groups[i].LinkCount - 1 do
+    begin
+      if dxNavBar2.Groups[i].Links[j].Item.Visible then
+      begin
+        AdaVisible := True;
+        Break;
+      end;
+    end;
+
+    dxNavBar2.Groups[i].Visible := AdaVisible;
+  end;
+end;
+
 procedure TfrmMenu.dxSettingFeeMarketingClick(Sender: TObject);
 begin
      if ActiveMDIChild.Caption <> 'Setting Fee Marketing' then
@@ -1734,6 +1738,15 @@ begin
       ShowForm(TfrmProsesFeeMarketing).Show;
    end;
 
+end;
+
+procedure TfrmMenu.LaporanPermintaanBarangvsRealisasi1Click(
+  Sender: TObject);
+begin
+ if ActiveMDIChild.Caption <> 'Laporan Permintaan Barang vs Realisasi' then
+ begin
+    ShowForm(TfrmBrowseBarangRealisasi).Show;
+ end;
 end;
 
 end.

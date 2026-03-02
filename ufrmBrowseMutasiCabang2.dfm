@@ -18,6 +18,7 @@ inherited frmBrowseMutasiCabang2: TfrmBrowseMutasiCabang2
     inherited cxButton4: TcxButton
       Width = 105
       Caption = '&Ambil Data'
+      Visible = False
       OnClick = cxButton4Click
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100

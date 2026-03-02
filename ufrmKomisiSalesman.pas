@@ -939,6 +939,8 @@ begin
 
           ds32.FieldByName('komisi_jual').asfloat := apotong * getkomisijual(arealisasijual);
 
+          // and cekmasakerja(ds32.FieldByName('salesman').AsString)
+
           if ((arealisasiinkaso >= 70) and (ds3.fieldbyname('Presentase2').AsFloat >= 70)) and (ds32.FieldByName('komisi_jual').asfloat > 0) and cekmasakerja(ds32.FieldByName('salesman').AsString) then
           begin
 
@@ -1227,7 +1229,7 @@ begin
     ds3.Locate('nama',ds32.FieldByName('salesman').AsString,[loCaseInsensitive]);
     s:= ' INSERT INTO tcetakkomisi (ck_salesman, ck_PERIODE, ck_tahun, ck_targetjual, ck_realisasijual, ck_persentasejual, ck_komisijual, '
       + ' ck_targetinkaso, ck_realisasiinkaso, ck_persentaseinkaso, ck_riilinkaso7, ck_presentase7, ck_komisiinkaso7, ck_riilinkaso740, '
-      + ' ck_presentase740, ck_komisiinkaso740, ck_riilinkaso4060, ck_presentase4060, ck_komisiinkaso4060, ck_riilinkaso60, ck_presentase60, ck_komisiinkaso60,ck_Komisipf,ck_presentasepf,ck_girobulanlalu)'
+      + ' ck_presentase740, ck_komisiinkaso740, ck_riilinkaso4060, ck_presentase4060, ck_komisiinkaso4060, ck_riilinkaso60, ck_presentase60, ck_komisiinkaso60,ck_Komisipf,ck_presentasepf,ck_girobulanlalu, ck_komisiothers)'
       + ' VALUES ('
       + Quot(ds32.Fields[0].AsString)+ ','
       + IntToStr(cbbbulan.ItemIndex+1)+ ','
@@ -1252,8 +1254,9 @@ begin
       + floattostr(ds32.fieldbyname('persen3').asfloat) + ','
       + floattostr(ds32.fieldbyname('nilai3').asfloat) + ','
       + floattostr(ds32.fieldbyname('komisipf').asfloat) +','
-      + floattostr(ds3.fieldbyname('ratiopf').asfloat)+','
-      + floattostr(ds32.fieldbyname('girolalu').asfloat)       
+      + floattostr(ds3.fieldbyname('ratiopf').asfloat) +','
+      + floattostr(ds32.fieldbyname('girolalu').asfloat) +','
+      + floattostr(ds32.fieldbyname('komisiothers').asfloat)
       + ');';
       tt.Append(s);
       ds32.Next;

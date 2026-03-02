@@ -373,8 +373,6 @@ begin
    frmInvoice.Show;
 end;
 
-
-
 procedure TfrmBrowseJurnal2.cxButton5Click(Sender: TObject);
 var
   ss,s:String ;
@@ -440,7 +438,8 @@ begin
     end;
       tsql.Free;
    end;
-    s:='SELECT jurd_jur_no,jurd_rek_kode,jurd_debet,jurd_kredit,jurd_nourut, jurd_cc_kode,jurd_keterangan'
+
+    s:='SELECT jurd_jur_no,jurd_rek_kode,jurd_debet,jurd_kredit,jurd_nourut, jurd_cc_kode,jurd_keterangan, jurd_cus_kode, jurd_kar_nik, jurd_nopol, jurd_ekspedisi, jurd_kilometer '
       + ' FROM tjurnalitem inner join tjurnal on jurd_jur_no =jur_no'
       + ' WHERE jurd_jur_No='+ quot(sqlqry1.FieldByname('Nomor').AsString) ;
 
@@ -452,7 +451,7 @@ begin
     begin
 
       ss:='insert IGNORE into tjurnalitem ('
-      + ' jurd_jur_no,jurd_rek_kode,jurd_debet,jurd_kredit,jurd_nourut,jurd_keterangan,jurd_cc_kode'
+      + ' jurd_jur_no,jurd_rek_kode,jurd_debet,jurd_kredit,jurd_nourut,jurd_keterangan,jurd_cc_kode,jurd_cus_kode, jurd_kar_nik, jurd_nopol, jurd_ekspedisi, jurd_kilometer '
       + ' ) values ('
       + Quot(Fields[0].AsString) +','
       + Quot(Fields[1].Asstring) +','
@@ -460,7 +459,13 @@ begin
       + FloatToStr(Fields[3].AsFloat) +','
       + FloatToStr(Fields[4].AsFloat) +','
       + Quot(Fields[6].Asstring) +','
-      + Quot(Fields[5].Asstring) +');';
+      + Quot(Fields[5].Asstring) +','
+      + Quot(Fields[7].Asstring) +','
+      + Quot(Fields[8].Asstring) +','
+      + Quot(Fields[9].Asstring) +','
+      + Quot(Fields[10].Asstring) +','
+      + FloatToStr(Fields[11].AsFloat)
+      +');';
 
      tt.append(ss);
 

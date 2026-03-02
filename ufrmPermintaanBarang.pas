@@ -399,13 +399,11 @@ begin
   begin
    if CDS.FieldByName('qty').AsInteger >  0 then
      begin
-      S:='INSERT INTO tpermintaanbarang_dtl (pbd_pb_nomor, pbd_brg_kode, pbd_satuan, pbd_qty, pbd_StokNow, pbd_AvgSale, pbd_keterangan, pbd_nourut) values ('
+      S:='INSERT INTO tpermintaanbarang_dtl (pbd_pb_nomor, pbd_brg_kode, pbd_satuan, pbd_qty, pbd_keterangan, pbd_nourut) values ('
         + Quot(edtNomor.Text) +','
         + IntToStr(CDS.FieldByName('SKU').AsInteger) +','
         + Quot(CDS.FieldByName('satuan').AsString) +','
         + IntToStr(CDS.FieldByName('QTY').AsInteger) +','
-        + IntToStr(CDS.FieldByName('StokNow').AsInteger) +','
-        + FloatToStr(CDS.FieldByName('AvgSale').AsFloat) +','
         + Quot(CDS.FieldByName('Keterangan').AsString)+','
         + IntToStr(i)
         + ');';
@@ -511,12 +509,8 @@ begin
               CDS.FieldByName('SKU').AsInteger          := fieldbyname('SKU').AsInteger;
               CDS.FieldByName('Namabarang').AsString    := fieldbyname('NamaBarang').AsString;
               CDS.FieldByName('Satuan').AsString        := fieldbyname('Satuan').Asstring;
-              CDS.FieldByName('MingguLalu').AsInteger   := fieldbyname('QTY').AsInteger; //getMingguLalu(Fields[1].AsString);
-              CDS.FieldByName('RealisasiIN').AsInteger  := getRealisasiIn(Fields[1].AsString);
-              CDS.FieldByName('Sisa').AsInteger         := fieldbyname('QTY').AsInteger - CDS.FieldByName('RealisasiIN').AsInteger;//getSisa(Fields[1].AsString);
+//              CDS.FieldByName('Sisa').AsInteger         := fieldbyname('QTY').AsInteger - CDS.FieldByName('RealisasiIN').AsInteger;
               CDS.FieldByName('QTY').AsInteger          := fieldbyname('QTY').AsInteger;
-              CDS.FieldByName('StokNow').AsInteger      := fieldbyname('StokNow').AsInteger;
-              CDS.FieldByName('AvgSale').AsFloat        := fieldbyname('AvgSale').AsFloat;
               CDS.FieldByName('Keterangan').AsString := fieldbyname('Keterangan').AsString;
 
               CDS.Post;

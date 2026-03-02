@@ -965,7 +965,6 @@ object frmTagihanEkspedisi: TfrmTagihanEkspedisi
     end
   end
   object MyConnection1: TMyConnection
-    Port = 3307
     Left = 584
     Top = 81
   end

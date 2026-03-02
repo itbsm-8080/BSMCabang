@@ -66,7 +66,7 @@ begin
   + ' (select mst_tanggal from tmasterstok where mst_brg_kode=brg_kode and mst_noreferensi like "%DO%" ORDER BY mst_tanggal desc limit 1 ) Last_Sale ,'
   + ' (select sum(mst_stok_in-mst_stok_out) from tmasterstok where mst_brg_kode=brg_kode and mst_gdg_kode="WH-01") Stok_Baik,'
   + ' (SELECT ifnull(SUM(fpd_qty),0)/3 FROM tfp_dtl inner join tfp_hdr on fp_nomor=fpd_fp_nomor   '
-  + ' WHERE fpd_brg_kode=brg_kode AND fp_tanggal >= DATE_ADD(now() , INTERVAL -90 DAY)) Avgs_Sales_per_Bulan '
+  + ' WHERE fpd_brg_kode=brg_kode AND fp_tanggal >= DATE_ADD(now() , INTERVAL -90 DAY)) Avgs_Sales_per_Bulan, brg_tanggal_in IN_Terakhir '
 + ' from tbarang '
 + ' inner join tkategori on ktg_kode=brg_ktg_kode'
 + ' inner join tgroup on gr_kode=brg_gr_kode'
