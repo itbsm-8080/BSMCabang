@@ -687,6 +687,7 @@ object frmPermintaanBarang: TfrmPermintaanBarang
           Options.Focusing = False
         end
         object cxGrdMainColumn1: TcxGridDBColumn
+          Caption = 'QtyPending'
           DataBinding.FieldName = 'MingguLalu'
           GroupSummaryAlignment = taCenter
           HeaderAlignmentHorz = taCenter
@@ -695,24 +696,26 @@ object frmPermintaanBarang: TfrmPermintaanBarang
           Options.Focusing = False
           Width = 84
         end
-        object cxGrdMainColumn3: TcxGridDBColumn
-          DataBinding.FieldName = 'Sisa'
-          GroupSummaryAlignment = taCenter
-          HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-          Options.Editing = False
-          Options.Focusing = False
-          Width = 75
-        end
         object cxGrdMainColumn2: TcxGridDBColumn
           Caption = 'Realisasi IN'
           DataBinding.FieldName = 'realisasiIn'
+          Visible = False
           GroupSummaryAlignment = taCenter
           HeaderAlignmentHorz = taCenter
           HeaderAlignmentVert = vaCenter
           Options.Editing = False
           Options.Focusing = False
           Width = 85
+        end
+        object cxGrdMainColumn3: TcxGridDBColumn
+          DataBinding.FieldName = 'Sisa'
+          Visible = False
+          GroupSummaryAlignment = taCenter
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Options.Editing = False
+          Options.Focusing = False
+          Width = 75
         end
         object clQTY: TcxGridDBColumn
           DataBinding.FieldName = 'QTY'

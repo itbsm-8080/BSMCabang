@@ -262,12 +262,13 @@ begin
   begin
      try
        if not Eof then
-          s:= 'insert ignore into tmutcab_hdr (mutc_nomor,mutc_tanggal,mutc_cbg_asal,mutc_cbg_tujuan,mutc_keterangan) values ('
+          s:= 'insert ignore into tmutcab_hdr (mutc_nomor,mutc_tanggal,mutc_cbg_asal,mutc_cbg_tujuan,mutc_keterangan,mutc_status) values ('
             + Quot(fieldbyname('mutc_nomor').AsString) + ','
             + Quotd(fieldbyname('mutc_tanggal').AsDateTime) + ','
             + Quot(fieldbyname('mutc_cbg_asal').AsString) + ','
             + Quot(fieldbyname('mutc_cbg_tujuan').AsString) + ','
-            + Quot(fieldbyname('mutc_keterangan').AsString) + ');' ;
+            + Quot(fieldbyname('mutc_keterangan').AsString) + ','
+            + Quot('1') + ');' ;
          tt.Append(s);
          while not Eof do
          begin
@@ -301,7 +302,7 @@ begin
       end;
 
      tt:=TStringList.Create;
-   s:= 'select a.* from tbarang a inner join tmutcab_dtl on mutcd_brg_kode=brg_kode and mutcd_mutc_nomor = ' + Quot(edtNomorMutasi.Text);
+   s:= 'select a.* from '+adatabase+'tbarang a inner join '+adatabase+'tmutcab_dtl on mutcd_brg_kode=brg_kode and mutcd_mutc_nomor = ' + Quot(edtNomorMutasi.Text);
   tsql:= xOpenQuery(s,frmMenu.conn);
 
   with tsql do
@@ -345,6 +346,11 @@ begin
         tt.Free;
       end;
   end;
+
+    s:='update '+adatabase+'tmutcab_hdr set mutc_status=1 where mutc_nomor = ' + Quot(edtNomorMutasi.Text) + ';';
+   // xExecQuery(s,frmMenu.conn);
+    EnsureConnected(frmMenu.conn);
+    ExecSQLDirect(frmMenu.conn, s);
 end;
 
 procedure TfrmMutasiCabang2.loaddataall(akode : string);
@@ -894,13 +900,15 @@ var
 begin
   adatabase := getdatabase(cxLookupCabangAsal.EditValue)+'.';
 
- sqlbantuan := ' SELECT MUTC_NOMOR Nomor,MUTC_TANGGAL Tanggal,b.CBG_NAMA Asal,c.cbG_nama Tujuan from '+ adatabase+'tmutcab_hdr a '
+ sqlbantuan := ' SELECT MUTC_NOMOR Nomor,MUTC_TANGGAL Tanggal,b.CBG_NAMA Asal,c.cbG_nama Tujuan '
+            + ' from '+ adatabase+'tmutcab_hdr a '
             + ' inner join tcabang b on a.mutc_cbg_asal=b.cbg_kode'
             + ' inner join tcabang c on a.mutc_cbg_tujuaN=c.cbg_kode'
             + ' left join tmutcabin_hdr d on a.mutc_nomor=mutci_nomormutasi '
             + ' where mutci_nomor is null '
             + ' and a.mutc_cbg_tujuan = ' + Quot(frmMenu.KDCABANG)
-            + ' and a.mutc_cbg_Asal = ' + Quot(cxLookupCabangAsal.EditValue);
+            + ' and a.mutc_cbg_Asal = ' + Quot(cxLookupCabangAsal.EditValue)
+            + ' and a.mutc_status = 0';
 
  Application.CreateForm(Tfrmbantuan,frmbantuan);
  frmBantuan.SQLMaster := SQLbantuan;

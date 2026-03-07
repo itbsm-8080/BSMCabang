@@ -1,6 +1,6 @@
 object frmMutasiCabang2: TfrmMutasiCabang2
-  Left = 188
-  Top = 168
+  Left = 194
+  Top = 219
   Width = 1178
   Height = 560
   Caption = 'Mutasi Cabang In'

@@ -91,6 +91,7 @@ type
     function getavgsales3bulan(akode:string):Double;
     function getavgsale3bulan(akode:string):Double;
     function getRealisasiIn(akode:string):Integer;
+    function getQtyPending(akode:string):Integer;
     function getSisa(akode:string):Integer;
     function getMingguLalu(akode:string):Integer;
   private
@@ -558,6 +559,7 @@ begin
     end;
       If CDS.State <> dsEdit then
          CDS.Edit;
+
       CDS.FieldByName('sku').AsInteger := StrToInt(varglobal);
       CDS.FieldByName('NamaBarang').AsString := Quot(varglobal1);
 
@@ -575,12 +577,14 @@ begin
       try
         if not Eof then
         begin
+//          ShowMessage(IntToStr(getQtyPending(CDS.Fieldbyname('sku').AsString)));
+
           CDS.FieldByName('NamaBarang').AsString   := Fields[1].AsString;
           CDS.FieldByName('Satuan').AsString       := Fields[2].AsString;
-          CDS.FieldByName('MingguLalu').AsInteger  := Fields[3].AsInteger;//getMingguLalu(Fields[1].AsString);
+          CDS.FieldByName('MingguLalu').AsInteger  := getQtyPending(CDS.Fieldbyname('sku').AsString); {Fields[3].AsInteger;//getMingguLalu(Fields[1].AsString);  }
           CDS.FieldByName('RealisasiIN').AsInteger := getRealisasiIn(Fields[1].AsString);
           CDS.FieldByName('Sisa').AsInteger        := Fields[3].AsInteger - CDS.FieldByName('RealisasiIN').AsInteger;//getSisa(Fields[1].AsString);
-          CDS.FieldByName('QTY').AsInteger         := Fields[3].AsInteger; 
+          CDS.FieldByName('QTY').AsInteger         := Fields[3].AsInteger;
           CDS.FieldByName('StokNow').AsInteger     := Fields[4].AsInteger;
           CDS.FieldByName('AvgSale').AsFloat       := getavgsale3bulan(Fields[1].AsString);
           CDS.FieldByName('Keterangan').AsString   := Fields[6].AsString;
@@ -641,13 +645,13 @@ begin
               CDS.FieldByName('SKU').AsString          := Fields[1].AsString;
               CDS.FieldByName('NamaBarang').AsString   := Fields[2].AsString;
               CDS.FieldByName('Satuan').AsString       := Fields[0].AsString;
-              CDS.FieldByName('MingguLalu').AsInteger  := Fields[3].AsInteger;
+              CDS.FieldByName('MingguLalu').AsInteger  := getQtyPending(Fields[1].AsString);
               CDS.FieldByName('RealisasiIN').AsInteger := getRealisasiIn(Fields[1].AsString);
-              CDS.FieldByName('Sisa').AsInteger        := Fields[3].AsInteger - CDS.FieldByName('RealisasiIN').AsInteger;
+              CDS.FieldByName('Sisa').AsInteger        := CDS.FieldByName('MingguLalu').AsInteger- CDS.FieldByName('RealisasiIN').AsInteger;
               if CDS.FieldByName('Sisa').AsInteger <= 0 then
                 CDS.FieldByName('QTY').AsInteger := 0
               else
-                CDS.FieldByName('QTY').AsInteger       := Fields[3].AsInteger - CDS.FieldByName('RealisasiIN').AsInteger;
+                CDS.FieldByName('QTY').AsInteger       := CDS.FieldByName('MingguLalu').AsInteger;
               CDS.FieldByName('StokNow').AsInteger     := Fields[4].AsInteger;
               CDS.FieldByName('AvgSale').AsFloat       := getavgsales3bulan(Fields[1].AsString);
               CDS.FieldByName('Keterangan').AsString   := Fields[6].AsString;
@@ -696,6 +700,37 @@ begin
     + ' mutcid_brg_kode =' + Quot(akode)
     + ' AND '
     + ' mutci_tanggal >= '+QuotD(dtTanggal.DateTime)+' - INTERVAL 7 DAY;';
+
+  tsql := xOpenQuery(s,frmMenu.conn) ;
+  with tsql do
+  begin
+    try
+      Result :=  Fields[0].AsInteger;
+    finally
+      Free;
+    end;
+  end;
+end;
+
+function TfrmPermintaanBarang.getQtyPending(akode:string):Integer;
+var
+  s:string;
+  tsql:TmyQuery;
+begin
+  s := ' SELECT SUM(pbd_qty - pbd_qtyterima) '
+     + ' FROM tpermintaanbarang_hdr '
+     + ' INNER JOIN tpermintaanbarang_dtl ON pb_nomor = pbd_pb_nomor '
+     + ' WHERE pb_isclosed = 0 AND pbd_brg_kode = '+ Quot(akode);
+
+//  s := 'SELECT SUM(mutcid_qty) RealisasiIn '
+//    + ' FROM tmutcabin_dtl a '
+//    + ' INNER JOIN tmutcabin_hdr b ON b.mutci_nomor = a.mutcid_mutci_nomor '
+////    + ' INNER JOIN tpermintaanbarang_dtl c ON c.pbd_brg_kode = a.mutcid_brg_kode '
+////    + ' INNER JOIN tpermintaanbarang_hdr d ON d.pb_nomor = c.pbd_pb_nomor '
+//    + ' WHERE '
+//    + ' mutcid_brg_kode =' + Quot(akode)
+//    + ' AND '
+//    + ' mutci_tanggal >= '+QuotD(dtTanggal.DateTime)+' - INTERVAL 7 DAY;';
 
   tsql := xOpenQuery(s,frmMenu.conn) ;
   with tsql do

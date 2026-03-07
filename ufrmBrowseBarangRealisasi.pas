@@ -60,13 +60,15 @@ begin
   Self.SQLMaster := ' SELECT brg_kode SKU, brg_nama NamaBarang, SUM(pbd_qty) Minta, SUM(pbd_qtyterima) Terima, SUM(pbd_qty - pbd_qtyterima) Kurang '
                   + ' FROM tbarang '
                   + ' INNER JOIN tpermintaanbarang_dtl ON pbd_brg_kode = brg_kode '
-                  + ' WHERE pbd_qty > pbd_qtyterima '
+                  + ' INNER JOIN tpermintaanbarang_hdr ON pb_nomor = pbd_pb_nomor '
+                  + ' WHERE pbd_qty > pbd_qtyterima AND pb_isclosed = 0 '
                   + ' GROUP BY brg_kode, brg_nama';
 
-  Self.SQLDetail := ' SELECT pbd_pb_nomor Nomor, pbd_qty Minta, pbd_qtyterima Terima, pbd_qty - pbd_qtyterima Kurang, brg_kode SKU'
+  Self.SQLDetail := ' SELECT pbd_pb_nomor Nomor, pbd_qty Minta, pbd_qtyterima Terima, pbd_qty - pbd_qtyterima Kurang, brg_kode SKU '
                   + ' FROM tbarang '
                   + ' INNER JOIN tpermintaanbarang_dtl ON pbd_brg_kode = brg_kode '
-                  + ' WHERE pbd_qty > pbd_qtyterima '
+                  + ' INNER JOIN tpermintaanbarang_hdr ON pb_nomor = pbd_pb_nomor '
+                  + ' WHERE pbd_qty > pbd_qtyterima AND pb_isclosed = 0 '
                   + ' ORDER BY brg_kode';
 
  Self.MasterKeyField := 'SKU';

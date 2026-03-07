@@ -1579,7 +1579,7 @@ begin
       memo.Lines.Add('PAK  : ' + StrPadRight(tsqlheader.Fields[5].AsString, 32, ' ')+StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime+30), 36, ' ')+ StrPadRight(copy(fieldbyname('cus_alamat').AsString,41,40), 45, ' '))
       else
       memo.Lines.Add('PAK  : ' + StrPadRight(tsqlheader.Fields[5].AsString, 32, ' ')+StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 36, ' ')+ StrPadRight(copy(fieldbyname('cus_alamat').AsString,41,40), 45, ' '));
-      memo.lines.add(StrPadRight('', 39, ' ')+ StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 36, ' ')+ StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 20, ' '));
+      memo.lines.add(StrPadRight('', 39, ' ')+ StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 36, ' ')+ StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 40, ' '));
       memo.Lines.Add(StrPadRight('', 120, '-'));
       memo.Lines.Add(StrPadRight('No', 3, ' ')+' '
                           +StrPadRight('Kode', 8, ' ')+' '
