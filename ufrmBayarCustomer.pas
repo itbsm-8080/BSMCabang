@@ -94,6 +94,7 @@ type
     Label12: TLabel;
     edtNTPN: TAdvEdit;
     clNet: TcxGridDBColumn;
+    clmemo: TcxGridDBColumn;
     procedure refreshdata;
    procedure initgrid;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -379,6 +380,7 @@ begin
     zAddField(FCDS, 'Bayar', ftFloat, False);
     zAddField(FCDS, 'pay', ftInteger, False);
     zAddField(FCDS, 'Net', ftFloat, False);
+    zAddField(FCDS, 'memo', ftstring, False,100);
     FCDS.CreateDataSet;
   end;
   Result := FCDS;
@@ -709,7 +711,7 @@ if chkPajak.Checked then
   s := ' select sls_nama Salesman,fp_nomor,fp_tanggal,fp_jthtempo,fp_taxamount,fp_amount,((fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp) Biaya_Promosi,FP_DP, '
       + ' ifnull((select sum(retj_amount) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur, '
       + ' ifnull((select sum(retj_cn) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur_cn, '
-      + ' ifnull(fp_bayar,0) Bayar ,if((fp_amount-fp_taxamount)>2000000,1.5*(fp_amount-fp_taxamount)/100,0) pph ,fp_amount-fp_taxamount dpp'
+      + ' ifnull(fp_bayar,0) Bayar ,if((fp_amount-fp_taxamount)>2000000,1.5*(fp_amount-fp_taxamount)/100,0) pph ,fp_amount-fp_taxamount dpp,fp_memo'
       + ' from tfp_hdr '
       + ' inner join tdo_hdr on fp_do_nomor=do_nomor '
       + ' inner join tso_hdr on so_nomor=do_so_nomor '
@@ -720,7 +722,7 @@ else
   s := ' select sls_nama Salesman,fp_nomor,fp_tanggal,fp_jthtempo,fp_taxamount,fp_amount,((fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp) Biaya_Promosi,FP_DP, '
       + ' ifnull((select sum(retj_amount) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur, '
       + ' ifnull((select sum(retj_cn) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur_cn, '
-      + ' ifnull(fp_bayar,0) Bayar ,0 pph,0 dpp'
+      + ' ifnull(fp_bayar,0) Bayar ,0 pph,0 dpp,fp_memo'
       + ' from tfp_hdr '
       + ' inner join tdo_hdr on fp_do_nomor=do_nomor '
       + ' inner join tso_hdr on so_nomor=do_so_nomor '
@@ -760,6 +762,8 @@ else
                       CDS.FieldByName('terbayar').AsFloat        := fieldbyname('bayar').AsFloat;
                       CDS.FieldByName('bayar').AsFloat       := 0;
                       CDS.FieldByName('net').AsFloat       := fieldbyname('dpp').AsFloat-fieldbyname('pph').AsFloat;
+                      CDS.FieldByName('memo').AsString        := fieldbyname('fp_memo').AsString;
+
                       CDS.Post;
                    i:=i+1;
                    next;

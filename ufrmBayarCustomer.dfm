@@ -1516,6 +1516,13 @@ object frmBayarCustomer: TfrmBayarCustomer
           Options.Focusing = False
           Width = 95
         end
+        object clmemo: TcxGridDBColumn
+          Caption = 'Memo'
+          DataBinding.FieldName = 'memo'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 187
+        end
       end
       object cxGrdDetail: TcxGridDBTableView
         NavigatorButtons.ConfirmDelete = False
