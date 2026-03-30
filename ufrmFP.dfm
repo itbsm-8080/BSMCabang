@@ -1128,11 +1128,48 @@ object frmFP: TfrmFP
           Options.Editing = False
           Options.Focusing = False
         end
+        object cxGrdMainColumn1: TcxGridDBColumn
+          Caption = 'Net'
+          DataBinding.FieldName = 'net'
+          PropertiesClassName = 'TcxCurrencyEditProperties'
+          Properties.ReadOnly = True
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 85
+        end
         object clOtorisasi: TcxGridDBColumn
           Caption = 'Otorisasi'
           DataBinding.FieldName = 'otorisasi'
           Options.Editing = False
           Options.Focusing = False
+        end
+        object cxGrdMainColumn2: TcxGridDBColumn
+          Caption = 'Promosi Rp'
+          DataBinding.FieldName = 'promosirp'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          HeaderGlyphAlignmentHorz = taCenter
+        end
+        object cxGrdMainColumn3: TcxGridDBColumn
+          Caption = 'Promosi %'
+          DataBinding.FieldName = 'Promosi'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          HeaderGlyphAlignmentHorz = taCenter
+        end
+        object cxGrdMainColumn4: TcxGridDBColumn
+          Caption = 'Fee Rp'
+          DataBinding.FieldName = 'feerp'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          HeaderGlyphAlignmentHorz = taCenter
+        end
+        object cxGrdMainColumn5: TcxGridDBColumn
+          Caption = 'Fee'
+          DataBinding.FieldName = 'fee'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          HeaderGlyphAlignmentHorz = taCenter
         end
       end
       object cxGrdDetail: TcxGridDBTableView

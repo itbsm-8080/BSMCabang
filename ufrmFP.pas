@@ -98,6 +98,11 @@ type
     clIdBatch: TcxGridDBColumn;
     chkKatalog: TCheckBox;
     chkeceran: TCheckBox;
+    cxGrdMainColumn1: TcxGridDBColumn;
+    cxGrdMainColumn2: TcxGridDBColumn;
+    cxGrdMainColumn3: TcxGridDBColumn;
+    cxGrdMainColumn4: TcxGridDBColumn;
+    cxGrdMainColumn5: TcxGridDBColumn;
     procedure refreshdata;
    procedure initgrid;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -397,7 +402,12 @@ begin
     zAddField(FCDS, 'NilaiCN', ftFloat, False);
     zAddField(FCDS, 'Gudang', ftString, False,255);
     zAddField(FCDS, 'hrg_min', ftFloat, False);
+    zAddField(FCDS, 'net', ftFloat, False);
     zAddField(FCDS, 'otorisasi', ftInteger, False);
+    zAddField(FCDS, 'promosirp', ftFloat, False);
+    zAddField(FCDS, 'promosi', ftFloat, False);
+    zAddField(FCDS, 'feerp', ftFloat, False);
+    zAddField(FCDS, 'fee', ftFloat, False);
     FCDS.CreateDataSet;
   end;
   Result := FCDS;
@@ -865,10 +875,11 @@ end;
 
 procedure TfrmFP.loaddataDO(akode : string);
 var
-  s: string ;
-  tsql : TmyQuery;
+  ss,s: string ;
+  tsql2,tsql : TmyQuery;
   aisecer,i:Integer;
-  ahna,lval : double;
+  ahrg,acn,afee,apromosi,ahna,lval : double;
+
 begin
 
 
@@ -932,7 +943,49 @@ begin
                       CDS.FieldByName('cn').asfloat      :=  getdisccn(fieldbyname('dod_brg_kode').AsInteger,cxLookupcustomer.EditValue);
                       CDS.fieldbyname('nilaicn').asfloat           := CDS.FieldByName('cn').asfloat*fieldbyname('nilai').AsFloat/100;
                       CDS.FieldByName('Hrg_min').asfloat := gethargamin(fieldbyname('dod_brg_kode').AsInteger);
+                       ss:= ' select bpd_persen,bpd_rupiah from tbiayapromosi_dtl inner join '
+                          + ' tbiayapromosi_hdr on bph_nomor=bpd_bph_nomor '
+                          + ' where bph_cus_kode = ' + Quot(cxLookupCustomer.EditValue)
+                          + ' and bpd_brg_kode = ' + inttostr(cds.fieldbyname('sku').asinteger);
+//                          abiayapromosi :=0;
+//                          abiayapromosi2:=0;
+                       tsql2 := xOpenQuery(ss,frmMenu.conn);
+                       with tsql2 do
+                       begin
+                         try
+                           if not eof then
+                           begin
+                              CDS.FieldByName('promosirp').asfloat := Fields[1].AsFloat;
+                              CDS.FieldByName('promosi').asfloat := Fields[0].AsFloat;
+                           end;
+                         finally
+                           Free;
+                         end;
+                       end;
 
+                       ss:= ' select fmd_persen,fmd_rupiah from tfeemarketing_dtl inner join '
+                            + ' tfeemarketing_hdr on fmh_nomor=fmd_fmh_nomor '
+                            + ' where fmh_cus_kode = ' + Quot(cxLookupCustomer.EditValue)
+                            + ' and fmd_brg_kode = ' + inttostr(cds.fieldbyname('sku').asinteger);
+
+                         tsql2 := xOpenQuery(ss,frmMenu.conn);
+                         with tsql2 do
+                         begin
+                           try
+                             if not eof then
+                             begin
+                              CDS.FieldByName('feerp').asfloat := Fields[1].AsFloat;
+                              CDS.FieldByName('fee').asfloat := Fields[0].AsFloat;
+                             end;
+                           finally
+                             Free;
+                           end;
+                         end;
+                      ahrg :=((100-CDS.FieldByName('disc').asfloat)/100*CDS.FieldByName('harga').asfloat);
+                      acn := (CDS.FieldByName('cn').asfloat*ahrg/100);
+                      apromosi :=  CDS.FieldByName('promosirp').AsFloat  + (CDS.FieldByName('promosi').asfloat*ahrg/100);
+                      afee :=CDS.FieldByName('feerp').AsFloat  + (CDS.FieldByName('fee').asfloat*ahrg/100);
+                      CDS.FieldByName('net').AsFloat     := ahrg - acn - apromosi - afee;
 
 //                        if cekProductFocus(fieldbyname('dod_brg_kode').AsString) then
 //                        begin
@@ -998,6 +1051,7 @@ var
   acatalog,a,i:Integer;
   aketemu:Boolean;
   aqtypo,qtyterima : Integer;
+  ahrg,acn,apromosi,afee : double;
 begin
   if akode = '' then
   begin
@@ -1007,7 +1061,7 @@ begin
   s := ' select fp_NOMOr,fp_tanggal,do_nomor,fp_memo,so_cus_kode,fp_istax,fp_jthtempo,FP_CN,FP_DP,'
      + ' fpd_brg_kode,fpd_bRG_satuan,fpd_qty,fpd_harga,fpd_discpr,(fpd_qty*fpd_harga*(100-fpd_discpr)/100) nilai,'
      + ' fpd_expired,fp_disc_faktur,fp_disc_fakturpr,dod_qty-dod_qty_invoice kurang,fpd_cn,fp_freight,fpd_gdg_kode ,'
-     + ' fp_biayapr,fp_biayarp,sls_nama,fp_tipecash,fpd_hrg_min,fp_isDTP,fpd_idbatch,fp_iscatalog'
+     + ' fp_biayapr,fp_biayarp,sls_nama,fp_tipecash,fpd_hrg_min,fp_isDTP,fpd_idbatch,fp_iscatalog,fpd_bp_rp,fpd_bp_pr,fpd_bp_rp2,fpd_bp_pr2'
      + ' from tfp_hdr inner join tdo_hdr on do_nomor =fp_do_nomor '
      + ' left join tso_hdr a on do_so_nomor=so_nomor'
      + ' left join tsalesman on sls_kode=so_sls_kode '
@@ -1093,6 +1147,17 @@ begin
                       CDS.fieldbyname('nilaicn').asfloat           := CDS.FieldByName('cn').asfloat*fieldbyname('nilai').AsFloat/100;
                       CDS.FieldByName('gudang').AsString      := fieldbyname('fpd_gdg_kode').Asstring;
                       CDS.FieldByName('hrg_min').AsFloat        := fieldbyname('fpd_hrg_min').AsFloat;
+
+
+                      CDS.FieldByName('promosirp').AsFloat        := fieldbyname('fpd_bp_rp').AsFloat;
+                      CDS.FieldByName('promosi').AsFloat        := fieldbyname('fpd_bp_pr').AsFloat;
+                      CDS.FieldByName('feerp').AsFloat        := fieldbyname('fpd_bp_rp2').AsFloat;
+                      CDS.FieldByName('fee').AsFloat        := fieldbyname('fpd_bp_pr2').AsFloat;
+                      ahrg :=((100-fieldbyname('fpd_discpr').AsFloat)/100*fieldbyname('fpd_harga').AsFloat);
+                      acn := (CDS.FieldByName('cn').asfloat*ahrg/100);
+                      apromosi :=  CDS.FieldByName('promosirp').AsFloat  + (CDS.FieldByName('promosi').asfloat*ahrg/100);
+                      afee :=CDS.FieldByName('feerp').AsFloat  + (CDS.FieldByName('fee').asfloat*ahrg/100);
+                      CDS.FieldByName('net').AsFloat     := ahrg - acn - apromosi - afee;
 
 
                       CDS.Post;
@@ -1189,6 +1254,7 @@ var
   i:integer;
   lVal: Double;
   ahna : Double;
+  net : Double;
 begin
  cxGrdMain.DataController.Post;
 
@@ -1219,6 +1285,9 @@ begin
   If CDS.State <> dsEdit then CDS.Edit;
   CDS.FieldByName('Total').AsFloat := lVal;
   CDS.FieldByName('NilaiCN').AsFloat := CDS.FieldByName('CN').AsFloat /100 * lVal;
+  net :=cxGrdMain.DataController.Values[i, clHarga.Index]*((100-cvartofloat(cxGrdMain.DataController.Values[i,cldisc.Index]))/100) ;
+  net := net - (CDS.FieldByName('CN').AsFloat /100 * net);
+  cds.FieldByName('net').AsFloat :=net;
   CDS.Post;
   hitung;
 end;
