@@ -297,9 +297,7 @@ begin
       frmttfakur.FLAGEDIT := True;
       frmttfakur.edtnOMOR.Text := CDSMaster.FieldByname('Nomor').AsString;
       frmttfakur.loaddataALL(CDSMaster.FieldByname('Nomor').AsString);
-      
-
    end;
-   frmTTFaktur.Show;
+  // frmTTFaktur.Show;
 end;
 end.

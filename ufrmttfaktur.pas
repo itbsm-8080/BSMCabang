@@ -312,13 +312,97 @@ begin
   cxGrdmain.DataController.CollapseDetails;
 end;
 procedure TfrmTTFaktur.loaddataALL(anomor:String) ;
+var
+  s:String;
+  tsql :TmyQuery;
+  i:integer;
 begin
   if anomor = '' then
   begin
     flagedit := false;
     Exit ;
   end;
+   s := ' SELECT * FROM '+adatabase2+'.ttt_hdr INNER JOIN '+adatabase2+'.ttt_dtl ON tt_nomor=ttd_tt_nomor '
+   + ' inner join tsalesman on sls_kode=tt_sls_kode'
+   + ' inner join tfp_hdr on fp_nomor=ttd_fp_nomor '
+   + ' where tt_nomor = '+ Quot(anomor);
 
+    tsql := xOpenQuery(s,frmMenu.conn) ;
+   try
+
+       with  tsql do
+       begin
+         if not eof then
+         begin
+            flagedit := True;
+//            Floaddataall := True;
+            CDS.EmptyDataSet;
+            FID :=fieldbyname('tt_nomor').AsString;
+
+            edtNomor.Text   := fieldbyname('tt_nomor').AsString;
+            edtkode.Text := fieldbyname('tt_sls_kode').AsString;
+            edtnamasalesman.Text := fieldbyname('sls_nama').AsString;
+            edtkodecustomer.Text := fieldbyname('tt_cus_kode').AsString;
+            edtNamacustomer.Text := getnama('tcustomer','cus_kode',edtkodecustomer.Text,'cus_nama');
+
+            i:=1;
+//            Button1Click(Self);
+            while  not Eof do
+             begin
+                 CDS.Append;
+                CDS.FieldByName('no').asinteger := i;
+                CDS.FieldByName('nomorfaktur').AsString := fieldbyname('ttd_fp_nomor').AsString;
+                CDS.FieldByName('tanggal').AsDateTime := fieldbyname('fp_tanggal').AsDateTime;
+                CDS.FieldByName('nilai').asfloat := fieldbyname('fp_amount').asfloat;
+                CDS.FieldByName('check').AsBoolean:= true;
+                cds.post;
+                next;
+                i:=i+1;
+            end ;
+
+
+            s:= 'select Nomor,Tanggal,Nilai from (SELECT Nomor,Tanggal,nil-ifnull(retur,0) Nilai FROM ( '
+              + ' SELECT fp_nomor Nomor,fp_tanggal Tanggal,fp_cus_kode,(FP_AMOUNT-fp_dp-fp_bayar) nil,'
+              + ' (select sum(retj_amount) from tretj_hdr where retj_fp_nomor =fp_nomor) Retur  FROM tfp_hdr ) a'
+              + ' WHERE nil-ifnull(retur,0) > 1000'
+              + ' and fp_cus_kode='+QUOTEDSTR(edtKodeCustomer.Text)
+              + ' order by Nomor ) final ';
+
+            tsql := xOpenQuery(s,frmMenu.conn);
+            with tsql do
+            begin
+           
+                if not Eof then
+                begin
+//                CDS.EmptyDataSet;
+                while  not Eof do
+                begin
+                  CDS.Append;
+                  CDS.FieldByName('no').asinteger := i;
+                  CDS.FieldByName('nomorfaktur').AsString := fieldbyname('nomor').AsString;
+                  CDS.FieldByName('tanggal').AsDateTime := fieldbyname('Tanggal').AsDateTime;
+                  CDS.FieldByName('nilai').asfloat := fieldbyname('nilai').asfloat;
+                  CDS.FieldByName('check').AsBoolean:= False;
+
+                  CDS.Post;
+                  i:=i+1;
+                  next;
+                end;
+               end;
+
+            end;
+//            Floaddataall := False;
+//            hitung;
+        end
+        else
+        begin
+          ShowMessage('Nomor  tidak di temukan');
+//          dttanggal.SetFocus;
+        end;
+      end;
+   finally
+     tsql.Free;
+   end;
 end;
 procedure TfrmTTFaktur.edtkodecustomerClickBtn(Sender: TObject);
 begin

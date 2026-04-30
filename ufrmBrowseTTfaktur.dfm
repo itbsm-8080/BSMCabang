@@ -8,7 +8,6 @@ inherited frmBrowseTTFaktur: TfrmBrowseTTFaktur
   inherited AdvPanel1: TAdvPanel
     FullHeight = 0
     inherited cxButton1: TcxButton
-      Visible = False
       OnClick = cxButton1Click
     end
     inherited cxButton2: TcxButton

@@ -871,9 +871,10 @@ begin
 
 
   try
-      s:= 'update tfp_dtl INNER JOIN bsm.barangpf ON bpf_brg_kode=fpd_brg_kode '
+      s:= 'update tfp_dtl INNER JOIN bsm.tbarangpf ON bpf_brg_kode=fpd_brg_kode and bpf_periode='+FormatDateTime('mm',startdate.date)
+      + ' and bpf_tahun='+ Quot(FormatDateTime('yyyy',startdate.DateTime))
     + ' INNER JOIN tfp_hdr  ON fp_nomor=fpd_fp_nomor'
-    + ' and YEAR(fp_tanggal)=bpf_tahun AND MONTH(fp_tanggal)=bpf_periode'
+    + ' and YEAR(fp_tanggal)='+Quot(FormatDateTime('yyyy',startdate.DateTime))+' AND MONTH(fp_tanggal)='+FormatDateTime('mm',startdate.date)
     + ' set fpd_hrg_min=bpf_het '
     + ' where fp_tanggal between '+QuotD(startdate.date)+ ' and '+ QuotD(enddate.Date);
       EnsureConnected(frmMenu.conn);

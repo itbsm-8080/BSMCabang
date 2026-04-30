@@ -1,6 +1,6 @@
 object frmListJual: TfrmListJual
-  Left = 159
-  Top = 250
+  Left = 160
+  Top = 67
   AutoScroll = False
   Caption = 'List Penjualan per Item'
   ClientHeight = 576
