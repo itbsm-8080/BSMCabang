@@ -3,7 +3,7 @@ unit ufrmPesanan;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+    Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, AdvPanel, ComCtrls, StdCtrls, AdvEdit,SqlExpr, Menus,
   cxLookAndFeelPainters, cxButtons,StrUtils, cxGraphics, cxLookAndFeels,
   dxSkinsCore, dxSkinsDefaultPainters, cxControls, cxContainer, cxEdit,
@@ -84,6 +84,7 @@ type
     chkProforma: TCheckBox;
     edtNomorsosales: TAdvEdit;
     chkEceran: TCheckBox;
+    cxLookupSalesAktif: TcxExtLookupComboBox;
     procedure refreshdata;
    procedure initgrid;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -140,9 +141,11 @@ type
       var Error: Boolean);
     procedure cxLookupCustomerExit(Sender: TObject);
    procedure doslipSO3(anomor : string );
+    procedure cxLookupSalesAktifPropertiesChange(Sender: TObject);
 
   private
     FCDSSalesman: TClientDataset;
+    FCDSSalesmanAktif: TClientDataset;
     FCDSCustomer: TClientDataset;
     FCDSRekening: TClientDataset;
     FCDSSKU : TClientDataset;
@@ -150,6 +153,7 @@ type
     FID: string;
     Floaddataall: Boolean;
     function GetCDSSalesman: TClientDataset;
+    function GetCDSSalesmanAktif: TClientDataset;
     function GetCDSCustomer: TClientDataset;
     function GetCDSRekening: TClientDataset;
 
@@ -161,6 +165,7 @@ type
     property CDS: TClientDataSet read GetCDS write FCDS;
     property CDSSKU: TClientDataSet read FCDSSKU write FCDSSKU;
     property CDSSalesman: TClientDataset read GetCDSSalesman write FCDSSalesman;
+    property CDSSalesmanAktif: TClientDataset read GetCDSSalesmanAktif write FCDSSalesmanAktif;
     property CDSCustomer: TClientDataset read GetCDSCustomer write FCDSCustomer;
     property CDSRekening: TClientDataset read GetCDSRekening write FCDSRekening;
     property FLAGEDIT: Boolean read FFLAGEDIT write FFLAGEDIT;
@@ -187,6 +192,7 @@ begin
   edtnomor.Text := getmaxkode;
   edtnomorsosales.Text := '';
   cxLookupSales.EditValue := '';
+  cxLookupSalesAktif.EditValue := '';
   cxLookupCustomer.EditValue := '';
   cxLookupRekening.EditValue := '';
   edtAlamat.Clear;
@@ -212,8 +218,6 @@ begin
    if Key = #13 then
       SelectNext(ActiveControl,True,True);
 end;
-
-
 
 procedure TfrmPesanan.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -339,15 +343,32 @@ begin
   Result := FCDSSalesman;
 end;
 
+function TfrmPesanan.GetCDSSalesmanAktif: TClientDataset;
+var s:String;
+begin
+  If not Assigned(FCDSSalesmanAktif) then
+  begin
+    S := 'select sla_nama as salesman, sla_kode Kode, sla_sls_kode sls_kode '
+        +' from tsalesmanaktif where sla_isaktif = 1';
+    FCDSSalesmanAktif := TConextMain.cOpenCDS(S,nil);
+  end;
+  Result := FCDSSalesmanAktif;
+end;
+
 procedure TfrmPesanan.FormCreate(Sender: TObject);
 begin
   with TcxExtLookupHelper(cxLookupSales.Properties) do
     LoadFromCDS(CDSSalesman, 'Kode','Salesman',['Kode'],Self);
   with TcxExtLookupHelper(cxLookupCustomer.Properties) do
     LoadFromCDS(CDSCustomer, 'Kode','Customer',['Kode'],Self);
-     TcxExtLookupHelper(cxLookupCustomer.Properties).SetMultiPurposeLookup;
-      with TcxExtLookupHelper(cxLookupRekening.Properties) do
+
+  TcxExtLookupHelper(cxLookupCustomer.Properties).SetMultiPurposeLookup;
+
+  with TcxExtLookupHelper(cxLookupRekening.Properties) do
     LoadFromCDS(CDSRekening, 'Kode','Rekening',['Kode'],Self);
+
+  with TcxExtLookupHelper(cxLookupSalesAktif.Properties) do
+    LoadFromCDS(CDSSalesmanAktif, 'Kode','Salesman',['Kode'],Self);
 
 
      TcxDBGridHelper(cxGrdMain).LoadFromCDS(CDS, False, False);
@@ -606,6 +627,7 @@ begin
        + ' so_memo = ' + Quot(edtmemo.Text) + ','
        + ' so_shipaddress = ' + Quot(edtShip.Text) + ','
        + ' so_sls_kode = ' + Quot(cxLookupSales.EditValue) + ','
+       + ' so_sla_kode = ' + Quot(cxLookupSalesAktif.EditValue) + ','
        + ' so_disc_faktur =' + floattostr(cStrToFloat(edtDisc.Text)) + ','
        + ' so_disc_fakturpr = '+ floattostr(cStrToFloat(edtDiscpr.Text)) + ','
        + ' so_amount = '+ floattostr(cstrtoFloat(edtTotal.Text)) + ','
@@ -622,7 +644,7 @@ begin
   begin
     edtNomor.Text := getmaxkode;
     s := ' insert into TSO_HDR '
-       + ' (so_nomor,so_tanggal,so_memo,so_cus_kode,so_shipaddress,so_sls_kode,so_disc_faktur,'
+       + ' (so_nomor,so_tanggal,so_memo,so_cus_kode,so_shipaddress,so_sls_kode,so_sla_kode,so_disc_faktur,'
        + ' so_disc_fakturpr,so_amount,so_taxamount,so_DP,so_rek_dp,so_istax,so_isecer,so_isproforma,date_create,user_create) '
        + ' values ( '
        + Quot(edtNomor.Text) + ','
@@ -631,6 +653,7 @@ begin
        + Quot(cxLookupCustomer.EditValue) + ','
        + Quot(edtShip.Text)  + ','
        + Quot(cxLookupSales.EditValue)+','
+       + Quot(cxLookupSalesAktif.EditValue)+','
        + floattostr(cStrToFloat(edtDisc.Text))+ ','
        + floattostr(cStrToFloat(edtDiscpr.Text))+ ','
        + floattostr(cStrToFloat(edtTotal.Text))+ ','
@@ -701,7 +724,7 @@ begin
       result:=false;
       Exit;
     end;
-     If cxLookupSales.EditValue = '' then
+     If cxLookupSalesAktif.EditValue = '' then
     begin
       ShowMessage('Salesman belum di pilih');
       result:=false;
@@ -759,7 +782,7 @@ begin
     flagedit := false;
     Exit ;
   end;
-  s := ' select so_nomor,so_tanggal,so_memo,SO_cus_kode,SO_sls_kode,'
+  s := ' select so_nomor,so_tanggal,so_memo,SO_cus_kode,SO_sls_kode,so_sla_kode,'
      + ' SO_DISC_faktur,so_disc_fakturpr,so_istax,SO_DP,so_rek_dp,so_shipaddress,so_isecer,sod_keterangan,'
      + ' sod_brg_kode,sod_bRG_satuan,sod_qty,sod_harga,sod_discPR,(sod_qty*sod_harga*(100-sod_discpr)/100) nilai'
      + ' from tso_hdr a'
@@ -789,6 +812,7 @@ begin
             dttanggal.DateTime := fieldbyname('so_tanggal').AsDateTime;
             edtmemo.Text := fieldbyname('so_memo').AsString;
             cxLookupSales.EditValue     := fieldbyname('so_sls_kode').AsString;
+            cxLookupSalesAktif.EditValue     := fieldbyname('so_sla_kode').AsString;
             cxLookupCustomer.EditValue  := fieldbyname('so_cus_kode').AsString;
             edtShip.Text := fieldbyname('so_shipaddress').AsString;
             edtDiscpr.Text := fieldbyname('so_disc_fakturpr').AsString;
@@ -1145,8 +1169,7 @@ procedure TfrmPesanan.Button1Click(Sender: TObject);
     tsql:TmyQuery;
     i:Integer;
 begin
-
-sqlbantuan := ' SELECT so_nomor,cus_kode,cus_nama,so_tanggal,sls_nama Salesman FROM tso_hdr'
+sqlbantuan := ' SELECT so_nomor,cus_kode,cus_nama,so_tanggal,sls_nama Rayon, (SELECT sla_nama FROM '+frmmenu.aDatabase+'.tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Salesman FROM tso_hdr '
             + ' INNER JOIN '+frmmenu.aDatabase+'.tcustomer  ON cus_kode=so_cus_kode'
             + ' INNER JOIN '+frmmenu.aDatabase+'.tsalesman on sls_kode=so_sls_kode'
             + ' WHERE so_cabang='+Quot(frmMenu.StatusBar1.Panels[3].Text)
@@ -1171,7 +1194,7 @@ sqlbantuan := ' SELECT so_nomor,cus_kode,cus_nama,so_tanggal,sls_nama Salesman F
         cxLookupCustomer.SetFocus;
         Exit;
       end;
-       s:='SELECT brg_satuan,sod_brg_kode,brg_nama,sod_qty,0 ,brg_hrgjual,so_sls_kode FROM '
+       s:='SELECT brg_satuan,sod_brg_kode,brg_nama,sod_qty,0 ,brg_hrgjual,so_sls_kode, (SELECT sla_kode FROM '+frmmenu.aDatabase+'.tsalesmanaktif WHERE sla_sls_kode = so_sls_kode AND sla_isaktif = 1 limit 1) salesman FROM '
         + ' tso_dtl INNER JOIN '+frmmenu.aDatabase+'.tbarang ON brg_kode=sod_brg_kode'
         + ' inner join tso_hdr on so_nomor=sod_so_nomor AND so_cabang=sod_so_cabang and so_cabang='+Quot(frmMenu.NMCABANG)
         + ' left JOIN '+frmmenu.aDatabase+'.tsalesman on sls_kode=so_sls_kode '
@@ -1191,6 +1214,8 @@ sqlbantuan := ' SELECT so_nomor,cus_kode,cus_nama,so_tanggal,sls_nama Salesman F
       try
         if not eof then
            cxLookupSales.EditValue := fields[6].AsString;
+           cxLookupSalesAktif.EditValue := fields[7].AsString;
+
         while not Eof do
         begin
           CDS.Append;
@@ -1800,7 +1825,10 @@ begin
 
 end;
 
-
+procedure TfrmPesanan.cxLookupSalesAktifPropertiesChange(Sender: TObject);
+begin
+  cxLookupSales.EditValue := CDSSalesmanAktif.Fields[2].AsString;
+end;
 
 end.
 

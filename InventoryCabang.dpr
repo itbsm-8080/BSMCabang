@@ -169,7 +169,9 @@ uses
   ufrmBrowseSetingFeeMarketing in 'ufrmBrowseSetingFeeMarketing.pas' {frmBrowseSetingFeeMarketing},
   ufrmSetingFeeMarketing in 'ufrmSetingFeeMarketing.pas' {frmSetingFeeMarketing},
   ufrmProsesFeeMarketing in 'ufrmProsesFeeMarketing.pas' {frmProsesFeeMarketing},
-  ufrmBrowseBarangRealisasi in 'ufrmBrowseBarangRealisasi.pas' {frmBrowseBarangRealisasi};
+  ufrmBrowseBarangRealisasi in 'ufrmBrowseBarangRealisasi.pas' {frmBrowseBarangRealisasi},
+  ufrmBrowseBayarFeeMarketing in 'ufrmBrowseBayarFeeMarketing.pas' {frmBrowseBayarFeeMarketing},
+  ufrmBayarFeeMarketing in 'ufrmBayarFeeMarketing.pas' {frmBayarFeeMarketing};
 
 {$R *.res}
 

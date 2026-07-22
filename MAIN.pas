@@ -232,6 +232,7 @@ type
     ProsesFeeMarketing1: TMenuItem;
     DM: TMyQuery;
     LaporanPermintaanBarangvsRealisasi1: TMenuItem;
+    dxBayarFeeMarketing: TdxNavBarItem;
     procedure FileExit1Execute(Sender: TObject);
     function ShowForm(AFormClass: TFormClass): TForm;
     procedure Maximized1Click(Sender: TObject);
@@ -374,6 +375,7 @@ type
     procedure ApplyHakAkses;
     procedure UpdateGroupVisibility;
     procedure LaporanPermintaanBarangvsRealisasi1Click(Sender: TObject);
+    procedure dxBayarFeeMarketingClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -447,7 +449,7 @@ ufrmBrowseInkasoBawahHet,ufrmLapBulananMarketing,ufrmLapKunjunganMarketing,
 ufrmListJualMarketing,ufrmBrowseEstimasiSales,ufrmPencapaianMarketing2,ufrmLapBulananMarketing2,
 ufrmupload,ufrmBrowsePermintaanBarang,ufrmBrowseTagihanEkspedisi,ufrmprosesgunggung,ufrmfakturpajak3,
 ufrmVerifikasiAbsensi,ufrmBrowseJenisKendaraan,ufrmBrowseEkspedisi,ufrmBrowseSerahTerimaFaktur2,
-ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing,ufrmBrowseBarangRealisasi;
+ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing,ufrmBrowseBarangRealisasi,ufrmBrowseBayarFeeMarketing;
 {$R *.dfm}
 
 
@@ -525,7 +527,7 @@ begin
   DecimalSeparator := '.';
   Application.UpdateFormatSettings := True;
 
-  zVersi := '6.0.26';
+  zVersi := '6.0.30';
   StatusBar1.Panels[4].Text := 'Versi ' + zVersi;
 
   // cek ver si
@@ -1746,6 +1748,14 @@ begin
  if ActiveMDIChild.Caption <> 'Laporan Permintaan Barang vs Realisasi' then
  begin
     ShowForm(TfrmBrowseBarangRealisasi).Show;
+ end;
+end;
+
+procedure TfrmMenu.dxBayarFeeMarketingClick(Sender: TObject);
+begin
+if ActiveMDIChild.Caption <> 'Pembayaran Fee Marketing' then
+ begin
+    ShowForm(TfrmBrowseBayarFeeMarketing).Show;
  end;
 end;
 

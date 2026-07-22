@@ -1439,7 +1439,7 @@ object frmFP: TfrmFP
       OleDropSource = False
       Signed = False
       TabOrder = 1
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnExit = edtDiscprExit
@@ -1501,7 +1501,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 3
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
@@ -1562,7 +1562,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 4
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
@@ -1629,7 +1629,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 6
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
@@ -1689,7 +1689,7 @@ object frmFP: TfrmFP
       OleDropSource = False
       Signed = False
       TabOrder = 2
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnExit = edtDiscExit
@@ -1757,7 +1757,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 7
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
@@ -1824,7 +1824,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 8
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
@@ -1914,7 +1914,7 @@ object frmFP: TfrmFP
       OleDropSource = False
       Signed = False
       TabOrder = 5
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnExit = edtDiscExit
@@ -1975,7 +1975,7 @@ object frmFP: TfrmFP
       OleDropSource = False
       Signed = False
       TabOrder = 11
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnExit = edtBiayaPrExit
@@ -2037,7 +2037,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 12
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
@@ -2097,7 +2097,7 @@ object frmFP: TfrmFP
       OleDropSource = False
       Signed = False
       TabOrder = 13
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnExit = edtBiayaPrExit
@@ -2165,7 +2165,7 @@ object frmFP: TfrmFP
       ReadOnly = True
       Signed = False
       TabOrder = 14
-      Text = '0.00'
+      Text = '0,00'
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress

@@ -208,13 +208,13 @@ begin
 
 
 
-      s:= ' select month(tanggal) Bulan,year(tanggal) Tahun,Nomor,Tanggal,JthTempo,Salesman,Tax,Customer,Total Total,CN_User Biaya_Promosi,'
+      s:= ' select month(tanggal) Bulan,year(tanggal) Tahun,Nomor,Tanggal,JthTempo,Rayon, Salesman,Tax,Customer,Total Total,CN_User Biaya_Promosi,'
         + ' Kontrak,DP,Bayar,ifnull(Retur,0) Retur,Sisa_Piutang-ifnull(Retur,0) Sisa_piutang,Overdue,'
         + ' (case when overdue < 0 then " Belum" when overdue >= 0  and overdue <=30  then "0 sd 30" when overdue >= 31  and overdue <=60 then "31 s/d 60" '
         + ' when overdue >= 61  and overdue <=90 then "61 s/d 90" when overdue >= 91  and overdue <=120 then "91 s/d 120" else "x > 120" end ) Range_overdue ,if(fp_tipecash=1,"Cash","Non Cash") Tipe'
         + ' from '
         + ' (select fp_nomor Nomor,fp_tanggal Tanggal ,fp_jthtempo JthTempo, fp_Memo Memo ,'
-        + ' sls_nama Salesman,if(fp_istax=1,"PPN","Non PPN") Tax,cus_kode,cus_nama  Customer,  fp_amount Total,'
+        + ' sls_nama Rayon, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode) Salesman, if(fp_istax=1,"PPN","Non PPN") Tax,cus_kode,cus_nama  Customer,  fp_amount Total,'
         + ' (fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp CN_user,'
         + ' fp_cn Kontrak,fp_DP DP,fp_bayar Bayar,fp_istax,'
         + ' (select sum(retj_amount) from tretj_hdr where retj_fp_nomor =z.fp_nomor) Retur, '
@@ -235,7 +235,7 @@ begin
         ds3.open;
 
 //
-        Skolom :='Bulan,Tahun,Nomor,Tanggal,JthTempo,Salesman,Tax,Customer,Total,Biaya_Promosi,Kontrak,DP,Bayar,Retur,Sisa_Piutang,Overdue,Range_Overdue,Tipe';
+        Skolom :='Bulan,Tahun,Nomor,Tanggal,JthTempo,Rayon,Salesman,Tax,Customer,Total,Biaya_Promosi,Kontrak,DP,Bayar,Retur,Sisa_Piutang,Overdue,Range_Overdue,Tipe';
         QueryToDBGrid(cxGrid1DBTableView1, s,skolom ,ds2);
            cxGrid1DBTableView1.Columns[0].MinWidth := 60;
            cxGrid1DBTableView1.Columns[1].MinWidth := 60;
@@ -248,6 +248,7 @@ begin
            cxGrid1DBTableView1.Columns[8].MinWidth := 100;
            cxGrid1DBTableView1.Columns[9].MinWidth := 100;
            cxGrid1DBTableView1.Columns[10].MinWidth := 100;
+           cxGrid1DBTableView1.Columns[11].MinWidth := 100;
 
         for i:=0 To cxGrid1DBTableView1.ColumnCount -1 do
         begin
@@ -259,11 +260,11 @@ begin
 
         end;
 
-        cxGrid1DBTableView1.Columns[11].Summary.groupFooterKind:=skSum;
-        cxGrid1DBTableView1.Columns[11].Summary.groupFooterFormat:='###,###,###,###';
+//        cxGrid1DBTableView1.Columns[11].Summary.groupFooterKind:=skSum;
+//        cxGrid1DBTableView1.Columns[11].Summary.groupFooterFormat:='###,###,###,###';
 
-        cxGrid1DBTableView1.Columns[8].Summary.FooterKind:=skSum;
-        cxGrid1DBTableView1.Columns[8].Summary.FooterFormat:='###,###,###,###';
+//        cxGrid1DBTableView1.Columns[8].Summary.FooterKind:=skSum;
+//        cxGrid1DBTableView1.Columns[8].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[9].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[9].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[10].Summary.FooterKind:=skSum;
@@ -278,8 +279,8 @@ begin
         cxGrid1DBTableView1.Columns[13].Summary.FooterFormat:='###,###,###,###';
                 cxGrid1DBTableView1.Columns[14].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[14].Summary.FooterFormat:='###,###,###,###';
-//        cxGrid1DBTableView1.Columns[15].Summary.FooterKind:=skSum;
-//        cxGrid1DBTableView1.Columns[15].Summary.FooterFormat:='###,###,###,###';
+        cxGrid1DBTableView1.Columns[15].Summary.FooterKind:=skSum;
+        cxGrid1DBTableView1.Columns[15].Summary.FooterFormat:='###,###,###,###';
 
 
 //  hitung;
@@ -386,13 +387,13 @@ begin
 
           s:= ' select ' + quot(edtSalesman.text+' Jadwal :'+ edtJadwal.Text) + ' as filter, '
           + Quot(FormatDateTime('dd/mm/yyyy',enddate.DateTime)) + ' as tgl , '
-        + ' Nomor,Tanggal,JthTempo,Salesman,Customer,Total Total,CN_User Biaya_Promosi,'
+        + ' Nomor,Tanggal,JthTempo,Rayon,Salesman,Customer,Total Total,CN_User Biaya_Promosi,'
         + ' Kontrak,DP,Bayar,ifnull(Retur,0) Retur,Sisa_Piutang-ifnull(Retur,0) Sisa_piutang,Overdue,'
         + ' (case when overdue < 0 then " Belum" when overdue >= 0  and overdue <=30  then "0 sd 30" when overdue >= 31  and overdue <=60 then "31 s/d 60" '
         + ' when overdue >= 61  and overdue <=90 then "61 s/d 90" when overdue >= 91  and overdue <=120 then "91 s/d 120" else "x > 120" end ) Range_overdue , Tipe'
         + ' from '
         + ' (select fp_nomor Nomor,fp_tanggal Tanggal ,fp_jthtempo JthTempo, fp_Memo Memo ,if(fp_tipecash=1,"Cash","Non Cash") Tipe,'
-        + ' sls_nama Salesman,cus_kode ,cus_nama  Customer,  fp_amount Total,'
+        + ' sls_nama Rayon, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) Salesman, cus_kode ,cus_nama  Customer,  fp_amount Total,'
         + ' (fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp CN_user,'
         + ' fp_cn Kontrak,fp_DP DP,fp_bayar Bayar,fp_istax,'
         + ' (select sum(retj_amount) from tretj_hdr where retj_fp_nomor =z.fp_nomor) Retur, '

@@ -244,21 +244,26 @@ object frmLapBulanan4: TfrmLapBulanan4
             Styles.ContentOdd = cxStyle1
             Bands = <
               item
-                Caption = 'Salesman'
+                Caption = 'Rayon'
                 FixedKind = fkLeft
                 Styles.Header = cxstyl1
                 Width = 185
               end
               item
+                Caption = 'Salesman'
+                Styles.Header = cxstyl1
+                Width = 160
+              end
+              item
                 Caption = 'Bulan'
-                Position.BandIndex = 3
+                Position.BandIndex = 4
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 61
               end
               item
                 Caption = 'Sd. Bulan Ini'
-                Position.BandIndex = 3
+                Position.BandIndex = 4
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 79
@@ -275,28 +280,28 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Riil Omset'
-                Position.BandIndex = 4
+                Position.BandIndex = 5
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 69
               end
               item
                 Caption = '%'
-                Position.BandIndex = 4
+                Position.BandIndex = 5
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 46
               end
               item
                 Caption = 'Nominal'
-                Position.BandIndex = 9
+                Position.BandIndex = 10
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 76
               end
               item
                 Caption = '%'
-                Position.BandIndex = 9
+                Position.BandIndex = 10
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 46
@@ -313,14 +318,14 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Growth'
-                Position.BandIndex = 10
+                Position.BandIndex = 11
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 46
               end
               item
                 Caption = 'Riil Omset'
-                Position.BandIndex = 10
+                Position.BandIndex = 11
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 80
@@ -332,14 +337,14 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Nominal'
-                Position.BandIndex = 13
+                Position.BandIndex = 14
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 115
               end
               item
                 Caption = 'Growth'
-                Position.BandIndex = 13
+                Position.BandIndex = 14
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 56
@@ -356,21 +361,21 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Target'
-                Position.BandIndex = 21
+                Position.BandIndex = 22
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 85
               end
               item
                 Caption = 'Realisasi Tempo'
-                Position.BandIndex = 21
+                Position.BandIndex = 22
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 102
               end
               item
                 Caption = 'Ratio'
-                Position.BandIndex = 21
+                Position.BandIndex = 22
                 Position.ColIndex = 2
                 Styles.Header = cxstyl1
                 Width = 43
@@ -392,7 +397,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Realisasi'
-                Position.BandIndex = 23
+                Position.BandIndex = 24
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Visible = False
@@ -400,21 +405,21 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Ratio'
-                Position.BandIndex = 23
+                Position.BandIndex = 24
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Visible = False
               end
               item
                 Caption = 'Realisasi All'
-                Position.BandIndex = 22
+                Position.BandIndex = 23
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 82
               end
               item
                 Caption = 'Ratio All'
-                Position.BandIndex = 22
+                Position.BandIndex = 23
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
               end
@@ -425,14 +430,14 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Riil Omset'
-                Position.BandIndex = 28
+                Position.BandIndex = 29
                 Position.ColIndex = 0
                 Styles.Header = cxStyle5
                 Width = 69
               end
               item
                 Caption = '%'
-                Position.BandIndex = 28
+                Position.BandIndex = 29
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Visible = False
@@ -445,14 +450,14 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Nominal'
-                Position.BandIndex = 31
+                Position.BandIndex = 32
                 Position.ColIndex = 0
                 Styles.Header = cxStyle5
                 Width = 76
               end
               item
                 Caption = '%'
-                Position.BandIndex = 31
+                Position.BandIndex = 32
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Visible = False
@@ -465,14 +470,14 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Riil Omset'
-                Position.BandIndex = 34
+                Position.BandIndex = 35
                 Position.ColIndex = 0
                 Styles.Header = cxStyle5
                 Width = 80
               end
               item
                 Caption = 'Growth'
-                Position.BandIndex = 34
+                Position.BandIndex = 35
                 Position.ColIndex = 1
                 Styles.Header = cxStyle5
                 Width = 46
@@ -484,14 +489,14 @@ object frmLapBulanan4: TfrmLapBulanan4
               end
               item
                 Caption = 'Nominal'
-                Position.BandIndex = 37
+                Position.BandIndex = 38
                 Position.ColIndex = 0
                 Styles.Header = cxStyle5
                 Width = 115
               end
               item
                 Caption = 'Growth'
-                Position.BandIndex = 37
+                Position.BandIndex = 38
                 Position.ColIndex = 1
                 Styles.Header = cxStyle5
                 Width = 80
@@ -507,11 +512,21 @@ object frmLapBulanan4: TfrmLapBulanan4
                 Width = 99
               end>
             object cxGrid1DBBandedTableView1Column1: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Salesman'
+              DataBinding.FieldName = 'Rayon'
               Options.Editing = False
               SortIndex = 0
               SortOrder = soAscending
               Position.BandIndex = 0
+              Position.ColIndex = 0
+              Position.RowIndex = 0
+              IsCaptionAssigned = True
+            end
+            object cxGrid1DBBandedTableView1Column30: TcxGridDBBandedColumn
+              DataBinding.FieldName = 'Salesman'
+              Options.Editing = False
+              SortIndex = 2
+              SortOrder = soDescending
+              Position.BandIndex = 1
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -523,7 +538,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               Options.Editing = False
               SortIndex = 1
               SortOrder = soAscending
-              Position.BandIndex = 1
+              Position.BandIndex = 2
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -533,7 +548,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 2
+              Position.BandIndex = 3
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -574,7 +589,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 5
+              Position.BandIndex = 6
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -586,7 +601,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column8CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column8CustomDrawFooterCell
-              Position.BandIndex = 6
+              Position.BandIndex = 7
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -596,7 +611,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 7
+              Position.BandIndex = 8
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -608,7 +623,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column10CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column10CustomDrawFooterCell
-              Position.BandIndex = 8
+              Position.BandIndex = 9
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -638,7 +653,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 12
+              Position.BandIndex = 13
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -650,7 +665,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = growthCustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = growthCustomDrawFooterCell
-              Position.BandIndex = 11
+              Position.BandIndex = 12
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -662,7 +677,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = growth2CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = growth2CustomDrawFooterCell
-              Position.BandIndex = 15
+              Position.BandIndex = 16
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -672,7 +687,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 14
+              Position.BandIndex = 15
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -682,7 +697,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 16
+              Position.BandIndex = 17
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -693,7 +708,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               Properties.DecimalPlaces = 0
               Properties.DisplayFormat = ',0.00;(,0.00)'
               Options.Editing = False
-              Position.BandIndex = 17
+              Position.BandIndex = 18
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -703,7 +718,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.;(,0.)'
               Options.Editing = False
-              Position.BandIndex = 18
+              Position.BandIndex = 19
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -713,7 +728,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 19
+              Position.BandIndex = 20
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -725,7 +740,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column19CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column19CustomDrawFooterCell
-              Position.BandIndex = 20
+              Position.BandIndex = 21
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -735,7 +750,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 24
+              Position.BandIndex = 25
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -747,7 +762,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column21CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column21CustomDrawFooterCell
-              Position.BandIndex = 25
+              Position.BandIndex = 26
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -756,7 +771,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               DataBinding.FieldName = 'realisasiall'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
-              Position.BandIndex = 26
+              Position.BandIndex = 27
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -767,21 +782,21 @@ object frmLapBulanan4: TfrmLapBulanan4
               Properties.DisplayFormat = ',0.00;(,0.00)'
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column19CustomDrawCell
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column19CustomDrawFooterCell
-              Position.BandIndex = 27
+              Position.BandIndex = 28
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
             end
             object newcustomer: TcxGridDBBandedColumn
               DataBinding.FieldName = 'newCustomer'
-              Position.BandIndex = 40
+              Position.BandIndex = 41
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
             end
             object cxRSKLINIK: TcxGridDBBandedColumn
               DataBinding.FieldName = 'rsklinik'
-              Position.BandIndex = 41
+              Position.BandIndex = 42
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -791,7 +806,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 29
+              Position.BandIndex = 30
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -803,7 +818,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column23CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column23CustomDrawFooterCell
-              Position.BandIndex = 30
+              Position.BandIndex = 31
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -813,7 +828,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 32
+              Position.BandIndex = 33
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -826,7 +841,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column25CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column25CustomDrawFooterCell
-              Position.BandIndex = 33
+              Position.BandIndex = 34
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -836,7 +851,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 35
+              Position.BandIndex = 36
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -848,7 +863,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               OnCustomDrawCell = cxGrid1DBBandedTableView1Column27CustomDrawCell
               Options.Editing = False
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column27CustomDrawFooterCell
-              Position.BandIndex = 36
+              Position.BandIndex = 37
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -858,7 +873,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 38
+              Position.BandIndex = 39
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -871,7 +886,7 @@ object frmLapBulanan4: TfrmLapBulanan4
               Options.Editing = False
               Width = 80
               OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column29CustomDrawFooterCell
-              Position.BandIndex = 39
+              Position.BandIndex = 40
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -4349,17 +4364,17 @@ object frmLapBulanan4: TfrmLapBulanan4
     Top = 432
     object cxVCLPrinterChart: TdxGridReportLink
       PrinterPage.DMPaper = 1
-      PrinterPage.Footer = 200
+      PrinterPage.Footer = 5080
       PrinterPage.GrayShading = True
-      PrinterPage.Header = 200
-      PrinterPage.Margins.Bottom = 500
-      PrinterPage.Margins.Left = 500
-      PrinterPage.Margins.Right = 500
-      PrinterPage.Margins.Top = 500
-      PrinterPage.PageSize.X = 8500
-      PrinterPage.PageSize.Y = 11000
+      PrinterPage.Header = 5080
+      PrinterPage.Margins.Bottom = 12700
+      PrinterPage.Margins.Left = 12700
+      PrinterPage.Margins.Right = 12700
+      PrinterPage.Margins.Top = 12700
+      PrinterPage.PageSize.X = 215900
+      PrinterPage.PageSize.Y = 279400
       PrinterPage._dxMeasurementUnits_ = 0
-      PrinterPage._dxLastMU_ = 1
+      PrinterPage._dxLastMU_ = 2
       BuiltInReportLink = True
     end
   end

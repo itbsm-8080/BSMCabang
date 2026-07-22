@@ -71,7 +71,7 @@ implementation
 
 procedure TfrmBrowseFP.btnRefreshClick(Sender: TObject);
 begin
-  Self.SQLMaster := 'select fp_nomor Nomor,FP_DO_NOMOR DO_Nomor, fp_tanggal Tanggal ,fp_jthtempo JthTempo, fp_Memo Memo ,if(fp_istax=1,"PPn","Non Ppn") Tax,sls_nama Salesman,cus_kode Kode_Cust,cus_nama  Customer, '
+  Self.SQLMaster := 'select fp_nomor Nomor,FP_DO_NOMOR DO_Nomor, fp_tanggal Tanggal ,fp_jthtempo JthTempo, fp_Memo Memo ,if(fp_istax=1,"PPn","Non Ppn") Tax,sla_nama Salesman,cus_kode Kode_Cust,cus_nama  Customer, '
                   + ' fp_amount Total,fp_taxamount Ppn, '
                   + ' (select ifnull(sum(retj_amount),0) from tretj_hdr where retj_fp_nomor=fp_nomor ) Retur,'
                   + ' ((Fp_disc_fakturpr*(((fp_amount-fp_taxamount)+fp_disc_faktur)/(100-fp_disc_fakturpr)*100))/100) + fp_disc_faktur  Disc_Faktur,'
@@ -84,7 +84,7 @@ begin
                   + ' inner join tcustomer on cus_kode=fp_cus_kode'
                   + ' left join tdo_hdr on fp_do_nomor=do_nomor '
                   + ' left join tso_hdr on do_so_nomor=so_nomor '
-                  + ' left JOIN tsalesman on sls_kode=so_sls_kode'
+                  + ' left JOIN tsalesmanaktif on sla_kode=so_sla_kode'
                   + ' where fp_tanggal between ' + QuotD(startdate.DateTime) + ' and ' + QuotD(enddate.DateTime)
                   + ' group by fp_nomor ,fp_tanggal ,fp_memo ,cus_nama ';
 

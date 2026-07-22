@@ -47,7 +47,7 @@ type
     cxButton7: TcxButton;
     cxGrid1: TcxGrid;
     cxGrid1DBBandedTableView1: TcxGridDBBandedTableView;
-    clsalesman: TcxGridDBBandedColumn;
+    clRayon: TcxGridDBBandedColumn;
     clTarget: TcxGridDBBandedColumn;
     clRealisasi: TcxGridDBBandedColumn;
     clTargetPiutang: TcxGridDBBandedColumn;
@@ -104,6 +104,7 @@ type
     clPersenJualOther: TcxGridDBBandedColumn;
     cxgridKomisiColumn14: TcxGridDBBandedColumn;
     cxgridKomisiColumn15: TcxGridDBBandedColumn;
+    clSalesman: TcxGridDBBandedColumn;
     procedure FormDblClick(Sender: TObject);
     procedure btnExitClick(Sender: TObject);
     procedure sbNewClick(Sender: TObject);
@@ -299,7 +300,7 @@ begin
         + ' where fp_jthtempo <= '+quotd(akhir2)
         + ' group by salesman) a inner join tsalesman on a.salesman=sls_kode and sls_insentif=1'; }
 
-  ssql:= ' select Salesman,sls_nama Nama,cast(0 as decimal(5,2)) ratiopf,cast(0 as decimal(15,2)) realisasiall,cast(0 as decimal(5,2)) persentaseall,'
+  ssql:= ' select Salesman Rayon, sls_nama Nama, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Salesman, cast(0 as decimal(5,2)) ratiopf,cast(0 as decimal(15,2)) realisasiall,cast(0 as decimal(5,2)) persentaseall,'
           + ' (select st_targetsales from tsalesmantarget where st_periode='+IntToStr(cbbBulan.itemindex +1)+' and st_tahun='+ edtTahun.Text + ' and  st_sls_kode=a.salesman) Target_Jual,'
           + ' (select sum(total-biaya_promosi-fee_marketing-kontrak-retur)'
           + ' from transaksi_hariann3'
@@ -386,7 +387,7 @@ begin
   capaibulanini :=cVarToFloat(TcxDBGridHelper(cxGrid1DBBandedTableView1).GetFooterSummary('realisasi_jual'))/ cVarToFloat(TcxDBGridHelper(cxGrid1DBBandedTableView1).GetFooterSummary('target_jual'))*100;
 
   //=== PIUTANG
-  ssql := 'SELECT sls_nama salesman,SUM(debet-kredit) - '
+  ssql := 'SELECT (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) salesman,SUM(debet-kredit) - '
         + ' ('
         + ' SELECT IFNULL(SUM(jt_nilai),0) FROM tjatuhtempofp'
         + ' INNER JOIN tfp_hdr ON fp_nomor=jt_fp_nomor'
@@ -439,7 +440,7 @@ begin
           end;
         end;
 
- ssql:= 'SELECT salesman,batas,'
+ ssql:= 'SELECT Salesman,batas,'
 + ' (riil+riil2+riil3+riil4) riil,'
 + ' (riil+IFNULL(girolalu,0)-batas-kontrak-biaya_promosi - fee_marketing) pengali,'
 + ' (riil2+IFNULL(girolalu2,0)-kontrak2-biaya_promosi2 - fee_marketing2) pengali2,'
@@ -510,7 +511,7 @@ begin
 + ' and datediff(cg_tanggalcair,fp_tanggal)<=7'
 + ' ) girolalu4'
 + ' FROM ('
-+ ' SELECT sls_kode,sls_nama salesman,nomor,TANGGAL,'
++ ' SELECT sls_kode,(SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 LIMIT 1) AS salesman,nomor,TANGGAL,'
 + ' ((select sum(bycd_bayar) from tbayarcus_dtl inner join tfp_hdr on bycd_fp_nomor=fp_nomor'
 + ' where bycd_byc_nomor=nomor and datediff(tanggal,fp_tanggal)>7 and datediff(tanggal,fp_tanggal)<=40) -'
 + ' IF(('
@@ -743,7 +744,7 @@ begin
         end;
 
   // MARGIN DI BAWAH LIMA
-  ssql := 'SELECT sls_nama salesman,SUM(minus *bycd_bayar/fp_amount) total,'
+  ssql := 'SELECT (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) salesman,SUM(minus *bycd_bayar/fp_amount) total,'
       + ' if(s < 7,"Cash",if(s<41,"40 Hari",if(s < 60,"60 Hari","lebih dari 60"))) overdue'
       + '  FROM'
       + ' ('
@@ -791,7 +792,7 @@ begin
         end;
       end;
 //
-      ssql:= 'SELECT sls_nama salesman,'
+      ssql:= 'SELECT (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) salesman,'
             + ' sum(if(selisihhari <=7,pengurang,0)) cash,'
             + ' sum(if((selisihhari <=40) AND (selisihhari>7),pengurang,0)) empat,'
             + ' sum(if((selisihhari <=60) AND (selisihhari>40),pengurang,0)) enam,'
@@ -1000,8 +1001,8 @@ begin
   result := False;
   if asales = '' then Exit;
 
-  s := ' SELECT TIMESTAMPDIFF(MONTH, kar_tgl_masuk, CURDATE()) masuk FROM hrd.tkaryawan '
-     + ' WHERE kar_namasingkat = ' + Quot(asales);
+  s := ' SELECT TIMESTAMPDIFF(MONTH, sla_tgl_masuk, CURDATE()) masuk FROM tsalesmanaktif '
+     + ' WHERE sla_nama = ' + Quot(asales);
   tsql := xOpenQuery(s, frmMenu.conn);
   try
     with tsql do

@@ -251,7 +251,7 @@ if CheckBox1.Checked then
 
           s:= ' SELECT fp_nomor Nomor,date_format(fp_tanggal,"%Y-%m-%d") Tanggal,month(fp_tanggal) Bulan,year(fp_tanggal) Tahun,"" Group_Produk,'
           + ' (SELECT sls_nama FROM tsalesman inner join tsalescustomer ON sls_kode=sc_sls_kode where sc_cus_kode=fp_cus_kode) Marketing,'
-          + ' sls_nama Salesman,cus_nama Outlet,cus_gc_kode Golongan,jc_nama JenisCustomer,brg_kode Kode,brg_nama Nama,brg_merk Merk,KTG_NAMA KATEGORI,'
+          + ' sls_nama Rayon,(SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) Salesman,cus_nama Outlet,cus_gc_kode Golongan,jc_nama JenisCustomer,brg_kode Kode,brg_nama Nama,brg_merk Merk,KTG_NAMA KATEGORI,'
           + ' (SELECT ktg_nama FROM tkategori where ktg_kode=SUBSTRING_INDEX(brg_ktg_kode, ".", 2)) SubDepartemen, '
           + ' (SELECT ktg_nama FROM tkategori where ktg_kode=SUBSTRING_INDEX(brg_ktg_kode, ".", 1)) Departemen , '
           + ' BRG_DIVISI Divisi, fpd_brg_satuan Satuan,if(brg_isproductfocus=1,"Ya","Tidak") isPF,if(fp_isecer=0,"Tidak","Ya") Eceran'
@@ -300,7 +300,8 @@ if CheckBox1.Checked then
           + ' ) AS Nilai_Net, '
           + ' fp_istax Pajak, '
           + ' if ((fpd_harga*(100-fpd_discpr)/100)-(fpd_cn*((100-fpd_discpr)*fpd_harga/100)/100)- (((100-fpd_discpr)*fpd_harga/100)*fpd_bp_pr/100)-fpd_bp_rp <fpd_hrg_min,"Bawah Het",'
-          + ' "Diatas HET") StatusHet,(select rayon_nama from trayon where rayon_kode=cus_ray_kode limit 1) Rayon'
+          + ' "Diatas HET") StatusHet '
+//          + ' (select rayon_nama from trayon where rayon_kode=cus_ray_kode limit 1) Rayon'
           + ' ,cast(0 as signed) kunjunganmarketing,cast(0 as signed) kunjungansales'
           + ' FROM tfp_dtl inner join'
           + ' tfp_hdr on fpd_fp_nomor=fp_nomor'
@@ -355,7 +356,7 @@ begin
 
           s:= ' SELECT fp_nomor Nomor,date_format(fp_tanggal,"%Y-%m-%d") Tanggal,month(fp_tanggal) Bulan,year(fp_tanggal) Tahun,"" Group_produk,'
           + ' (SELECT sls_nama FROM tsalesman inner join tsalescustomer ON sls_kode=sc_sls_kode where sc_cus_kode=fp_cus_kode) Marketing,'
-          + ' sls_nama Salesman,cus_nama Outlet,cus_gc_kode Golongan,jc_nama JenisCustomer,brg_kode Kode,brg_nama Nama,brg_merk Merk,ktg_nama Kategori,'
+          + ' sls_nama Rayon, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) Salesman, cus_nama Outlet,cus_gc_kode Golongan,jc_nama JenisCustomer,brg_kode Kode,brg_nama Nama,brg_merk Merk,ktg_nama Kategori,'
           + ' (SELECT ktg_nama FROM tkategori where ktg_kode=SUBSTRING_INDEX(brg_ktg_kode, ".", 2)) SubDepartemen, '
           + ' (SELECT ktg_nama FROM tkategori where ktg_kode=SUBSTRING_INDEX(brg_ktg_kode, ".", 1)) Departemen , '
           + ' BRG_DIVISI Divisi, fpd_brg_satuan Satuan,if(brg_isproductfocus=1,"Ya","Tidak") isPF,if(fp_isecer=0,"Tidak","Ya") Eceran,'
@@ -404,7 +405,8 @@ begin
           + ' ) AS Nilai_Net, '
           + ' fp_istax Pajak, '
           + ' if ((fpd_harga*(100-fpd_discpr)/100)-(fpd_cn*((100-fpd_discpr)*fpd_harga/100)/100)- (((100-fpd_discpr)*fpd_harga/100)*fpd_bp_pr/100)-fpd_bp_rp <fpd_hrg_min,"Bawah Het",'
-          + ' "Diatas HET") StatusHet ,(select rayon_nama from trayon where rayon_kode=cus_ray_kode limit 1) Rayon'
+          + ' "Diatas HET") StatusHet '
+//          + ' (select rayon_nama from trayon where rayon_kode=cus_ray_kode limit 1) Rayon'
           + ' ,cast(0 as signed) kunjunganmarketing,cast(0 as signed) kunjungansales'
           + ' FROM tfp_dtl inner join'
           + ' tfp_hdr on fpd_fp_nomor=fp_nomor'
@@ -461,7 +463,7 @@ begin
           s:= ' SELECT fp_nomor Nomor,date_format(fp_tanggal,"%Y-%m-%d") Tanggal,month(fp_tanggal) Bulan,year(fp_tanggal) Tahun,'
           + ' (SELECT pmh_nama FROM tprodukmarketing_hdr  INNER JOIN tprodukmarketing_dtl ON pmd_pmh_nomor=pmh_nomor where pmd_brg_kode=brg_kode limit 1) Group_produk,'
           + ' (SELECT sls_nama FROM tsalesman inner join tsalescustomer ON sls_kode=sc_sls_kode where sc_cus_kode=fp_cus_kode) Marketing,'
-          + ' sls_nama Salesman,cus_nama Outlet,cus_gc_kode Golongan,jc_nama JenisCustomer,brg_kode Kode,brg_nama Nama,brg_merk Merk,ktg_nama Kategori,'
+          + ' sls_nama Rayon, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) Salesman, cus_nama Outlet,cus_gc_kode Golongan,jc_nama JenisCustomer,brg_kode Kode,brg_nama Nama,brg_merk Merk,ktg_nama Kategori,'
           + ' (SELECT ktg_nama FROM tkategori where ktg_kode=SUBSTRING_INDEX(brg_ktg_kode, ".", 2)) SubDepartemen, '
           + ' (SELECT ktg_nama FROM tkategori where ktg_kode=SUBSTRING_INDEX(brg_ktg_kode, ".", 1)) Departemen , '
           + ' BRG_DIVISI Divisi, fpd_brg_satuan Satuan,if(brg_isproductfocus=1,"Ya","Tidak") isPF,if(fp_isecer=0,"Tidak","Ya") Eceran,'
@@ -510,7 +512,8 @@ begin
           + ' ) AS Nilai_Net, '
           + ' fp_istax Pajak, '
           + ' if ((fpd_harga*(100-fpd_discpr)/100)-(fpd_cn*((100-fpd_discpr)*fpd_harga/100)/100)- (((100-fpd_discpr)*fpd_harga/100)*fpd_bp_pr/100)-fpd_bp_rp <fpd_hrg_min,"Bawah Het",'
-          + ' "Diatas HET") StatusHet ,(select rayon_nama from trayon where rayon_kode=cus_ray_kode limit 1) Rayon'
+          + ' "Diatas HET") StatusHet '
+//          + ' (select rayon_nama from trayon where rayon_kode=cus_ray_kode limit 1) Rayon '
           + ' ,cast(0 as signed) kunjunganmarketing,cast(0 as signed) kunjungansales'
           + ' FROM tfp_dtl inner join'
           + ' tfp_hdr on fpd_fp_nomor=fp_nomor'
@@ -544,12 +547,12 @@ s:=s
 + ' union '
 + ' SELECT "" Nomor,date_format(tanggal,"%Y-%m-%d") Tanggal,cast(date_format(tanggal,"%m") as signed)  bulan ,'
 + ' cast(date_format(tanggal,"%Y") as signed)  Tahun,"" Group_produk,if(sls_insentif=2,sls_nama,"") marketing,'
-+ ' if(sls_insentif=1,sls_nama,"") salesman,'
++ ' if(sls_insentif=1,sls_nama,"") rayon, if(sls_insentif=1,(SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1),"") salesman, '
 + ' cus_nama,"" Golongan,"" Jeniscustomer,0 Kode,"" Nama,"" merk,"" kategori,"" subdepartemen,"" departemen,"" divisi,'
 + ' "" satuan , if(sls_insentif=2,"Ya","Tidak") ISpf,"" eceran,"" iscatalog,0 fpd_cn,'
 + ' 0 qty,0 nilai  ,0 nilaiblmppn,0 kontrak '
 + smargin2
-+ ' ,0 biaya_promosi,0 fee_marketing,0 Nilai_Net,0 pajak,"" status_het,"" rayon,'
++ ' ,0 biaya_promosi,0 fee_marketing,0 Nilai_Net,0 pajak,"" status_het,'
 + ' cast(if(sls_insentif=2,1,0) as signed) kunjunganmarketing,cast(if(sls_insentif=1,1,0) as signed) kunjungansales'
 + ' FROM zkunjungan x INNER JOIN tsalesman ON USER=sls_nama'
 + ' left JOIN tcustomer y ON x.cus_kode=y.cus_kode '
@@ -562,25 +565,24 @@ s:=s
 //
       if frmMenu.KDUSER = 'FINANCE' THEN
       Begin
-        Skolom :='Nomor,Tanggal,Bulan,Tahun,Salesman,Marketing,Outlet,Golongan,JenisCustomer,Kode,Nama,Satuan,Merk,Kategori,Departemen,subDepartemen,Divisi,fpd_cn,Qty,Nilai,Nilai_Belum_ppn,Kontrak,Hpp, '
+        Skolom :='Nomor,Tanggal,Bulan,Tahun,Rayon,Salesman,Marketing,Outlet,Golongan,JenisCustomer,Kode,Nama,Satuan,Merk,Kategori,Departemen,subDepartemen,Divisi,fpd_cn,Qty,Nilai,Nilai_Belum_ppn,Kontrak,Hpp, '
         + ' Margin,Biaya_promosi,Fee_Marketing,Nilai_Net,'
-        + ' Group_Produk,Pajak,StatusHet,IsPf,Eceran,isCatalog,Rayon';
+        + ' Group_Produk,Pajak,StatusHet,IsPf,Eceran,isCatalog';
         QueryToDBGrid(cxGrid1DBTableView1, s,skolom ,ds2);
-        cxGrid1DBTableView1.Columns[22].Summary.FooterKind:=skSum;
-        cxGrid1DBTableView1.Columns[22].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[23].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[23].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[25].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[25].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[26].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[26].Summary.FooterFormat:='###,###,###,###';
-
+        cxGrid1DBTableView1.Columns[27].Summary.FooterKind:=skSum;
+        cxGrid1DBTableView1.Columns[27].Summary.FooterFormat:='###,###,###,###';
       end
       else
       Begin
-        Skolom := 'Nomor,Tanggal,Bulan,Tahun,Salesman,Marketing,Outlet,Golongan,JenisCustomer,Kode,Nama,Satuan,Merk,Kategori,' +
+        Skolom := 'Nomor,Tanggal,Bulan,Tahun,Rayon,Salesman,Marketing,Outlet,Golongan,JenisCustomer,Kode,Nama,Satuan,Merk,Kategori,' +
   'Departemen,subDepartemen,Divisi,fpd_cn,Qty,Nilai,Nilai_Belum_ppn,Kontrak,Biaya_promosi,Fee_Marketing,Nilai_Net,' +
-  'Group_produk,Pajak,StatusHet,IsPf,Eceran,Iscatalog,Rayon';
+  'Group_produk,Pajak,StatusHet,IsPf,Eceran,Iscatalog';
 
         QueryToDBGrid(cxGrid1DBTableView1, s,skolom ,ds2);
       end;
@@ -612,8 +614,6 @@ s:=s
 
         end;
 
-        cxGrid1DBTableView1.Columns[17].Summary.FooterKind:=skSum;
-        cxGrid1DBTableView1.Columns[17].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[18].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[18].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[19].Summary.FooterKind:=skSum;
@@ -628,7 +628,8 @@ s:=s
         cxGrid1DBTableView1.Columns[23].Summary.FooterFormat:='###,###,###,###';
         cxGrid1DBTableView1.Columns[24].Summary.FooterKind:=skSum;
         cxGrid1DBTableView1.Columns[24].Summary.FooterFormat:='###,###,###,###';
-
+        cxGrid1DBTableView1.Columns[25].Summary.FooterKind:=skSum;
+        cxGrid1DBTableView1.Columns[25].Summary.FooterFormat:='###,###,###,###';
         //  hitung;
 
           TcxDBPivotHelper(cxPivot).LoadFromCDS(ds3);

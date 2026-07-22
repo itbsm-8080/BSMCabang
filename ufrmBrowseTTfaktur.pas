@@ -44,7 +44,7 @@ implementation
 procedure TfrmBrowseTTFaktur.btnRefreshClick(Sender: TObject);
 begin
 
-  Self.SQLMaster := 'select tt_nomor Nomor,tt_tanggal Tanggal,sls_nama Salesman,cus_nama Customer ,'
+  Self.SQLMaster := 'select tt_nomor Nomor,tt_tanggal Tanggal, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Salesman,cus_nama Customer ,'
             + ' (select sum(fp_amount-fp_bayar) from tfp_hdr inner join '+adatabase+'.ttt_dtl on ttd_fp_nomor=fp_nomor where ttd_tt_nomor=tt_nomor ) Total '
             + ' from '+adatabase+'.ttt_hdr inner join tcustomer on cus_kode=tt_cus_kode'
             + ' inner join tsalesman on sls_kode=tt_sls_kode '
@@ -114,11 +114,11 @@ begin
 
           s:= ' select '
        + ' *,ADDDATE(fp_tanggal, INTERVAL 30 DAY) jt,(FP_AMOUNT-fp_dp-fp_bayar-if(fp_isdtp=1,fp_taxamount,0)) nilai,'
-       + ' (select sum(retj_amount) from tretj_hdr where retj_fp_nomor =z.fp_nomor) retur'
+       + ' (select sum(retj_amount) from tretj_hdr where retj_fp_nomor =z.fp_nomor) retur, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = tt_sls_kode AND sla_isaktif = 1 limit 1) sls_nama '
        + ' from '+adatabase+'.ttt_hdr '
        + ' inner join '+adatabase+'.ttt_dtl on tt_nomor=ttd_tt_nomor'
        + ' inner join tcustomer on cus_kode=tt_cus_kode '
-       + ' left join tsalesman on sls_kode=tt_sls_kode '
+//       + ' left join tsalesman on sls_kode=tt_sls_kode '
        + ' left join  tfp_hdr z on fp_nomor=ttd_fp_nomor '
        + ' where '
        + ' tt_nomor=' + quot(CDSMaster.FieldByname('nomor').AsString)

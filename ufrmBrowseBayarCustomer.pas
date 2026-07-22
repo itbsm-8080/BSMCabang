@@ -50,11 +50,11 @@ implementation
 procedure TfrmBrowseBayarCustomer.btnRefreshClick(Sender: TObject);
 begin
   Self.SQLMaster := 'select byc_nomor Nomor,byc_tanggal Tanggal ,if(byc_istax=1,"PPN","Non PPN") Status,cus_kode Kode_Cust,cus_nama  Customer, '
-                  + ' (select distinct sls_nama from tbayarcus_dtl '
+                  + ' (select distinct sla_nama from tbayarcus_dtl '
                   + ' inner join tfp_hdr on bycd_fp_nomor=fp_nomor '
                   + ' inner join tdo_hdr on do_nomor=fp_do_nomor '
                   + ' inner join tso_hdr on do_so_nomor=so_nomor '
-                  + ' inner join tsalesman on sls_kode=so_sls_kode '
+                  + ' INNER JOIN tsalesmanaktif ON sla_sls_kode = so_sls_kode '
                   + ' where bycd_byc_nomor=a.byc_nomor limit 1) Salesman,'
                   + ' byc_Cash Cash,byc_transfer Transfer ,BYC_POTOngan Potongan, byc_giro Giro,byc_nogiro GiroNumber,byc_tglcair TglCair,'
                   + ' (select rek_nama from trekening where rek_kode=a.byc_rek_cash) Rekening_Cash ,'

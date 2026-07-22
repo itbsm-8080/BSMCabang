@@ -1,9 +1,9 @@
-object frmPesanan: TfrmPesanan
-  Left = 259
-  Top = 181
-  Width = 1137
+object frmBayarFeeMarketing: TfrmBayarFeeMarketing
+  Left = 112
+  Top = 56
+  Width = 1024
   Height = 575
-  Caption = 'Sales Order'
+  Caption = 'Pembayaran Fee Marketing'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,11 +21,11 @@ object frmPesanan: TfrmPesanan
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object AdvPanel1: TAdvPanel
+  object PANEL: TAdvPanel
     Left = 0
     Top = 41
-    Width = 1121
-    Height = 104
+    Width = 1008
+    Height = 112
     Align = alTop
     BevelInner = bvRaised
     Color = clWhite
@@ -89,14 +89,14 @@ object frmPesanan: TfrmPesanan
     URLColor = clBlue
     FullHeight = 0
     object Label2: TLabel
-      Left = 594
+      Left = 618
       Top = 10
       Width = 31
       Height = 13
       Caption = 'Nomor'
     end
     object Label3: TLabel
-      Left = 594
+      Left = 618
       Top = 32
       Width = 38
       Height = 13
@@ -109,20 +109,6 @@ object frmPesanan: TfrmPesanan
       Height = 13
       Caption = 'Customer'
     end
-    object Label4: TLabel
-      Left = 26
-      Top = 54
-      Width = 62
-      Height = 13
-      Caption = 'Ship Address'
-    end
-    object Label5: TLabel
-      Left = 26
-      Top = 76
-      Width = 45
-      Height = 13
-      Caption = 'Salesman'
-    end
     object Label6: TLabel
       Left = 26
       Top = 32
@@ -130,8 +116,29 @@ object frmPesanan: TfrmPesanan
       Height = 13
       Caption = 'Alamat'
     end
+    object Label8: TLabel
+      Left = 618
+      Top = 56
+      Width = 19
+      Height = 13
+      Caption = 'Nilai'
+    end
+    object Label4: TLabel
+      Left = 26
+      Top = 54
+      Width = 44
+      Height = 13
+      Caption = 'Rekening'
+    end
+    object Label5: TLabel
+      Left = 26
+      Top = 76
+      Width = 56
+      Height = 13
+      Caption = 'Keterangan'
+    end
     object edtNomor: TAdvEdit
-      Left = 660
+      Left = 700
       Top = 6
       Width = 141
       Height = 21
@@ -186,31 +193,17 @@ object frmPesanan: TfrmPesanan
       OleDropSource = False
       ReadOnly = True
       Signed = False
-      TabOrder = 4
+      TabOrder = 5
       Transparent = False
       Visible = True
       OnKeyPress = FormKeyPress
-    end
-    object cxLookupSales: TcxExtLookupComboBox
-      Left = 354
-      Top = 72
-      Properties.ImmediatePost = True
-      Properties.ReadOnly = True
-      Style.Color = clWindow
-      Style.LookAndFeel.Kind = lfFlat
-      Style.TransparentBorder = True
-      StyleDisabled.LookAndFeel.Kind = lfFlat
-      StyleFocused.LookAndFeel.Kind = lfFlat
-      StyleHot.LookAndFeel.Kind = lfFlat
-      TabOrder = 3
-      OnKeyPress = FormKeyPress
-      Width = 215
     end
     object cxLookupCustomer: TcxExtLookupComboBox
       Left = 129
       Top = 7
       Properties.ImmediatePost = True
-      Properties.OnChange = cxLookupCustomerPropertiesChange
+      Properties.ReadOnly = False
+      Properties.OnEditValueChanged = cxLookupcustomerPropertiesEditValueChanged
       Style.Color = clWindow
       Style.LookAndFeel.Kind = lfFlat
       Style.TransparentBorder = True
@@ -218,91 +211,18 @@ object frmPesanan: TfrmPesanan
       StyleFocused.LookAndFeel.Kind = lfFlat
       StyleHot.LookAndFeel.Kind = lfFlat
       TabOrder = 0
-      OnExit = cxLookupCustomerExit
       OnKeyPress = FormKeyPress
-      Width = 288
+      Width = 440
     end
     object dtTanggal: TDateTimePicker
-      Left = 661
+      Left = 701
       Top = 28
       Width = 140
       Height = 21
       Date = 42648.237043148150000000
       Time = 42648.237043148150000000
-      TabOrder = 5
-      OnChange = dtTanggalChange
-      OnKeyPress = FormKeyPress
-    end
-    object edtShip: TAdvEdit
-      Left = 129
-      Top = 50
-      Width = 445
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaLeft
-      EditType = etString
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 0
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      HintShowLargeText = False
-      OleDropTarget = False
-      OleDropSource = False
-      Signed = False
-      TabOrder = 2
-      Transparent = False
-      Visible = True
-      OnKeyPress = FormKeyPress
-    end
-    object chkPajak: TCheckBox
-      Left = 824
-      Top = 8
-      Width = 97
-      Height = 17
-      Caption = 'Pajak'
-      Checked = True
-      Enabled = False
-      State = cbChecked
       TabOrder = 6
-      OnClick = chkPajakClick
+      OnChange = dtTanggalChange
       OnKeyPress = FormKeyPress
     end
     object edtAlamat: TAdvEdit
@@ -365,37 +285,84 @@ object frmPesanan: TfrmPesanan
       Visible = True
       OnKeyPress = FormKeyPress
     end
-    object Button1: TButton
-      Left = 576
-      Top = 72
-      Width = 113
-      Height = 25
-      Caption = 'Ambil Data SO'
-      TabOrder = 7
-      OnClick = Button1Click
+    object cxLookupRekeningCash: TcxExtLookupComboBox
+      Left = 129
+      Top = 50
+      Properties.ImmediatePost = True
+      Style.Color = clWindow
+      Style.LookAndFeel.Kind = lfFlat
+      Style.TransparentBorder = True
+      StyleDisabled.LookAndFeel.Kind = lfFlat
+      StyleFocused.LookAndFeel.Kind = lfFlat
+      StyleHot.LookAndFeel.Kind = lfFlat
+      TabOrder = 2
+      OnKeyPress = FormKeyPress
+      Width = 440
     end
-    object cxButton4: TcxButton
-      Left = 696
-      Top = 72
-      Width = 81
-      Height = 25
-      Caption = 'Ganti ID Sales'
-      TabOrder = 8
-      OnClick = cxButton4Click
-    end
-    object chkProforma: TCheckBox
-      Left = 824
-      Top = 32
-      Width = 97
-      Height = 17
-      Caption = 'Proforma'
-      TabOrder = 9
+    object edtNilaiCash: TAdvEdit
+      Left = 701
+      Top = 52
+      Width = 141
+      Height = 21
+      AutoFocus = False
+      EditAlign = eaRight
+      EditType = etMoney
+      ErrorMarkerPos = 0
+      ErrorMarkerLen = 0
+      ErrorColor = clRed
+      ErrorFontColor = clWhite
+      ExcelStyleDecimalSeparator = False
+      Flat = False
+      FlatLineColor = clBlack
+      FlatParentColor = True
+      FocusAlign = eaDefault
+      FocusBorder = False
+      FocusColor = clSilver
+      FocusFontColor = clWindowText
+      FocusLabel = False
+      FocusWidthInc = 0
+      ModifiedColor = clHighlight
+      DisabledColor = clSilver
+      URLColor = clBlue
+      ReturnIsTab = False
+      LengthLimit = 0
+      TabOnFullLength = False
+      Precision = 2
+      LabelPosition = lpLeftTop
+      LabelMargin = 4
+      LabelTransparent = False
+      LabelAlwaysEnabled = False
+      LabelFont.Charset = DEFAULT_CHARSET
+      LabelFont.Color = clWindowText
+      LabelFont.Height = -11
+      LabelFont.Name = 'Tahoma'
+      LabelFont.Style = []
+      Lookup.CaseSensitive = False
+      Lookup.Color = clWindow
+      Lookup.DisplayCount = 4
+      Lookup.Enabled = False
+      Lookup.History = False
+      Lookup.NumChars = 2
+      Lookup.Multi = False
+      Lookup.Separator = ';'
+      Persistence.Enable = False
+      Persistence.Location = plInifile
+      Color = clWhite
+      Enabled = True
+      HintShowLargeText = False
+      OleDropTarget = False
+      OleDropSource = False
+      Signed = False
+      TabOrder = 4
+      Text = '0,00'
+      Transparent = False
+      Visible = True
       OnKeyPress = FormKeyPress
     end
-    object edtNomorsosales: TAdvEdit
-      Left = 784
+    object edtKeterangan: TAdvEdit
+      Left = 129
       Top = 72
-      Width = 121
+      Width = 445
       Height = 21
       AutoFocus = False
       EditAlign = eaLeft
@@ -446,46 +413,21 @@ object frmPesanan: TfrmPesanan
       OleDropTarget = False
       OleDropSource = False
       Signed = False
-      TabOrder = 10
+      TabOrder = 3
       Transparent = False
-      Visible = False
-    end
-    object chkEceran: TCheckBox
-      Left = 912
-      Top = 8
-      Width = 97
-      Height = 17
-      Caption = 'Eceran'
-      TabOrder = 11
-      OnClick = chkPajakClick
+      Visible = True
       OnKeyPress = FormKeyPress
-    end
-    object cxLookupSalesAktif: TcxExtLookupComboBox
-      Left = 130
-      Top = 72
-      Properties.ImmediatePost = True
-      Properties.ReadOnly = False
-      Properties.OnChange = cxLookupSalesAktifPropertiesChange
-      Style.Color = clWindow
-      Style.LookAndFeel.Kind = lfFlat
-      Style.TransparentBorder = True
-      StyleDisabled.LookAndFeel.Kind = lfFlat
-      StyleFocused.LookAndFeel.Kind = lfFlat
-      StyleHot.LookAndFeel.Kind = lfFlat
-      TabOrder = 12
-      OnKeyPress = FormKeyPress
-      Width = 215
     end
   end
   object AdvPanel3: TAdvPanel
     Left = 0
     Top = 501
-    Width = 1121
+    Width = 1008
     Height = 35
     Align = alBottom
     BevelInner = bvRaised
     Color = clWhite
-    TabOrder = 3
+    TabOrder = 2
     UseDockManager = True
     AnchorHint = False
     AutoSize.Enabled = False
@@ -545,7 +487,7 @@ object frmPesanan: TfrmPesanan
     URLColor = clBlue
     FullHeight = 0
     object cxButton8: TcxButton
-      Left = 1032
+      Left = 919
       Top = 2
       Width = 87
       Height = 31
@@ -685,63 +627,16 @@ object frmPesanan: TfrmPesanan
       LookAndFeel.Kind = lfStandard
       LookAndFeel.SkinName = 'LondonLiquidSky'
     end
-    object cxButton3: TcxButton
-      Left = 209
-      Top = 2
-      Width = 104
-      Height = 31
-      Caption = '&Simpan && Cetak'
-      TabOrder = 3
-      OnClick = cxButton3Click
-      Align = alLeft
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        20000000000000040000C40E0000C40E00000000000000000000BA6A368FB969
-        35B5B86935EEB76835FFB56835FFB46734FFB26634FFB06533FFAE6433FFAC63
-        32FFAA6232FFA96132FFA86031FFA76031FEA66031F1A86131C4BA6A35DEEBC6
-        ADFFEAC5ADFFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFB
-        F8FFFEFBF8FFFEFBF8FFFEFBF8FFC89A7CFFC79879FFA76031EDBA6B37FEEDCA
-        B3FFE0A27AFFFEFAF7FF62C088FF62C088FF62C088FF62C088FF62C088FF62C0
-        88FF62C088FF62C088FFFDF9F6FFCA8D65FFC99B7CFFA76031FEBB6C38FFEECC
-        B6FFE1A27AFFFEFAF7FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDC
-        C2FFBFDCC2FFBFDCC2FFFDF9F6FFCD9068FFCC9E81FFA86132FFBB6B38FFEFCE
-        B8FFE1A279FFFEFAF7FF62C088FF62C088FF62C088FF62C088FF62C088FF62C0
-        88FF62C088FF62C088FFFDF9F6FFCF936AFFCEA384FFAA6132FFBA6A36FFEFD0
-        BBFFE2A27AFFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFB
-        F8FFFEFBF8FFFEFBF8FFFEFBF8FFD3966DFFD2A78AFFAB6232FFBB6A36FFF0D2
-        BEFFE2A37AFFE2A37AFFE1A37AFFE2A37BFFE1A37BFFE0A178FFDE9F77FFDD9F
-        76FFDC9D74FFD99B72FFD89971FFD69970FFD5AB8EFFAD6333FFBB6A36FFF2D5
-        C2FFE3A37AFFE3A37AFFE2A37BFFE2A37BFFE2A47BFFE1A279FFE0A178FFDEA0
-        77FFDE9E75FFDC9D74FFDA9B73FFD99B73FFDAB095FFAF6433FFBB6A36FFF2D8
-        C5FFE3A47BFFE3A37AFFE3A47AFFE2A47BFFE2A37BFFE1A37BFFE1A279FFDFA0
-        77FFDE9F76FFDD9E74FFDB9C72FFDC9D74FFDDB59AFFB16534FFBB6B36FFF4D9
-        C7FFE6A67DFFC88C64FFC98D65FFC98E67FFCB926CFFCB926DFFCA9069FFC88C
-        65FFC88C64FFC88C64FFC88C64FFDA9C74FFE1BA9FFFB36634FFBB6B36FEF4DC
-        C9FFE7A77DFFF9ECE1FFF9ECE1FFF9EDE3FFFCF4EEFFFDFAF7FFFDF7F3FFFAED
-        E5FFF7E7DBFFF7E5D9FFF6E5D8FFDEA077FFE4BEA4FFB46734FFBC6B36FAF5DD
-        CCFFE7A87EFFFAF0E8FFFAF0E8FFC98D66FFFAF0E9FFFDF8F3FFFEFAF8FFFCF4
-        EFFFF9E9DFFFF7E7DBFFF7E5D9FFE0A278FFE7C2A9FFB66835FFBC6B36F0F6DF
-        D0FFE8A87EFFFCF6F1FFFCF6F1FFC88C64FFFAF1E9FFFBF4EEFFFDFAF7FFFDF9
-        F6FFFAF0E8FFF8E8DDFFF7E6DBFFE1A37AFFEFD5C3FFB76935FEBC6B36D8F6DF
-        D1FFE9AA80FFFEFAF6FFFDFAF6FFC88C64FFFBF3EEFFFBF1EAFFFCF6F2FFFEFB
-        F8FFFCF6F1FFF9ECE2FFF8E7DBFFEED0BAFFECD0BDFFBB703EF8BC6B369BF6E0
-        D1FFF7E0D1FFFEFBF8FFFEFBF7FFFDF9F6FFFCF5F0FFFAF0EAFFFBF2EDFFFDF9
-        F6FFFDFAF7FFFBF1EBFFF8E9DFFEECD0BDFBC9895EECB5693563BC6B3671BC6B
-        3690BC6B36CCBC6B36EEBC6B36FABB6B36FEBB6B36FFBB6A36FFBB6A36FFBC6C
-        39FFBD6E3BFFBB6D3AFFBB6B38EFBB703ECBB6693554FFFFFF00}
-      LookAndFeel.Kind = lfStandard
-      LookAndFeel.SkinName = 'LondonLiquidSky'
-    end
   end
   object AdvPanel2: TAdvPanel
     Left = 0
     Top = 0
-    Width = 1121
+    Width = 1008
     Height = 41
     Align = alTop
     BevelInner = bvRaised
     Color = clWhite
-    TabOrder = 4
+    TabOrder = 3
     UseDockManager = True
     AnchorHint = False
     AutoSize.Enabled = False
@@ -803,9 +698,9 @@ object frmPesanan: TfrmPesanan
     object lbljudul: TLabel
       Left = 15
       Top = 11
-      Width = 94
+      Width = 224
       Height = 19
-      Caption = 'Sales Order'
+      Caption = 'Pembayaran Fee Marketing'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -816,9 +711,9 @@ object frmPesanan: TfrmPesanan
   end
   object AdvPanel4: TAdvPanel
     Left = 0
-    Top = 145
-    Width = 1121
-    Height = 265
+    Top = 153
+    Width = 1008
+    Height = 348
     Align = alClient
     BevelInner = bvRaised
     Color = clWhite
@@ -881,11 +776,11 @@ object frmPesanan: TfrmPesanan
     TopIndent = 0
     URLColor = clBlue
     FullHeight = 0
-    object cxGrid: TcxGrid
+    object te: TcxGrid
       Left = 2
       Top = 2
-      Width = 1117
-      Height = 261
+      Width = 1004
+      Height = 344
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -899,6 +794,7 @@ object frmPesanan: TfrmPesanan
       LookAndFeel.NativeStyle = False
       object cxGrdMain: TcxGridDBTableView
         NavigatorButtons.ConfirmDelete = False
+        OnCellDblClick = cxGrdMainCellDblClick
         DataController.Filter.Options = [fcoCaseInsensitive]
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <
@@ -907,7 +803,14 @@ object frmPesanan: TfrmPesanan
           item
             Format = ',0;(,0)'
             Kind = skSum
-            Column = clTotal
+            Column = clBayar
+          end
+          item
+          end
+          item
+            Format = ',0;(,0)'
+            Kind = skSum
+            Column = clKontrak
           end>
         DataController.Summary.SummaryGroups = <>
         DataController.Summary.OnAfterSummary = cxGrdMainDataControllerSummaryAfterSummary
@@ -916,7 +819,6 @@ object frmPesanan: TfrmPesanan
         OptionsBehavior.FocusCellOnCycle = True
         OptionsCustomize.ColumnHiding = True
         OptionsCustomize.ColumnSorting = False
-        OptionsData.Appending = True
         OptionsData.CancelOnExit = False
         OptionsData.Deleting = False
         OptionsData.DeletingConfirmation = False
@@ -933,86 +835,74 @@ object frmPesanan: TfrmPesanan
           Options.Focusing = False
           Width = 36
         end
-        object clSKU: TcxGridDBColumn
-          DataBinding.FieldName = 'SKU'
-          PropertiesClassName = 'TcxExtLookupComboBoxProperties'
-          Properties.DropDownAutoSize = True
-          Properties.ImmediatePost = True
-          Properties.OnEditValueChanged = clSKUPropertiesEditValueChanged
-          Properties.OnValidate = rorte
-          HeaderAlignmentVert = vaCenter
-          Width = 95
-        end
-        object clNamaBarang: TcxGridDBColumn
-          Caption = 'Nama Barang'
-          DataBinding.FieldName = 'SKU'
-          PropertiesClassName = 'TcxExtLookupComboBoxProperties'
+        object clInvoice: TcxGridDBColumn
+          Caption = 'Faktur Penjualan'
+          DataBinding.FieldName = 'INVOICE'
+          PropertiesClassName = 'TcxTextEditProperties'
+          Properties.ReadOnly = True
           HeaderAlignmentVert = vaCenter
           Options.Editing = False
           Options.Focusing = False
-          Width = 210
+          Width = 151
         end
-        object clQTY: TcxGridDBColumn
-          DataBinding.FieldName = 'QTY'
-          PropertiesClassName = 'TcxSpinEditProperties'
-          Properties.OnEditValueChanged = clQTYPropertiesEditValueChanged
+        object clTglInvoice: TcxGridDBColumn
+          Caption = 'Tanggal Faktur'
+          DataBinding.FieldName = 'Tanggal'
+          PropertiesClassName = 'TcxDateEditProperties'
+          HeaderAlignmentVert = vaCenter
+          Options.Editing = False
+          Options.Focusing = False
+          Width = 107
+        end
+        object clJthTempo: TcxGridDBColumn
+          Caption = 'Jatuh Tempo'
+          DataBinding.FieldName = 'JthTempo'
+          PropertiesClassName = 'TcxDateEditProperties'
+          Properties.ReadOnly = True
           HeaderAlignmentHorz = taCenter
           HeaderAlignmentVert = vaCenter
-          Width = 72
+          Options.Editing = False
+          Options.Focusing = False
+          Width = 118
         end
-        object clSatuan: TcxGridDBColumn
-          Caption = 'Satuan'
-          DataBinding.FieldName = 'satuan'
+        object clKontrak: TcxGridDBColumn
+          Caption = 'Fee Marketing'
+          DataBinding.FieldName = 'biaya_promosi'
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 105
+        end
+        object clBayar: TcxGridDBColumn
+          DataBinding.FieldName = 'Bayar'
+          PropertiesClassName = 'TcxCurrencyEditProperties'
+          Properties.Alignment.Horz = taRightJustify
+          Properties.DisplayFormat = ',0.00;(,0.00)'
+          Properties.ReadOnly = False
+          Properties.OnEditValueChanged = clBayarPropertiesEditValueChanged
+          Properties.OnValidate = clBayarPropertiesValidate
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 113
+        end
+        object clStatus: TcxGridDBColumn
+          Caption = 'Pay'
+          DataBinding.FieldName = 'pay'
+          PropertiesClassName = 'TcxCheckBoxProperties'
+          Properties.ValueChecked = 1
+          Properties.ValueUnchecked = 0
+          Properties.OnEditValueChanged = clStatusPropertiesEditValueChanged
+          HeaderAlignmentHorz = taCenter
+          HeaderAlignmentVert = vaCenter
+          Width = 50
+        end
+        object clstatusBayar: TcxGridDBColumn
+          Caption = 'Status Bayar'
+          DataBinding.FieldName = 'status'
           PropertiesClassName = 'TcxTextEditProperties'
           Properties.ReadOnly = True
           GroupSummaryAlignment = taCenter
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-        end
-        object clHarga: TcxGridDBColumn
-          DataBinding.FieldName = 'Harga'
-          PropertiesClassName = 'TcxButtonEditProperties'
-          Properties.Buttons = <
-            item
-              Default = True
-              Kind = bkEllipsis
-            end>
-          Properties.OnButtonClick = clHargaPropertiesButtonClick
-          Properties.OnEditValueChanged = clQTYPropertiesEditValueChanged
-          HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-          Width = 85
-        end
-        object clDisc: TcxGridDBColumn
-          Caption = 'Disc(%)'
-          DataBinding.FieldName = 'Disc'
-          PropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.Alignment.Horz = taRightJustify
-          Properties.DisplayFormat = ',0.00;(,0.00)'
-          Properties.OnEditValueChanged = clQTYPropertiesEditValueChanged
-          Properties.OnValidate = clDiscPropertiesValidate
-          HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-        end
-        object clTotal: TcxGridDBColumn
-          DataBinding.FieldName = 'Total'
-          PropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.Alignment.Horz = taRightJustify
-          Properties.DisplayFormat = ',0.00;(,0.00)'
-          HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-          Options.Editing = False
-          Options.Focusing = False
-          Width = 95
-        end
-        object clKet: TcxGridDBColumn
-          DataBinding.FieldName = 'Keterangan'
-          PropertiesClassName = 'TcxTextEditProperties'
-          Properties.CharCase = ecUpperCase
-          Properties.OnValidate = clKetPropertiesValidate
-          HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
-          Width = 188
+          Width = 109
         end
       end
       object cxGrdDetail: TcxGridDBTableView
@@ -1033,572 +923,26 @@ object frmPesanan: TfrmPesanan
       end
     end
   end
-  object AdvPanel5: TAdvPanel
-    Left = 0
-    Top = 410
-    Width = 1121
-    Height = 91
-    Align = alBottom
-    BevelInner = bvRaised
-    Color = clWhite
-    TabOrder = 2
-    UseDockManager = True
-    AnchorHint = False
-    AutoSize.Enabled = False
-    AutoSize.Height = True
-    AutoSize.Width = True
-    AutoHideChildren = True
-    BackgroundPosition = bpTopLeft
-    BorderColor = clBlack
-    BorderShadow = False
-    Buffered = True
-    CanMove = False
-    CanSize = False
-    Caption.ButtonPosition = cbpRight
-    Caption.Color = clHighlight
-    Caption.ColorTo = clNone
-    Caption.CloseColor = clBtnFace
-    Caption.CloseButton = False
-    Caption.CloseButtonColor = clWhite
-    Caption.Flat = False
-    Caption.Font.Charset = DEFAULT_CHARSET
-    Caption.Font.Color = clHighlightText
-    Caption.Font.Height = -11
-    Caption.Font.Name = 'MS Sans Serif'
-    Caption.Font.Style = []
-    Caption.Height = 20
-    Caption.Indent = 0
-    Caption.MinMaxButton = False
-    Caption.MinMaxButtonColor = clWhite
-    Caption.ShadeLight = 200
-    Caption.ShadeGrain = 32
-    Caption.ShadeType = stNormal
-    Caption.Shape = csRectangle
-    Caption.TopIndent = 0
-    Caption.Visible = False
-    Collaps = False
-    CollapsColor = clGray
-    CollapsDelay = 20
-    CollapsSteps = 0
-    ColorTo = clNone
-    FixedTop = False
-    FixedLeft = False
-    FixedHeight = False
-    FixedWidth = False
-    FreeOnClose = False
-    Hover = False
-    HoverColor = clNone
-    HoverFontColor = clNone
-    Indent = 0
-    LineSpacing = 0
-    Position.Save = False
-    Position.Location = clRegistry
-    ShadowColor = clGray
-    ShadowOffset = 2
-    ShowMoveCursor = False
-    TextVAlign = tvaTop
-    TopIndent = 0
-    URLColor = clBlue
-    FullHeight = 0
-    object Label7: TLabel
-      Left = 546
-      Top = 12
-      Width = 41
-      Height = 13
-      Caption = 'Discount'
-    end
-    object Label8: TLabel
-      Left = 634
-      Top = 12
-      Width = 11
-      Height = 13
-      Caption = '%'
-    end
-    object Label9: TLabel
-      Left = 770
-      Top = 12
-      Width = 8
-      Height = 13
-      Caption = '='
-    end
-    object Label10: TLabel
-      Left = 26
-      Top = 14
-      Width = 28
-      Height = 13
-      Caption = 'Memo'
-    end
-    object Label11: TLabel
-      Left = 698
-      Top = 36
-      Width = 26
-      Height = 13
-      Caption = 'Pajak'
-    end
-    object Label12: TLabel
-      Left = 698
-      Top = 60
-      Width = 29
-      Height = 13
-      Caption = 'Total'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label13: TLabel
-      Left = 654
-      Top = 12
-      Width = 9
-      Height = 13
-      Caption = '+'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label14: TLabel
-      Left = 23
-      Top = 64
-      Width = 63
-      Height = 13
-      Caption = 'Uang Muka'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label15: TLabel
-      Left = 221
-      Top = 64
-      Width = 53
-      Height = 13
-      Caption = 'Rekening'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object edtmemo: TMemo
-      Left = 97
-      Top = 12
-      Width = 429
-      Height = 46
-      TabOrder = 0
-      OnKeyPress = FormKeyPress
-    end
-    object edtDiscpr: TAdvEdit
-      Left = 600
-      Top = 8
-      Width = 33
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaRight
-      EditType = etFloat
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 2
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      HintShowLargeText = False
-      OleDropTarget = False
-      OleDropSource = False
-      Signed = False
-      TabOrder = 1
-      Text = '0,00'
-      Transparent = False
-      Visible = True
-      OnExit = edtDiscprExit
-      OnKeyPress = FormKeyPress
-    end
-    object edtDiscFaktur: TAdvEdit
-      Left = 784
-      Top = 8
-      Width = 121
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaRight
-      EditType = etMoney
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 2
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      HintShowLargeText = False
-      OleDropTarget = False
-      OleDropSource = False
-      ReadOnly = True
-      Signed = False
-      TabOrder = 3
-      Text = '0,00'
-      Transparent = False
-      Visible = True
-      OnExit = edtDiscFakturExit
-      OnKeyPress = FormKeyPress
-    end
-    object edtPPN: TAdvEdit
-      Left = 784
-      Top = 32
-      Width = 121
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaRight
-      EditType = etMoney
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 2
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      HintShowLargeText = False
-      OleDropTarget = False
-      OleDropSource = False
-      ReadOnly = True
-      Signed = False
-      TabOrder = 4
-      Text = '0,00'
-      Transparent = False
-      Visible = True
-      OnKeyPress = FormKeyPress
-    end
-    object edtTotal: TAdvEdit
-      Left = 784
-      Top = 56
-      Width = 121
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaRight
-      EditType = etMoney
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 2
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      HintShowLargeText = False
-      ParentFont = False
-      OleDropTarget = False
-      OleDropSource = False
-      ReadOnly = True
-      Signed = False
-      TabOrder = 5
-      Text = '0,00'
-      Transparent = False
-      Visible = True
-      OnKeyPress = FormKeyPress
-    end
-    object edtDisc: TAdvEdit
-      Left = 680
-      Top = 8
-      Width = 81
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaRight
-      EditType = etMoney
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 2
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      HintShowLargeText = False
-      OleDropTarget = False
-      OleDropSource = False
-      Signed = False
-      TabOrder = 2
-      Text = '0,00'
-      Transparent = False
-      Visible = True
-      OnExit = edtDiscFakturExit
-      OnKeyPress = FormKeyPress
-    end
-    object edtDP: TAdvEdit
-      Left = 97
-      Top = 60
-      Width = 97
-      Height = 21
-      AutoFocus = False
-      EditAlign = eaRight
-      EditType = etMoney
-      ErrorMarkerPos = 0
-      ErrorMarkerLen = 0
-      ErrorColor = clRed
-      ErrorFontColor = clWhite
-      ExcelStyleDecimalSeparator = False
-      Flat = False
-      FlatLineColor = clBlack
-      FlatParentColor = True
-      FocusAlign = eaDefault
-      FocusBorder = False
-      FocusColor = clWindow
-      FocusFontColor = clWindowText
-      FocusLabel = False
-      FocusWidthInc = 0
-      ModifiedColor = clHighlight
-      DisabledColor = clSilver
-      URLColor = clBlue
-      ReturnIsTab = False
-      LengthLimit = 0
-      TabOnFullLength = False
-      Precision = 2
-      LabelPosition = lpLeftTop
-      LabelMargin = 4
-      LabelTransparent = False
-      LabelAlwaysEnabled = False
-      LabelFont.Charset = DEFAULT_CHARSET
-      LabelFont.Color = clWindowText
-      LabelFont.Height = -11
-      LabelFont.Name = 'MS Sans Serif'
-      LabelFont.Style = []
-      Lookup.CaseSensitive = False
-      Lookup.Color = clWindow
-      Lookup.DisplayCount = 4
-      Lookup.Enabled = False
-      Lookup.History = False
-      Lookup.NumChars = 2
-      Lookup.Multi = False
-      Lookup.Separator = ';'
-      Persistence.Enable = False
-      Persistence.Location = plInifile
-      Color = clWindow
-      Enabled = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      HintShowLargeText = False
-      ParentFont = False
-      OleDropTarget = False
-      OleDropSource = False
-      Signed = False
-      TabOrder = 6
-      Text = '0,00'
-      Transparent = False
-      Visible = True
-      OnKeyPress = FormKeyPress
-    end
-    object cxLookupRekening: TcxExtLookupComboBox
-      Left = 282
-      Top = 60
-      Properties.ImmediatePost = True
-      Style.Color = clWindow
-      Style.LookAndFeel.Kind = lfFlat
-      Style.TransparentBorder = True
-      StyleDisabled.LookAndFeel.Kind = lfFlat
-      StyleFocused.LookAndFeel.Kind = lfFlat
-      StyleHot.LookAndFeel.Kind = lfFlat
-      TabOrder = 7
-      OnKeyPress = FormKeyPress
-      Width = 246
-    end
-  end
   object PopupMenu1: TPopupMenu
     Left = 120
     Top = 217
-    object HapusRecord1: TMenuItem
-      Caption = 'Hapus Record'
-      OnClick = HapusRecord1Click
+    object LihatFakturPenjualan1: TMenuItem
+      Caption = 'Lihat Faktur Penjualan'
+      OnClick = LihatFakturPenjualan1Click
     end
   end
-  object MyQuery1: TMyQuery
-    Connection = frmBantuan2.MyConnection1
-    Left = 712
-    Top = 241
+  object cxStyleRepository1: TcxStyleRepository
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svColor]
+      Color = clGradientActiveCaption
+    end
+  end
+  object cxStyleRepository2: TcxStyleRepository
+    PixelsPerInch = 96
+    object cxStyle2: TcxStyle
+      AssignedValues = [svColor]
+      Color = clYellow
+    end
   end
 end

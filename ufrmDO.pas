@@ -1238,7 +1238,7 @@ begin
        + ' inner join tcustomer on trim(so_cus_kode)=trim(cus_kode) '
 
 ///       + ' inner join tgudang on gdg_kode=DO_gdg_kode '
-       + ' left join tsalesman on sls_kode=so_sls_kode '
+       + ' left join tsalesmanaktif on sla_kode=so_sla_kode '
        + ' left join  tdo_dtl on do_nomor=dod_do_nomor '
        + ' left join tbarang on dod_brg_kode=brg_kode '
        + ' left join tgudang on gdg_kode=dod_gdg_kode '
@@ -1255,7 +1255,7 @@ begin
     begin
       memo.Lines.Add(StrPadRight('Nomor      : '+fieldbyname('DO_nomor').AsString, 60, ' ')+ ' ' + StrPadRight('Customer : '+ fieldbyname('cus_nama').AsString, 60, ' '));
       memo.Lines.Add(StrPadRight('Tanggal    : '+FormatDateTime('dd/mm/yyyy',fieldbyname('do_tanggal').AsDateTime), 60, ' ')+ ' ' + StrPadRight(fieldbyname('cus_alamat').AsString, 60, ' '));
-      memo.Lines.Add(StrPadRight('Kirim ke   :'+fieldbyname('do_shipaddress').AsString, 60, ' ')+ StrPadRight(' Salesman : '+fieldbyname('sls_nama').AsString, 60, ' '));
+      memo.Lines.Add(StrPadRight('Kirim ke   :'+fieldbyname('do_shipaddress').AsString, 60, ' ')+ StrPadRight(' Salesman : '+fieldbyname('sla_nama').AsString, 60, ' '));
 
       memo.Lines.Add(StrPadRight('', 120, '-'));
       memo.Lines.Add(StrPadRight('No', 3, ' ')+' '

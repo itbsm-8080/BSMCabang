@@ -10297,6 +10297,9 @@ object frmMenu: TfrmMenu
               Item = dxbayarbiayapromosi
             end
             item
+              Item = dxBayarFeeMarketing
+            end
+            item
               Item = dxReturPenjualan
             end
             item
@@ -10601,6 +10604,10 @@ object frmMenu: TfrmMenu
           Tag = 107
           Caption = 'Setting Fee Marketing'
           OnClick = dxSettingFeeMarketingClick
+        end
+        object dxBayarFeeMarketing: TdxNavBarItem
+          Caption = 'Fee Marketing'
+          OnClick = dxBayarFeeMarketingClick
         end
       end
     end

@@ -159,20 +159,25 @@ object frmKomisisalesman: TfrmKomisisalesman
             Styles.ContentOdd = cxStyle1
             Bands = <
               item
-                Caption = 'Salesman'
+                Caption = 'Rayon'
                 Styles.Header = cxstyl1
                 Width = 189
               end
               item
+                Caption = 'Salesman'
+                Styles.Header = cxstyl1
+                Width = 180
+              end
+              item
                 Caption = 'Target'
-                Position.BandIndex = 3
+                Position.BandIndex = 4
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 86
               end
               item
                 Caption = 'Realisasi'
-                Position.BandIndex = 3
+                Position.BandIndex = 4
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 120
@@ -184,14 +189,14 @@ object frmKomisisalesman: TfrmKomisisalesman
               end
               item
                 Caption = 'Target'
-                Position.BandIndex = 8
+                Position.BandIndex = 9
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 89
               end
               item
                 Caption = 'Realisasi Tempo'
-                Position.BandIndex = 8
+                Position.BandIndex = 9
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 103
@@ -212,72 +217,82 @@ object frmKomisisalesman: TfrmKomisisalesman
               end
               item
                 Caption = 'Realisasi All'
-                Position.BandIndex = 8
+                Position.BandIndex = 9
                 Position.ColIndex = 3
                 Styles.Header = cxstyl1
                 Width = 90
               end
               item
                 Caption = '%'
-                Position.BandIndex = 3
+                Position.BandIndex = 4
                 Position.ColIndex = 2
                 Styles.Header = cxstyl1
                 Width = 51
               end
               item
                 Caption = '%'
-                Position.BandIndex = 8
+                Position.BandIndex = 9
                 Position.ColIndex = 4
                 Styles.Header = cxstyl1
                 Width = 49
               end
               item
                 Caption = '%'
-                Position.BandIndex = 8
+                Position.BandIndex = 9
                 Position.ColIndex = 2
                 Styles.Header = cxstyl1
                 Width = 51
               end
               item
                 Caption = 'Realisasi'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 80
               end
               item
                 Caption = '%'
-                Position.BandIndex = 7
+                Position.BandIndex = 8
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
               end
               item
                 Caption = 'Target'
-                Position.BandIndex = 6
+                Position.BandIndex = 7
                 Position.ColIndex = 0
                 Styles.Header = cxstyl1
                 Width = 86
               end
               item
                 Caption = 'Realisasi'
-                Position.BandIndex = 6
+                Position.BandIndex = 7
                 Position.ColIndex = 1
                 Styles.Header = cxstyl1
                 Width = 120
               end
               item
                 Caption = '%'
-                Position.BandIndex = 6
+                Position.BandIndex = 7
                 Position.ColIndex = 2
                 Styles.Header = cxstyl1
                 Width = 51
               end>
-            object clsalesman: TcxGridDBBandedColumn
+            object clRayon: TcxGridDBBandedColumn
               DataBinding.FieldName = 'Nama'
               Options.Editing = False
               SortIndex = 0
               SortOrder = soAscending
               Position.BandIndex = 0
+              Position.ColIndex = 0
+              Position.RowIndex = 0
+              IsCaptionAssigned = True
+            end
+            object clSalesman: TcxGridDBBandedColumn
+              DataBinding.FieldName = 'Salesman'
+              Options.Editing = False
+              SortIndex = 2
+              SortOrder = soAscending
+              Position.BandIndex = 1
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -289,7 +304,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               Options.Editing = False
               SortIndex = 1
               SortOrder = soAscending
-              Position.BandIndex = 1
+              Position.BandIndex = 2
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -299,7 +314,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 2
+              Position.BandIndex = 3
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -308,7 +323,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Piutang'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
-              Position.BandIndex = 4
+              Position.BandIndex = 5
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -317,7 +332,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Realisasi'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
-              Position.BandIndex = 5
+              Position.BandIndex = 6
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -327,7 +342,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Properties.ReadOnly = True
-              Position.BandIndex = 9
+              Position.BandIndex = 10
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -336,7 +351,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Presentase2'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
-              Position.BandIndex = 10
+              Position.BandIndex = 11
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -346,7 +361,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
               Options.Editing = False
-              Position.BandIndex = 11
+              Position.BandIndex = 12
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -355,7 +370,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Persentase'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
-              Position.BandIndex = 12
+              Position.BandIndex = 13
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -365,7 +380,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Properties.OnEditValueChanged = clPFPropertiesEditValueChanged
-              Position.BandIndex = 13
+              Position.BandIndex = 14
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -374,7 +389,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'ratiopf'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
-              Position.BandIndex = 14
+              Position.BandIndex = 15
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -384,7 +399,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
               Options.Editing = False
-              Position.BandIndex = 16
+              Position.BandIndex = 17
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -393,7 +408,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               DataBinding.FieldName = 'Target_Jual_Other'
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0;(,0)'
-              Position.BandIndex = 15
+              Position.BandIndex = 16
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -403,7 +418,7 @@ object frmKomisisalesman: TfrmKomisisalesman
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00;(,0.00)'
               Options.Editing = False
-              Position.BandIndex = 17
+              Position.BandIndex = 18
               Position.ColIndex = 0
               Position.RowIndex = 0
               IsCaptionAssigned = True
@@ -4427,17 +4442,17 @@ object frmKomisisalesman: TfrmKomisisalesman
     Top = 432
     object cxVCLPrinterChart: TdxGridReportLink
       PrinterPage.DMPaper = 1
-      PrinterPage.Footer = 200
+      PrinterPage.Footer = 5080
       PrinterPage.GrayShading = True
-      PrinterPage.Header = 200
-      PrinterPage.Margins.Bottom = 500
-      PrinterPage.Margins.Left = 500
-      PrinterPage.Margins.Right = 500
-      PrinterPage.Margins.Top = 500
-      PrinterPage.PageSize.X = 8500
-      PrinterPage.PageSize.Y = 11000
+      PrinterPage.Header = 5080
+      PrinterPage.Margins.Bottom = 12700
+      PrinterPage.Margins.Left = 12700
+      PrinterPage.Margins.Right = 12700
+      PrinterPage.Margins.Top = 12700
+      PrinterPage.PageSize.X = 215900
+      PrinterPage.PageSize.Y = 279400
       PrinterPage._dxMeasurementUnits_ = 0
-      PrinterPage._dxLastMU_ = 1
+      PrinterPage._dxLastMU_ = 2
       BuiltInReportLink = True
     end
   end

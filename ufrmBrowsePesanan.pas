@@ -65,11 +65,11 @@ implementation
 procedure TfrmBrowsePesanan.btnRefreshClick(Sender: TObject);
 begin
   Self.SQLMaster := 'select so_nomor Nomor,so_tanggal Tanggal ,so_Memo Memo ,cus_nama  Customer,if(so_isclosed=0,"Belum","Sudah") Closed, '
-                  + ' so_amount Total,so_taxamount Ppn,sls_nama Salesman,if(so_iskirim=0,"Belum","Sudah") Kirim,if(so_isecer=0,"Tidak","Ya") Eceran,'
+                  + ' so_amount Total,so_taxamount Ppn,sla_nama Salesman,if(so_iskirim=0,"Belum","Sudah") Kirim,if(so_isecer=0,"Tidak","Ya") Eceran,'
                   + ' tso_hdr.User_create,tso_hdr.date_create '
                   + ' from tso_hdr'
                   + ' inner join tcustomer on cus_kode=so_cus_kode'
-                  + ' inner join tsalesman on sls_kode=so_sls_kode '
+                  + ' inner join tsalesmanaktif on sla_kode=so_sla_kode '
                   + ' where so_tanggal between ' + QuotD(startdate.DateTime) + ' and ' + QuotD(enddate.DateTime)
                   + ' group by so_nomor ,so_tanggal ,so_memo ,cus_nama ';
 

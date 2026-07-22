@@ -200,7 +200,12 @@ end;
 
 procedure TfrmCetakKunjungan.edtKodeClickBtn(Sender: TObject);
 begin
-  sqlbantuan := ' SELECT sls_kode Kode,sls_nama Nama from tsalesman ';
+//  sqlbantuan := ' SELECT sls_kode Kode,sls_nama Nama from tsalesman ';
+  sqlbantuan := ' SELECT kode, nama FROM ( '
+              + ' SELECT sls_kode Kode,(SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Nama '
+              + ' from tsalesman '
+              + ' ) a '
+              + ' WHERE Nama is NOT NULL';
   sqlfilter := 'Kode,Nama';
   Application.CreateForm(Tfrmbantuan,frmbantuan);
   frmBantuan.SQLMaster := SQLbantuan;

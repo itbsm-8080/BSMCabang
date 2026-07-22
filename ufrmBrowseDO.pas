@@ -57,10 +57,10 @@ implementation
 
 procedure TfrmBrowseDO.btnRefreshClick(Sender: TObject);
 begin
-  Self.SQLMaster := 'select do_nomor Nomor,do_tanggal Tanggal ,do_so_nomor Nomor_SO,sls_nama Salesman,cus_nama  Customer,if(do_isInvoice =0,"Belum","Sudah") Invoiced , do_iskembali Kembali'
+  Self.SQLMaster := 'select do_nomor Nomor,do_tanggal Tanggal ,do_so_nomor Nomor_SO,sla_nama Salesman,cus_nama  Customer,if(do_isInvoice =0,"Belum","Sudah") Invoiced , do_iskembali Kembali'
                   + ' from tdo_hdr'
                   + ' inner join tso_hdr on so_nomor=do_so_nomor'
-                  + ' inner join tsalesman on sls_kode=so_sls_kode '
+                  + ' inner join tsalesmanaktif on sla_kode=so_sla_kode '
                   + ' inner join tcustomer on cus_kode=so_cus_kode'
                   + ' where do_tanggal between ' + QuotD(startdate.DateTime) + ' and ' + QuotD(enddate.DateTime)
                   + ' group by do_nomor ,do_tanggal ,cus_nama ';

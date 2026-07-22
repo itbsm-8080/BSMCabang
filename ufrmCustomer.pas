@@ -463,7 +463,7 @@ begin
   with TcxExtLookupHelper(cxExtgolongan.Properties) do
     LoadFromCDS(CDSGolonganCustomer, 'Kode', 'Nama', ['Kode'], Self);
 
-    if frmMenu.KDUSER = 'FINANCE' then
+    if (UpperCase(frmMenu.KDUSER) = 'FINANCE') OR (UpperCase(frmMenu.KDUSER) = 'PIUTANG') then
       edtTOP.Enabled := True;
 end;
 
@@ -524,7 +524,12 @@ var
   s: String;
   tsql: TmyQuery;
 begin
-  sqlbantuan := 'select sls_kode Kode, sls_nama Salesman, sls_alamat Alamat from tsalesman';
+//  sqlbantuan := 'select sls_kode Kode, sls_nama Salesman, sls_alamat Alamat from tsalesman';
+    sqlbantuan := ' SELECT Kode, Nama, Alamat FROM ( '
+              + ' SELECT sls_kode Kode,(SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Nama, sls_alamat Alamat '
+              + ' from tsalesman '
+              + ' ) a '
+              + ' WHERE Nama is NOT NULL';
   Application.CreateForm(Tfrmbantuan, frmbantuan);
   frmBantuan.SQLMaster := SQLbantuan;
   frmBantuan.ShowModal;

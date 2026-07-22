@@ -1620,7 +1620,7 @@ begin
        + ' inner join tdo_hdr on do_nomor=fp_do_nomor'
        + ' inner join tso_hdr on so_nomor=do_so_nomor'
        + ' inner join tcustomer on so_cus_kode=cus_kode '
-       + ' inner join tsalesman on sls_kode=so_sls_kode '
+       + ' inner join tsalesmanaktif on sla_kode=so_sla_kode '
        + ' left join  tfp_dtl on fp_nomor=fpd_fp_nomor '
        + ' left join tbarang on fpd_brg_kode=brg_kode '
        + ' where '
@@ -1648,7 +1648,7 @@ begin
       memo.Lines.Add('PAK  : ' + StrPadRight(tsqlheader.Fields[5].AsString, 32, ' ')+StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime+30), 36, ' ')+ StrPadRight(copy(fieldbyname('cus_alamat').AsString,41,40), 45, ' '))
       else
       memo.Lines.Add('PAK  : ' + StrPadRight(tsqlheader.Fields[5].AsString, 32, ' ')+StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 36, ' ')+ StrPadRight(copy(fieldbyname('cus_alamat').AsString,41,40), 45, ' '));
-      memo.lines.add(StrPadRight('', 39, ' ')+ StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 36, ' ')+ StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 40, ' '));
+      memo.lines.add(StrPadRight('', 39, ' ')+ StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 36, ' ')+ StrPadRight('Salesman : '+ fieldbyname('sla_nama').AsString, 40, ' '));
       memo.Lines.Add(StrPadRight('', 120, '-'));
       memo.Lines.Add(StrPadRight('No', 3, ' ')+' '
                           +StrPadRight('Kode', 8, ' ')+' '
@@ -1708,7 +1708,7 @@ begin
           memo.Lines.Add('PAK  : ' + StrPadRight(tsqlheader.Fields[5].AsString, 32, ' ')+StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime+30), 36, ' ')+ StrPadRight(copy(fieldbyname('cus_alamat').AsString,41,40), 45, ' '))
           else
           memo.Lines.Add('PAK  : ' + StrPadRight(tsqlheader.Fields[5].AsString, 32, ' ')+StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 36, ' ')+ StrPadRight(copy(fieldbyname('cus_alamat').AsString,41,40), 45, ' '));
-          memo.lines.add(StrPadRight('', 39, ' ')+ StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 36, ' ')+ StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 20, ' '));
+          memo.lines.add(StrPadRight('', 39, ' ')+ StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 36, ' ')+ StrPadRight('Salesman : '+ fieldbyname('sla_nama').AsString, 20, ' '));
 
 //      memo.Lines.Add(StrPadRight('Nomor      : '+fieldbyname('FP_nomor').AsString, 60, ' ')+ ' ' + StrPadRight('Customer : '+ fieldbyname('cus_nama').AsString, 60, ' '));
 //      memo.Lines.Add(StrPadRight('Tanggal    : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime), 60, ' ')+ ' ' + StrPadRight(fieldbyname('cus_alamat').AsString, 60, ' '));
@@ -1872,7 +1872,7 @@ begin
        + ' inner join tdo_hdr on do_nomor=fp_do_nomor'
        + ' inner join tso_hdr on so_nomor=do_so_nomor'
        + ' inner join tcustomer on so_cus_kode=cus_kode '
-       + ' inner join tsalesman on sls_kode=so_sls_kode '
+       + ' inner join tsalesmanaktif on sla_kode=so_sla_kode '
        + ' left join  tfp_dtl on fp_nomor=fpd_fp_nomor '
        + ' left join tbarang on fpd_brg_kode=brg_kode '
        + ' LEFT JOIN tretj_hdr ON retj_fp_nomor=fp_nomor'
@@ -1900,9 +1900,9 @@ begin
       memo.Lines.Add(StrPadRight('Nomor      : '+fieldbyname('FP_nomor').AsString, 60, ' ')+ ' ' + StrPadRight('Customer : '+ fieldbyname('cus_nama').AsString, 60, ' '));
       memo.Lines.Add(StrPadRight('Tanggal    : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime), 60, ' ')+ ' ' + StrPadRight(fieldbyname('cus_alamat').AsString, 60, ' '));
       if fieldbyname('top').asinteger > 30 then
-      memo.Lines.Add(StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime+30), 60, ' ')+ ' ' + StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 30, ' ')+' ' + StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 28, ' '))
+      memo.Lines.Add(StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime+30), 60, ' ')+ ' ' + StrPadRight('Salesman : '+ fieldbyname('sla_nama').AsString, 30, ' ')+' ' + StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 28, ' '))
       else
-      memo.Lines.Add(StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 60, ' ')+ ' ' + StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 30, ' ')+' ' + StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 28, ' '));
+      memo.Lines.Add(StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 60, ' ')+ ' ' + StrPadRight('Salesman : '+ fieldbyname('sla_nama').AsString, 30, ' ')+' ' + StrPadRight('Memo : '+ fieldbyname('fp_memo').AsString, 28, ' '));
 
       memo.Lines.Add(StrPadRight('', 120, '-'));
       memo.Lines.Add(StrPadRight('No', 3, ' ')+' '
@@ -1966,7 +1966,7 @@ begin
 
       memo.Lines.Add(StrPadRight('Nomor      : '+fieldbyname('FP_nomor').AsString, 60, ' ')+ ' ' + StrPadRight('Customer : '+ fieldbyname('cus_nama').AsString, 60, ' '));
       memo.Lines.Add(StrPadRight('Tanggal    : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_tanggal').AsDateTime), 60, ' ')+ ' ' + StrPadRight(fieldbyname('cus_alamat').AsString, 60, ' '));
-      memo.Lines.Add(StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 60, ' ')+ ' ' + StrPadRight('Salesman : '+ fieldbyname('sls_nama').AsString, 60, ' '));
+      memo.Lines.Add(StrPadRight('Jth Tempo  : '+FormatDateTime('dd/mm/yyyy',fieldbyname('FP_jthtempo').AsDateTime), 60, ' ')+ ' ' + StrPadRight('Salesman : '+ fieldbyname('sla_nama').AsString, 60, ' '));
 
             memo.Lines.Add(StrPadRight('', 120, '-'));
             memo.Lines.Add(StrPadRight('No', 3, ' ')+' '

@@ -708,7 +708,7 @@ var
 begin
 
 if chkPajak.Checked then
-  s := ' select sls_nama Salesman,fp_nomor,fp_tanggal,fp_jthtempo,fp_taxamount,fp_amount,((fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp) Biaya_Promosi,FP_DP, '
+  s := ' select (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = so_sls_kode AND sla_isaktif = 1 limit 1) Salesman,fp_nomor,fp_tanggal,fp_jthtempo,fp_taxamount,fp_amount,((fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp) Biaya_Promosi,FP_DP, '
       + ' ifnull((select sum(retj_amount) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur, '
       + ' ifnull((select sum(retj_cn) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur_cn, '
       + ' ifnull(fp_bayar,0) Bayar ,if((fp_amount-fp_taxamount)>2000000,1.5*(fp_amount-fp_taxamount)/100,0) pph ,fp_amount-fp_taxamount dpp,fp_memo'
@@ -719,7 +719,7 @@ if chkPajak.Checked then
      + ' where fp_cus_kode = '+ Quot(akode)
      + ' and fp_istax = 1 '
 else
-  s := ' select sls_nama Salesman,fp_nomor,fp_tanggal,fp_jthtempo,fp_taxamount,fp_amount,((fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp) Biaya_Promosi,FP_DP, '
+  s := ' select (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = so_sls_kode AND sla_isaktif = 1 limit 1) Salesman,fp_nomor,fp_tanggal,fp_jthtempo,fp_taxamount,fp_amount,((fp_biayapr*(fp_amount-fp_taxamount)/100)+fp_biayarp) Biaya_Promosi,FP_DP, '
       + ' ifnull((select sum(retj_amount) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur, '
       + ' ifnull((select sum(retj_cn) from tretj_hdr where retj_fp_nomor=fp_nomor),0) retur_cn, '
       + ' ifnull(fp_bayar,0) Bayar ,0 pph,0 dpp,fp_memo'

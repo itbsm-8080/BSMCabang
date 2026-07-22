@@ -158,6 +158,7 @@ type
     cxStyle5: TcxStyle;
     Shape1: TShape;
     cxLabel1: TcxLabel;
+    cxGrid1DBBandedTableView1Column30: TcxGridDBBandedColumn;
 
     procedure FormDblClick(Sender: TObject);
     procedure btnExitClick(Sender: TObject);
@@ -398,7 +399,7 @@ begin
         + ' ON sls_kode=st_sls_kode '
         + ' WHERE st_tahun='+ edttahun.text;  }
 
-  ssql := 'SELECT distinct sls_kode,sls_nama salesman,CAST(0 AS DECIMAL(15,2)) targetbulanini,CAST(0 AS DECIMAL(15,2)) targetsdbulanini, '
+  ssql := 'SELECT distinct sls_kode,sls_nama rayon, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1) salesman, CAST(0 AS DECIMAL(15,2)) targetbulanini,CAST(0 AS DECIMAL(15,2)) targetsdbulanini, '
         + ' cast(0 as decimal(5,2)) pfratio,cast(0 as decimal(5,2)) growth,cast(0 as decimal(5,2)) growth2,cast(0 as decimal) riilbulaninilalu, '
         + ' cast(0 as decimal) riilsdbulaniniLalu,cast(0 as decimal) targettahunan,cast(0 as decimal(5,2)) ratio, '
         + ' cast(0 as decimal(5,2)) ratiopiutang,cast(0 as decimal) targetpiutang,cast(0 as decimal) realisasipiutang, '
@@ -416,7 +417,7 @@ begin
         ds3.open;
 
   //==== TARGET
-  ssql := 'SELECT sls_nama salesman,st_targetsales target FROM tsalesmantarget inner join tsalesman on sls_kode=st_sls_kode WHERE st_periode='+IntToStr(cbbBulan.itemindex+1 )+' AND st_tahun='+ edttahun.text;
+  ssql := 'SELECT sls_nama rayon,st_targetsales target FROM tsalesmantarget inner join tsalesman on sls_kode=st_sls_kode WHERE st_periode='+IntToStr(cbbBulan.itemindex+1 )+' AND st_tahun='+ edttahun.text;
   tsql := xOpenQuery(ssql,frmMenu.conn);
 
   with tsql do
@@ -424,8 +425,8 @@ begin
     try
       while not eof do
       begin
-        ds3.IndexFieldNames := 'salesman';
-        if ds3.findkey([FieldByName('salesman').AsString]) then
+        ds3.IndexFieldNames := 'rayon';
+        if ds3.findkey([FieldByName('rayon').AsString]) then
         begin
           If ds3.State <> dsEdit then ds3.Edit;
           ds3.FieldByName('targetBulanini').AsFloat := FieldByName('target').AsFloat/1000;
@@ -438,7 +439,7 @@ begin
   end;
 
  //==== TARGET sd BULAN INI
-  ssql := 'SELECT sls_nama salesman,sum(st_targetsales) targetsdbulanini '
+  ssql := 'SELECT sls_nama rayon,sum(st_targetsales) targetsdbulanini '
         + ' FROM tsalesmantarget inner join tsalesman on sls_kode=st_sls_kode WHERE st_periode <= '+IntToStr(cbbBulan.itemindex+1 )+' AND st_tahun='+ edttahun.text
         + ' group by sls_nama ';
   tsql := xOpenQuery(ssql,frmMenu.conn);
@@ -447,9 +448,9 @@ begin
     try
       while not eof do
       begin
-        ds3.IndexFieldNames := 'salesman';
+        ds3.IndexFieldNames := 'rayon';
 
-        if ds3.findkey([FieldByName('salesman').AsString]) then
+        if ds3.findkey([FieldByName('rayon').AsString]) then
         begin
           If ds3.State <> dsEdit then ds3.Edit;
           ds3.FieldByName('targetsdbulanini').AsFloat := FieldByName('targetsdbulanini').AsFloat/1000;
@@ -491,7 +492,7 @@ begin
   + ' GROUP BY b.sls_nama) final '; }
 
   ssql := 'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -556,8 +557,8 @@ begin
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
               ds3.FieldByName('riilbulanini').AsFloat := FieldByName('riilbulanini').AsFloat/1000;
@@ -609,7 +610,7 @@ ExecSQLDirect(frmMenu.conn, s);
 //+ ' GROUP BY b.sls_nama) final ';
 
 ssql :=  'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -670,8 +671,8 @@ ssql :=  'SELECT ' +
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
 
@@ -723,7 +724,7 @@ ExecSQLDirect(frmMenu.conn, s);
 //+ ' GROUP BY b.sls_nama) final ';
 
   ssql := 'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -785,8 +786,8 @@ ExecSQLDirect(frmMenu.conn, s);
         while not eof do
         begin
 
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
                 ds3.FieldByName('riilbulaninilalu').AsFloat := FieldByName('Riilbulaninilalu').AsFloat/1000;
@@ -841,7 +842,7 @@ ExecSQLDirect(frmMenu.conn, s);
 //+ ' GROUP BY b.sls_nama) final ';
 
 ssql := 'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -902,8 +903,8 @@ ssql := 'SELECT ' +
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
 
              begin
                If ds3.State <> dsEdit then ds3.Edit;
@@ -922,7 +923,7 @@ ssql := 'SELECT ' +
     end;
 
 // target tahunan
-    ssql := 'SELECT sls_nama salesman,sum(st_targetsales) targettahunan FROM tsalesmantarget inner join tsalesman on sls_kode=st_sls_kode WHERE st_tahun='+ edttahun.text
+    ssql := 'SELECT sls_nama rayon,sum(st_targetsales) targettahunan FROM tsalesmantarget inner join tsalesman on sls_kode=st_sls_kode WHERE st_tahun='+ edttahun.text
     + ' group by sls_nama ';
     tsql := xOpenQuery(ssql,frmMenu.conn);
 
@@ -931,8 +932,8 @@ ssql := 'SELECT ' +
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
 
              begin
                If ds3.State <> dsEdit then ds3.Edit;
@@ -950,7 +951,7 @@ ssql := 'SELECT ' +
 
 //--- pf
 
-    ssql :='select sls_nama salesman , '
+    ssql :='select sls_nama rayon , '
         + '  sum((100-fpd_discpr)*(fpd_harga*fpd_qty)/100*if(fp_istax=1,if(fp_tanggal<"2022/04/01",1.1,1.11),1)) -'
         + '  sum(fpd_cn*((100-fpd_discpr)*fpd_harga/100)*fpd_qty/100) - '
         + '  sum(fpd_bp_pr*((100-fpd_discpr)*fpd_harga/100)*fpd_qty/100)+sum(fpd_bp_rp*fpd_qty)-'
@@ -976,8 +977,8 @@ ssql := 'SELECT ' +
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
 
              begin
                If ds3.State <> dsEdit then ds3.Edit;
@@ -1001,7 +1002,7 @@ ssql := 'SELECT ' +
 //EnsureConnected(frmMenu.conn);
 //ExecSQLDirect(frmMenu.conn, s);
 
-ssql := 'SELECT sls_nama salesman,SUM(debet-kredit) - '
+ssql := 'SELECT sls_nama rayon,SUM(debet-kredit) - '
 + ' ('
 + ' SELECT IFNULL(SUM(jt_nilai),0) FROM tjatuhtempofp'
 + ' INNER JOIN tfp_hdr ON fp_nomor=jt_fp_nomor'
@@ -1033,8 +1034,8 @@ ssql := 'SELECT sls_nama salesman,SUM(debet-kredit) - '
             while not Eof do
             begin
 //             showmessage(FieldByName('salesman').AsString);
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
 
              begin
                If ds3.State <> dsEdit then ds3.Edit;
@@ -1077,7 +1078,7 @@ EnsureConnected(frmMenu.conn);
 ExecSQLDirect(frmMenu.conn, s);
 
   ssql := 'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -1137,8 +1138,8 @@ ExecSQLDirect(frmMenu.conn, s);
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
               ds3.FieldByName('riilbulanininonn3').AsFloat := FieldByName('riilbulanininonn3').AsFloat/1000;
@@ -1171,7 +1172,7 @@ EnsureConnected(frmMenu.conn);
 ExecSQLDirect(frmMenu.conn, s);
 
 ssql :=  'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -1231,8 +1232,8 @@ ssql :=  'SELECT ' +
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
 
@@ -1266,7 +1267,7 @@ EnsureConnected(frmMenu.conn);
 ExecSQLDirect(frmMenu.conn, s);
 
   ssql := 'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -1327,8 +1328,8 @@ ExecSQLDirect(frmMenu.conn, s);
         while not eof do
         begin
 
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
                 ds3.FieldByName('riilbulaninilalunonn3').AsFloat := FieldByName('Riilbulaninilalunonn3').AsFloat/1000;
@@ -1365,7 +1366,7 @@ EnsureConnected(frmMenu.conn);
 ExecSQLDirect(frmMenu.conn, s);
 
 ssql := 'SELECT ' +
-          '    b.sls_nama AS salesman, ' +
+          '    b.sls_nama AS rayon, ' +
           '    SUM( ' +
           '        IF(YEAR(a.tanggal) > 2021, a.dpp, a.total) ' +
           '        - a.biaya_promosi ' +
@@ -1425,8 +1426,8 @@ ssql := 'SELECT ' +
       try
         while not eof do
         begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
 
              begin
                If ds3.State <> dsEdit then ds3.Edit;
@@ -1444,7 +1445,7 @@ ssql := 'SELECT ' +
       end;
     end;
 
-        s:='SELECT sls_nama salesman,COUNT(*) newcustomer FROM (SELECT DISTINCT sls_nama,fp_cus_kode ,cus_nama FROM tfp_hdr'
+        s:='SELECT sls_nama rayon,COUNT(*) newcustomer FROM (SELECT DISTINCT sls_nama,fp_cus_kode ,cus_nama FROM tfp_hdr'
           + ' INNER JOIN tdo_hdr ON do_nomor=fp_do_nomor'
           + ' INNER JOIN tso_hdr ON so_nomor=do_so_nomor '
           + ' INNER JOIN tsalesman ON sls_kode=so_sls_kode'
@@ -1458,8 +1459,8 @@ ssql := 'SELECT ' +
           try
             while not Eof do
             begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
                 ds3.FieldByName('newcustomer').AsFloat := Fields[1].AsFloat;
@@ -1474,7 +1475,7 @@ ssql := 'SELECT ' +
           end;
         end;
 
-     s:='SELECT sls_nama salesman,COUNT(*) rsklinik FROM (SELECT DISTINCT sls_nama,fp_cus_kode ,cus_nama FROM tfp_hdr'
+     s:='SELECT sls_nama rayon,COUNT(*) rsklinik FROM (SELECT DISTINCT sls_nama,fp_cus_kode ,cus_nama FROM tfp_hdr'
           + ' INNER JOIN tdo_hdr ON do_nomor=fp_do_nomor'
           + ' INNER JOIN tso_hdr ON so_nomor=do_so_nomor '
           + ' INNER JOIN tsalesman ON sls_kode=so_sls_kode'
@@ -1487,8 +1488,8 @@ ssql := 'SELECT ' +
           try
             while not Eof do
             begin
-             ds3.IndexFieldNames := 'salesman';
-             if ds3.findkey([FieldByName('salesman').AsString]) then
+             ds3.IndexFieldNames := 'rayon';
+             if ds3.findkey([FieldByName('rayon').AsString]) then
 
              begin
                If ds3.State <> dsEdit then ds3.Edit;

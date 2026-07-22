@@ -566,14 +566,14 @@ begin
     ftsreport.Nama := 'ST2';
 
     s:= ' select '
-      + ' * '
+      + ' *, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) sls_nama '
       + ' from tserahterimafaktur_hdr2 '
       + ' inner join tserahterimafaktur_dtl2 on std2_sth2_nomor=sth2_nomor'
       + ' inner join tfp_hdr on fp_nomor=std2_fp_nomor'
       + ' inner join tdo_hdr on do_nomor=fp_do_nomor'
       + ' inner join tso_hdr on so_nomor=do_so_nomor'
       + ' inner join tcustomer on fp_cus_kode=cus_kode '
-      + ' inner join tsalesman on so_sls_kode=sls_kode'
+//      + ' inner join tsalesman on so_sls_kode=sls_kode'
       + ' where '
       + ' sth2_nomor=' + quot(anomor);
       

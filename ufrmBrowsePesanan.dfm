@@ -1,12 +1,14 @@
 inherited frmBrowsePesanan: TfrmBrowsePesanan
   Left = 225
-  Top = 139
+  Top = 140
   Caption = 'Browse SO'
+  ClientHeight = 475
   ClientWidth = 1028
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited AdvPanel1: TAdvPanel
+    Top = 439
     Width = 1028
     FullHeight = 0
     inherited cxButton1: TcxButton
@@ -231,9 +233,11 @@ inherited frmBrowsePesanan: TfrmBrowsePesanan
   end
   inherited AdvPanel3: TAdvPanel
     Width = 1028
+    Height = 406
     FullHeight = 0
     inherited cxGrid: TcxGrid
       Width = 1024
+      Height = 402
     end
   end
   object OpenDialog1: TOpenDialog

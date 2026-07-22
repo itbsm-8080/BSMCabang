@@ -592,14 +592,14 @@ begin
     ftsreport.Nama := 'ST';
 
           s:= ' select '
-       + ' * '
+       + ' *, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) sls_nama '
        + ' from tserahterimafaktur_hdr '
        + ' inner join tserahterimafaktur_dtl on std_sth_nomor=sth_nomor'
        + ' inner join tfp_hdr on fp_nomor=std_fp_nomor'
        + ' inner join tdo_hdr on do_nomor=fp_do_nomor'
        + ' inner join tso_hdr on so_nomor=do_so_nomor'
        + ' inner join tcustomer on fp_cus_kode=cus_kode '
-       + ' inner join tsalesman on so_sls_kode=sls_kode'
+//       + ' inner join tsalesman on so_sls_kode=sls_kode'
        + ' where '
        + ' sth_nomor=' + quot(anomor);
     ftsreport.AddSQL(s);
@@ -629,14 +629,14 @@ begin
       memo.Lines.Add('');
 
           s:= ' select '
-       + ' * '
+       + ' *, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_kode = so_sla_kode limit 1) sls_nama '
        + ' from tserahterimafaktur_hdr '
        + ' inner join tserahterimafaktur_dtl on std_sth_nomor=sth_nomor'
        + ' inner join tfp_hdr on fp_nomor=std_fp_nomor'
        + ' inner join tdo_hdr on do_nomor=fp_do_nomor'
        + ' inner join tso_hdr on so_nomor=do_so_nomor'
        + ' inner join tcustomer on fp_cus_kode=cus_kode '
-       + ' inner join tsalesman on so_sls_kode=sls_kode'
+//       + ' inner join tsalesman on so_sls_kode=sls_kode'
        + ' where '
        + ' sth_nomor=' + quot(anomor)
        + ' order by cus_nama,fp_tanggal ';
