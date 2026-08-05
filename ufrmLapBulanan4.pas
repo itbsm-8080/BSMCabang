@@ -1481,7 +1481,7 @@ ssql := 'SELECT ' +
           + ' INNER JOIN tsalesman ON sls_kode=so_sls_kode'
           + ' INNER JOIN tcustomer ON cus_kode=fp_cus_kode'
           + ' WHERE MONTH(fp_tanggal)='+IntToStr(cbbBulan.itemindex +1)+' AND YEAR(fp_tanggal)='+edttahun.Text
-          + ' and cus_gc_kode  IN ("RS","KL","PS")) final group by sls_nama';
+          + ' and cus_gc_kode  IN ("RS","KL","PS","RSA","RSB","RSC","RSD")) final group by sls_nama';
         tsql :=xOpenQuery(s,frmMenu.conn);
         with tsql do
         begin

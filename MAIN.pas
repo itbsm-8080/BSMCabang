@@ -527,7 +527,7 @@ begin
   DecimalSeparator := '.';
   Application.UpdateFormatSettings := True;
 
-  zVersi := '6.0.30';
+  zVersi := '6.0.31';
   StatusBar1.Panels[4].Text := 'Versi ' + zVersi;
 
   // cek ver si

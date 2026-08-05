@@ -300,7 +300,8 @@ begin
         + ' where fp_jthtempo <= '+quotd(akhir2)
         + ' group by salesman) a inner join tsalesman on a.salesman=sls_kode and sls_insentif=1'; }
 
-  ssql:= ' select Salesman Rayon, sls_nama Nama, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Salesman, cast(0 as decimal(5,2)) ratiopf,cast(0 as decimal(15,2)) realisasiall,cast(0 as decimal(5,2)) persentaseall,'
+  ssql:= ' select Salesman Rayon, sls_nama Nama, (SELECT sla_nama FROM tsalesmanaktif WHERE sla_sls_kode = sls_kode AND sla_isaktif = 1 limit 1) Salesman, cast(0 as decimal(5,2)) ratiopf,cast(0 as decimal(15,2)) realisasiall,'
+          + ' cast(0 as decimal(5,2)) persentaseall,'
           + ' (select st_targetsales from tsalesmantarget where st_periode='+IntToStr(cbbBulan.itemindex +1)+' and st_tahun='+ edtTahun.Text + ' and  st_sls_kode=a.salesman) Target_Jual,'
           + ' (select sum(total-biaya_promosi-fee_marketing-kontrak-retur)'
           + ' from transaksi_hariann3'
@@ -418,7 +419,7 @@ begin
             while not Eof do
             begin
 //             showmessage(FieldByName('salesman').AsString);
-             if ds3.Locate('nama',FieldByName('salesman').AsString,[loCaseInsensitive]) then
+             if ds3.Locate('salesman',FieldByName('salesman').AsString,[loCaseInsensitive]) then
              begin
                If ds3.State <> dsEdit then ds3.Edit;
                 ds3.FieldByName('piutang').AsFloat := FieldByName('target_piutang').AsFloat/1000;
@@ -748,7 +749,7 @@ begin
       + ' if(s < 7,"Cash",if(s<41,"40 Hari",if(s < 60,"60 Hari","lebih dari 60"))) overdue'
       + '  FROM'
       + ' ('
-      + ' SELECT sls_nama ,fp_nomor,byc_tanggal,fp_tanggal,DATEDIFF(byc_tanggal,fp_tanggal) s, bycd_bayar,fp_amount,'
+      + ' SELECT sls_nama ,sls_kode, fp_nomor,byc_tanggal,fp_tanggal,DATEDIFF(byc_tanggal,fp_tanggal) s, bycd_bayar,fp_amount,'
       + ' (SELECT SUM((100-fpd_discpr)/100*fpd_harga*fpd_qty) FROM tfp_dtl'
       + ' INNER JOIN tfp_hdr ON fp_nomor=fpd_fp_nomor'
       + ' inner join tbarang on fpd_brg_kode=brg_kode '
@@ -773,7 +774,7 @@ begin
           while not tsql2.Eof do
           begin
             ds32.First;
-            if ds32.Locate('Salesman',fieldbyname('salesman').AsString,[loCaseInsensitive]) then
+            if ds32.Locate('salesman',fieldbyname('salesman').AsString,[loCaseInsensitive]) then
             begin
               If ds32.State <> dsEdit then ds32.Edit;
               if FieldByName('overdue').AsString = 'Cash' then
@@ -798,7 +799,7 @@ begin
             + ' sum(if((selisihhari <=60) AND (selisihhari>40),pengurang,0)) enam,'
             + ' sum(if(selisihhari>60,pengurang,0)) sembilan'
             + '   FROM ('
-            + ' SELECT sls_nama,kredit,tanggal,noreferensi,fp_tanggal,DATEDIFF(tanggal,fp_tanggal) selisihhari,'
+            + ' SELECT sls_nama,sls_kode, kredit,tanggal,noreferensi,fp_tanggal,DATEDIFF(tanggal,fp_tanggal) selisihhari,'
             + ' (SELECT sum(((fpd_harga*(100-fpd_discpr)/100)-(fpd_cn*((100-fpd_discpr)*fpd_harga/100)/100)-'
             + ' (((100-fpd_discpr)*fpd_harga/100)*fpd_bp_pr/100)-fpd_bp_rp) *fpd_qty)'
             + ' FROM tfp_dtl'
@@ -846,7 +847,7 @@ begin
         while not ds32.eof do
         begin
           ds3.First;
-          ds3.Locate('nama',ds32.FieldByName('salesman').AsString,[loCaseInsensitive]);
+          ds3.Locate('salesman',ds32.FieldByName('salesman').AsString,[loCaseInsensitive]);
 //          while not ds3.Eof do
 //          begin
 //             if ds3.FieldByName('nama').AsString = ds32.FieldByName('salesman').AsString then
@@ -1231,7 +1232,7 @@ begin
     i:=1;
   while not ds32.Eof do
   begin
-    ds3.Locate('nama',ds32.FieldByName('salesman').AsString,[loCaseInsensitive]);
+    ds3.Locate('salesman',ds32.FieldByName('salesman').AsString,[loCaseInsensitive]);
     s:= ' INSERT INTO tcetakkomisi (ck_salesman, ck_PERIODE, ck_tahun, ck_targetjual, ck_realisasijual, ck_persentasejual, ck_komisijual, '
       + ' ck_targetinkaso, ck_realisasiinkaso, ck_persentaseinkaso, ck_riilinkaso7, ck_presentase7, ck_komisiinkaso7, ck_riilinkaso740, '
       + ' ck_presentase740, ck_komisiinkaso740, ck_riilinkaso4060, ck_presentase4060, ck_komisiinkaso4060, ck_riilinkaso60, ck_presentase60, ck_komisiinkaso60,ck_Komisipf,ck_presentasepf,ck_girobulanlalu, ck_komisiothers)'
