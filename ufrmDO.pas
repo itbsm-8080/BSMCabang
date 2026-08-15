@@ -74,6 +74,8 @@ type
     clidbatch: TcxGridDBColumn;
     MyQuery1: TMyQuery;
     MyConnection1: TMyConnection;
+    Label8: TLabel;
+    cxLookupDriver: TcxExtLookupComboBox;
     procedure refreshdata;
    procedure initgrid;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -126,12 +128,14 @@ type
     FCDScustomer: TClientDataset;
     FCDSSKU : TClientDataset;
     FCDSGudang: TClientDataset;
+    FCDSDriver: TClientDataset;
     FFLAGEDIT: Boolean;
     FID: string;
     apajak :Integer ;
     atanggalold:TDateTime;
     function GetCDScustomer: TClientDataset;
     function GetCDSGudang: TClientDataset;
+    function GetCDSDriver: TClientDataset;
 
 
 
@@ -143,6 +147,7 @@ type
     property CDSSKU: TClientDataSet read FCDSSKU write FCDSSKU;
     property CDScustomer: TClientDataset read GetCDScustomer write FCDScustomer;
     property CDSGudang: TClientDataset read GetCDSGudang write FCDSGudang;
+    property CDSDriver: TClientDataset read GetCDSDriver write FCDSDriver;
     property FLAGEDIT: Boolean read FFLAGEDIT write FFLAGEDIT;
     property ID: string read FID write FID;
     { Public declarations }
@@ -169,6 +174,7 @@ begin
   edtAlamat.Clear;
   edtmemo.Clear;
   cxLookupGudang.EditValue := '';
+  cxLookupDriver.EditValue := '';
   edtNomorSO.Clear;
   edtNomorSO.SetFocus;
   initgrid;
@@ -316,6 +322,9 @@ begin
 
    with TcxExtLookupHelper(cxLookupGudang.Properties) do
     LoadFromCDS(CDSGudang, 'Kode','Gudang',['Kode'],Self);
+
+    with TcxExtLookupHelper(cxLookupDriver.Properties) do
+    LoadFromCDS(CDSDriver, 'Kode','Nama',['Kode'],Self);
 
      TcxDBGridHelper(cxGrdMain).LoadFromCDS(CDS, False, False);
 
@@ -479,6 +488,7 @@ if FLAGEDIT then
     + ' do_shipaddress = ' + quot(edtshipaddress.text)+','
     + ' do_cus_kode = ' + quot(cxLookupCustomer.EditValue) + ','
     + ' do_isecer = ' + IntToStr(aisecer) + ','
+    + ' do_driver = ' + quot(cxLookupDriver.EditValue) + ','
     + ' date_modified  = ' + QuotD(cGetServerTime,True) + ','
     + ' user_modified = ' + Quot(frmMenu.KDUSER)
     + ' where do_nomor = ' + quot(FID) + ';'
@@ -489,7 +499,7 @@ begin
   else
   edtNomor.Text := getmaxkode(0);
   s :=  ' insert into tdo_hdr '
-             + ' (do_nomor,do_tanggal,do_gdg_kode,do_so_nomor,do_cus_kode,do_shipaddress,do_isecer,do_memo,date_create,user_create) '
+             + ' (do_nomor,do_tanggal,do_gdg_kode,do_so_nomor,do_cus_kode,do_shipaddress,do_isecer,do_memo,do_driver,date_create,user_create) '
              + ' values ( '
              + Quot(edtNomor.Text) + ','
              + Quotd(dtTanggal.Date) + ','
@@ -499,6 +509,7 @@ begin
              + quot(edtshipaddress.text)+','
              + inttostr(aisecer)+','
              + Quot(edtmemo.Text)+','
+             + Quot(cxLookupDriver.EditValue)+','
              + QuotD(cGetServerTime,True) + ','
              + Quot(frmMenu.KDUSER)+')';
 end;
@@ -680,6 +691,21 @@ begin
   Result := FCDSGudang;
 end;
 
+function TfrmDO.GetCDSDriver: TClientDataset;
+var s:String;
+begin
+  If not Assigned(FCDSDriver) then
+  begin
+    S := ' SELECT kar_namasingkat Kode, UPPER(kar_nama) Nama FROM tcabang '
+       + ' INNER JOIN hrd.tunit ON kode_cabang = cbg_kode '
+       + ' INNER JOIN hrd.tkaryawan ON kar_kd_unit = kd_unit '
+       + ' WHERE cbg_aktif = 1 and (kar_kd_jabat = 21 OR kar_kd_jabat = 30) AND kar_status_aktif = 1'
+       + ' UNION ALL SELECT "SALES", "SALES" UNION ALL SELECT "EKSPEDISI", "EKSPEDISI"';
+
+    FCDSDriver := TConextMain.cOpenCDS(S,nil);
+  end;
+  Result := FCDSDriver;
+end;
 
 procedure TfrmDO.loaddataall(akode : string);
 var

@@ -171,7 +171,11 @@ uses
   ufrmProsesFeeMarketing in 'ufrmProsesFeeMarketing.pas' {frmProsesFeeMarketing},
   ufrmBrowseBarangRealisasi in 'ufrmBrowseBarangRealisasi.pas' {frmBrowseBarangRealisasi},
   ufrmBrowseBayarFeeMarketing in 'ufrmBrowseBayarFeeMarketing.pas' {frmBrowseBayarFeeMarketing},
-  ufrmBayarFeeMarketing in 'ufrmBayarFeeMarketing.pas' {frmBayarFeeMarketing};
+  ufrmBayarFeeMarketing in 'ufrmBayarFeeMarketing.pas' {frmBayarFeeMarketing},
+  ufrmLapDORealisasi in 'ufrmLapDORealisasi.pas' {frmLapDORealisasi},
+  uFrmPreviewImage in 'bantu\uFrmPreviewImage.pas' {frmPrevImg},
+  ufrmPenugasanDriver in 'ufrmPenugasanDriver.pas' {frmPenugasanDriver},
+  ufrmOmsetvsOmsetKategori in 'ufrmOmsetvsOmsetKategori.pas' {frmOmsetvsOmsetKategori};
 
 {$R *.res}
 

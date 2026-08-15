@@ -1,10 +1,10 @@
-object frmLapBulanan4: TfrmLapBulanan4
-  Left = 173
-  Top = 198
+object frmLapDORealisasi: TfrmLapDORealisasi
+  Left = 160
+  Top = 67
   AutoScroll = False
-  Caption = 'Lap Bulanan New'
-  ClientHeight = 589
-  ClientWidth = 1162
+  Caption = 'List Penjualan per Item'
+  ClientHeight = 576
+  ClientWidth = 1022
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,10 +24,10 @@ object frmLapBulanan4: TfrmLapBulanan4
   object tscrlbx1: TTeScrollBox
     Left = 0
     Top = 28
-    Width = 1162
-    Height = 523
+    Width = 1022
+    Height = 510
     HorzScrollBar.Range = 1020
-    VertScrollBar.Range = 500
+    VertScrollBar.Range = 600
     Align = alClient
     AutoScroll = False
     TabOrder = 0
@@ -35,8 +35,8 @@ object frmLapBulanan4: TfrmLapBulanan4
     object TePanel4: TTePanel
       Left = 0
       Top = 0
-      Width = 1158
-      Height = 519
+      Width = 1020
+      Height = 600
       Align = alClient
       Color = clWhite
       TabOrder = 0
@@ -61,877 +61,135 @@ object frmLapBulanan4: TfrmLapBulanan4
       end
       object TePanel1: TTePanel
         Left = 1
-        Top = 38
-        Width = 1156
-        Height = 480
+        Top = 33
+        Width = 1018
+        Height = 566
         Align = alClient
         Caption = 'TePanel1'
         TabOrder = 0
         ThemeObject = 'default'
-        object cxGrid1: TcxGrid
+        object PageControl1: TPageControl
           Left = 1
           Top = 1
-          Width = 1154
-          Height = 478
+          Width = 1016
+          Height = 564
+          ActivePage = TabSheet1
           Align = alClient
           TabOrder = 0
-          object cxGrid1DBBandedTableView1: TcxGridDBBandedTableView
-            NavigatorButtons.ConfirmDelete = False
-            DataController.DataSource = ds2
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column3
+          OnChange = cxPageControl1Click
+          object TabSheet1: TTabSheet
+            Caption = 'Grid Data'
+            object cxGrid1: TcxGrid
+              Left = 0
+              Top = 0
+              Width = 1008
+              Height = 536
+              Align = alClient
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+              LookAndFeel.Kind = lfOffice11
+              object cxGrid1DBTableView1: TcxGridDBTableView
+                NavigatorButtons.ConfirmDelete = False
+                DataController.Filter.Options = [fcoCaseInsensitive]
+                DataController.Summary.DefaultGroupSummaryItems = <>
+                DataController.Summary.FooterSummaryItems = <>
+                DataController.Summary.SummaryGroups = <>
+                FilterRow.Visible = True
+                FilterRow.ApplyChanges = fracImmediately
+                OptionsData.CancelOnExit = False
+                OptionsData.Deleting = False
+                OptionsData.DeletingConfirmation = False
+                OptionsData.Editing = False
+                OptionsData.Inserting = False
+                OptionsView.Footer = True
+              end
+              object cxGrdDetail: TcxGridDBTableView
+                NavigatorButtons.ConfirmDelete = False
+                DataController.Summary.DefaultGroupSummaryItems = <>
+                DataController.Summary.FooterSummaryItems = <>
+                DataController.Summary.SummaryGroups = <>
+                OptionsData.CancelOnExit = False
+                OptionsData.Deleting = False
+                OptionsData.DeletingConfirmation = False
+                OptionsData.Editing = False
+                OptionsData.Inserting = False
+                OptionsView.GroupByBox = False
+              end
+              object cxGrid11Level1: TcxGridLevel
+                Caption = 'Master Data'
+                GridView = cxGrid1DBTableView1
               end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column2
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column4
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column5
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column11
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column6
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column7
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column9
-              end
-              item
-                Format = ',0.00;(,0.00)'
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems8GetText
-                Column = cxGrid1DBBandedTableView1Column10
-              end
-              item
-                Format = ',0.00;(,0.00)'
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems9GetText
-                Column = cxGrid1DBBandedTableView1Column8
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column12
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column13
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems12GetText
-                Column = growth
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column16
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems14GetText
-                Column = growth2
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column14
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems16GetText
-                Column = cxGrid1DBBandedTableView1Column15
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column17
-              end
-              item
-                Format = ',0.;(,0.)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column18
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems19GetText
-                Column = cxGrid1DBBandedTableView1Column19
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column20
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems21GetText
-                Column = cxGrid1DBBandedTableView1Column21
-              end
-              item
-                Format = ',0.;(,0.)'
-                Kind = skSum
-                Column = clAll
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems23GetText
-                Column = clAllratio
-              end
-              item
-                Format = '0'
-                Kind = skSum
-                Column = newcustomer
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column22
-              end
-              item
-                Format = ',0.00;(,0.00)'
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems26GetText
-                Column = cxGrid1DBBandedTableView1Column23
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column24
-              end
-              item
-                Format = ',0.00;(,0.00)'
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems28GetText
-                Column = cxGrid1DBBandedTableView1Column25
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column26
-              end
-              item
-                Format = ',0;(,0)'
-                Kind = skSum
-                Column = cxGrid1DBBandedTableView1Column28
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems31GetText
-                Column = cxGrid1DBBandedTableView1Column27
-              end
-              item
-                OnGetText = cxGrid1DBBandedTableView1TcxGridDBDataControllerTcxDataSummaryFooterSummaryItems32GetText
-                Column = cxGrid1DBBandedTableView1Column29
-              end>
-            DataController.Summary.SummaryGroups = <>
-            OptionsView.Footer = True
-            OptionsView.GroupByBox = False
-            Styles.ContentEven = cxStyle2
-            Styles.ContentOdd = cxStyle1
-            Bands = <
-              item
-                Caption = 'Rayon'
-                FixedKind = fkLeft
-                Styles.Header = cxstyl1
-                Width = 185
-              end
-              item
-                Caption = 'Salesman'
-                Styles.Header = cxstyl1
-                Width = 160
-              end
-              item
-                Caption = 'Bulan'
-                Position.BandIndex = 4
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 61
-              end
-              item
-                Caption = 'Sd. Bulan Ini'
-                Position.BandIndex = 4
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Width = 79
-              end
-              item
-                Caption = 'Target'
-                Styles.Header = cxstyl1
-                Width = 140
-              end
-              item
-                Caption = 'Omset Bulan Ini'
-                Styles.Header = cxstyl1
-                Width = 115
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 5
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 69
-              end
-              item
-                Caption = '%'
-                Position.BandIndex = 5
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Width = 46
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 10
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 76
-              end
-              item
-                Caption = '%'
-                Position.BandIndex = 10
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Width = 46
-              end
-              item
-                Caption = 'Omset sd Bulan Ini'
-                Styles.Header = cxstyl1
-                Width = 122
-              end
-              item
-                Caption = 'Omset Bln ini (Thn Lalu)'
-                Styles.Header = cxstyl1
-                Width = 154
-              end
-              item
-                Caption = 'Growth'
-                Position.BandIndex = 11
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Width = 46
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 11
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 80
-              end
-              item
-                Caption = 'Omset sd Bln ini (Thn Lalu)'
-                Styles.Header = cxstyl1
-                Width = 160
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 14
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 115
-              end
-              item
-                Caption = 'Growth'
-                Position.BandIndex = 14
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Width = 56
-              end
-              item
-                Caption = 'Target Thnan'
-                Styles.Header = cxstyl1
-                Width = 84
-              end
-              item
-                Caption = 'Ratio'
-                Styles.Header = cxstyl1
-                Width = 50
-              end
-              item
-                Caption = 'Target'
-                Position.BandIndex = 22
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 85
-              end
-              item
-                Caption = 'Realisasi Tempo'
-                Position.BandIndex = 22
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Width = 102
-              end
-              item
-                Caption = 'Ratio'
-                Position.BandIndex = 22
-                Position.ColIndex = 2
-                Styles.Header = cxstyl1
-                Width = 43
-              end
-              item
-                Caption = 'Piutang'
-                Styles.Header = cxstyl1
-                Width = 230
-              end
-              item
-                Caption = 'Plus Tunai'
-                Styles.Header = cxstyl1
-                Width = 139
-              end
-              item
-                Caption = 'Product Focus'
-                Styles.Header = cxstyl1
-                Visible = False
-              end
-              item
-                Caption = 'Realisasi'
-                Position.BandIndex = 24
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Visible = False
-                Width = 77
-              end
-              item
-                Caption = 'Ratio'
-                Position.BandIndex = 24
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Visible = False
-              end
-              item
-                Caption = 'Realisasi All'
-                Position.BandIndex = 23
-                Position.ColIndex = 0
-                Styles.Header = cxstyl1
-                Width = 82
-              end
-              item
-                Caption = 'Ratio All'
-                Position.BandIndex = 23
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-              end
-              item
-                Caption = 'Omset Other Bulan Ini '
-                Styles.Header = cxStyle5
-                Width = 145
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 29
-                Position.ColIndex = 0
-                Styles.Header = cxStyle5
-                Width = 69
-              end
-              item
-                Caption = '%'
-                Position.BandIndex = 29
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Visible = False
-                Width = 46
-              end
-              item
-                Caption = 'Omset Other sd Bulan Ini'
-                Styles.Header = cxStyle5
-                Width = 155
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 32
-                Position.ColIndex = 0
-                Styles.Header = cxStyle5
-                Width = 76
-              end
-              item
-                Caption = '%'
-                Position.BandIndex = 32
-                Position.ColIndex = 1
-                Styles.Header = cxstyl1
-                Visible = False
-                Width = 46
-              end
-              item
-                Caption = 'Omset Other Bulan Ini (Thn Lalu)'
-                Styles.Header = cxStyle5
-                Width = 195
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 35
-                Position.ColIndex = 0
-                Styles.Header = cxStyle5
-                Width = 80
-              end
-              item
-                Caption = 'Growth'
-                Position.BandIndex = 35
-                Position.ColIndex = 1
-                Styles.Header = cxStyle5
-                Width = 46
-              end
-              item
-                Caption = 'Omset Other sd Bln ini (Thn Lalu)'
-                Styles.Header = cxStyle5
-                Width = 200
-              end
-              item
-                Caption = 'Riil Omset'
-                Position.BandIndex = 38
-                Position.ColIndex = 0
-                Styles.Header = cxStyle5
-                Width = 115
-              end
-              item
-                Caption = 'Growth'
-                Position.BandIndex = 38
-                Position.ColIndex = 1
-                Styles.Header = cxStyle5
-                Width = 80
-              end
-              item
-                Caption = 'New Customer'
-                Styles.Header = cxstyl1
-                Width = 101
-              end
-              item
-                Caption = 'Rs,Pusk, Klinik'
-                Styles.Header = cxstyl1
-                Width = 99
-              end>
-            object cxGrid1DBBandedTableView1Column1: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Rayon'
-              Options.Editing = False
-              SortIndex = 0
-              SortOrder = soAscending
-              Position.BandIndex = 0
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column30: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Salesman'
-              Options.Editing = False
-              SortIndex = 2
-              SortOrder = soDescending
-              Position.BandIndex = 1
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column2: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'TargetBulanini'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              SortIndex = 1
-              SortOrder = soAscending
-              Position.BandIndex = 2
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column3: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Targetsdbulanini'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 3
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column4: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Realisasi'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = -1
-              Position.ColIndex = -1
-              Position.RowIndex = -1
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column5: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Kontrak'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = -1
-              Position.ColIndex = -1
-              Position.RowIndex = -1
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column6: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'Retur'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Properties.ReadOnly = True
-              Options.Editing = False
-              Position.BandIndex = -1
-              Position.ColIndex = -1
-              Position.RowIndex = -1
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column7: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilbulanini'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 6
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column8: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'persenbulanini'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column8CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column8CustomDrawFooterCell
-              Position.BandIndex = 7
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column9: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilsdbulanini'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 8
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column10: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'persensdbulanini'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column10CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column10CustomDrawFooterCell
-              Position.BandIndex = 9
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column11: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'biaya_promosi'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = -1
-              Position.ColIndex = -1
-              Position.RowIndex = -1
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column12: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'PF'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.;(,0.)'
-              Options.Editing = False
-              Position.BandIndex = -1
-              Position.ColIndex = -1
-              Position.RowIndex = -1
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column13: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilbulaninilalu'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 13
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object growth: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'growth'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = growthCustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = growthCustomDrawFooterCell
-              Position.BandIndex = 12
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object growth2: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'growth2'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = growth2CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = growth2CustomDrawFooterCell
-              Position.BandIndex = 16
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column16: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilsdbulaniniLalu'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 15
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column14: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'targettahunan'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 17
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column15: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'ratio'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DecimalPlaces = 0
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              Options.Editing = False
-              Position.BandIndex = 18
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column17: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'targetpiutang'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.;(,0.)'
-              Options.Editing = False
-              Position.BandIndex = 19
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column18: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'realisasipiutang'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 20
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column19: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'ratiopiutang'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column19CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column19CustomDrawFooterCell
-              Position.BandIndex = 21
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column20: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'pf'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 25
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column21: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'pfratio'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column21CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column21CustomDrawFooterCell
-              Position.BandIndex = 26
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object clAll: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'realisasiall'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Position.BandIndex = 27
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object clAllratio: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'allratio'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column19CustomDrawCell
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column19CustomDrawFooterCell
-              Position.BandIndex = 28
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object newcustomer: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'newCustomer'
-              Position.BandIndex = 41
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxRSKLINIK: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'rsklinik'
-              Position.BandIndex = 42
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column22: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilbulanininonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 30
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column23: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'persenbulanininonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column23CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column23CustomDrawFooterCell
-              Position.BandIndex = 31
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column24: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilsdbulanininonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 33
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column25: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'persensdbulanininonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              Properties.ReadOnly = False
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column25CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column25CustomDrawFooterCell
-              Position.BandIndex = 34
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column26: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilbulaninilalunonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 36
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column27: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'growthnonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column27CustomDrawCell
-              Options.Editing = False
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column27CustomDrawFooterCell
-              Position.BandIndex = 37
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column28: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'riilsdbulaniniLalunonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0;(,0)'
-              Options.Editing = False
-              Position.BandIndex = 39
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
-            end
-            object cxGrid1DBBandedTableView1Column29: TcxGridDBBandedColumn
-              DataBinding.FieldName = 'growth2nonn3'
-              PropertiesClassName = 'TcxCurrencyEditProperties'
-              Properties.DisplayFormat = ',0.00;(,0.00)'
-              OnCustomDrawCell = cxGrid1DBBandedTableView1Column29CustomDrawCell
-              Options.Editing = False
-              Width = 80
-              OnCustomDrawFooterCell = cxGrid1DBBandedTableView1Column29CustomDrawFooterCell
-              Position.BandIndex = 40
-              Position.ColIndex = 0
-              Position.RowIndex = 0
-              IsCaptionAssigned = True
             end
           end
-          object cxGrid1Level1: TcxGridLevel
-            GridView = cxGrid1DBBandedTableView1
+          object TabSheet2: TTabSheet
+            Caption = 'Pivot'
+            ImageIndex = 1
+            object cxPivot: TcxDBPivotGrid
+              Left = 0
+              Top = 0
+              Width = 1008
+              Height = 536
+              Align = alClient
+              Groups = <>
+              TabOrder = 0
+            end
+          end
+          object TabSheet3: TTabSheet
+            Caption = 'Grafik'
+            ImageIndex = 2
+            object cxChart: TcxGrid
+              Left = 0
+              Top = 0
+              Width = 1008
+              Height = 531
+              Align = alClient
+              TabOrder = 0
+              object cxGrdChart: TcxGridChartView
+                DiagramColumn.Active = True
+                ToolBox.Border = tbNone
+                ToolBox.CustomizeButton = True
+                ToolBox.DiagramSelector = True
+              end
+              object lvlChart: TcxGridLevel
+                GridView = cxGrdChart
+              end
+            end
           end
         end
       end
       object TePanel2: TTePanel
         Left = 1
         Top = 1
-        Width = 1156
-        Height = 37
+        Width = 1018
+        Height = 32
         Align = alTop
         Color = clMoneyGreen
         TabOrder = 1
         ThemeObject = 'default'
         object Label1: TLabel
-          Left = 27
-          Top = 11
-          Width = 36
+          Left = 8
+          Top = 10
+          Width = 61
           Height = 13
-          Caption = 'Periode'
+          Caption = 'Filter Periode'
         end
         object Label2: TLabel
-          Left = 259
-          Top = 11
-          Width = 31
+          Left = 233
+          Top = 10
+          Width = 11
           Height = 13
-          Caption = 'Tahun'
-        end
-        object Shape1: TShape
-          Left = 512
-          Top = 16
-          Width = 13
-          Height = 13
-          Brush.Color = clPurple
+          Caption = 'sd'
         end
         object btnRefresh: TcxButton
-          Left = 1068
+          Left = 930
           Top = 1
           Width = 87
-          Height = 35
+          Height = 30
           Caption = '&Refresh'
           TabOrder = 0
           OnClick = btnTampilClick
@@ -974,75 +232,71 @@ object frmLapBulanan4: TfrmLapBulanan4
           LookAndFeel.Kind = lfStandard
           LookAndFeel.SkinName = 'LondonLiquidSky'
         end
-        object cbbBulan: TAdvComboBox
-          Left = 90
-          Top = 7
+        object startdate: TDateTimePicker
+          Left = 80
+          Top = 5
           Width = 145
           Height = 21
-          Color = clWindow
-          AutoFocus = False
-          ButtonWidth = 19
-          Flat = True
-          FlatLineColor = clBlack
-          FlatParentColor = True
-          Etched = False
-          FocusBorder = False
-          DropWidth = 0
-          Enabled = True
-          ItemHeight = 13
-          Items.Strings = (
-            'Januari'
-            'Februari'
-            'Maret'
-            'April'
-            'Mei'
-            'Juni'
-            'Juli'
-            'Agustus'
-            'September'
-            'Oktober'
-            'November'
-            'Desember')
-          LabelPosition = lpLeftTop
-          LabelMargin = 4
-          LabelTransparent = False
-          LabelAlwaysEnabled = False
-          LabelFont.Charset = DEFAULT_CHARSET
-          LabelFont.Color = clWindowText
-          LabelFont.Height = -11
-          LabelFont.Name = 'MS Sans Serif'
-          LabelFont.Style = []
+          Date = 42350.468570856480000000
+          Time = 42350.468570856480000000
           TabOrder = 1
         end
-        object edtTahun: TComboBox
-          Left = 324
-          Top = 7
+        object enddate: TDateTimePicker
+          Left = 256
+          Top = 5
           Width = 145
           Height = 21
-          Color = clWhite
-          ItemHeight = 13
+          Date = 42350.468570856480000000
+          Time = 42350.468570856480000000
           TabOrder = 2
-          Text = '2017'
-          Items.Strings = (
-            '2016'
-            '2017'
-            '2018'
-            '2019'
-            '2020'
-            '2021'
-            '2022')
         end
-        object cxLabel1: TcxLabel
-          Left = 528
-          Top = 14
-          Caption = 'Other'
-          ParentFont = False
-          Style.Font.Charset = DEFAULT_CHARSET
-          Style.Font.Color = clWindowText
-          Style.Font.Height = -11
-          Style.Font.Name = 'MS Sans Serif'
-          Style.Font.Style = [fsBold]
-          Style.IsFontAssigned = True
+        object cxButton1: TcxButton
+          Left = 808
+          Top = 1
+          Width = 122
+          Height = 30
+          Caption = '&Sort By Nilai'
+          TabOrder = 3
+          Visible = False
+          OnClick = cxButton1Click
+          Align = alRight
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF001852000018520000185200001852
+            000018520000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00009C000018520000009C000031CE630031CE630031CE
+            6300009C000018520000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00009C000031CE630063FF9C0063FF9C0063FF9C0031CE
+            630031CE6300009C000018520000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00009C000031CE6300009C0000009C0000009C0000009C0000CEFF
+            CE0031CE630031CE6300009C000018520000FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00009C0000009C0000FF00FF00FF00FF00FF00FF00FF00FF0031CE
+            6300CEFFCE0031CE630031CE630018520000FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00009C0000FF00FF00FF00FF00FF00FF00009C0000009C00001852
+            000063FF9C0031CE630031CE630031CE63001852000018520000FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF0018520000FF00FF00FF00FF00009C0000CEFF
+            CE0063FF9C0063FF9C0063FF9C00009C000018520000FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00009C0000009C000018520000FF00FF00FF00FF00009C
+            0000CEFFCE0063FF9C00009C000018520000FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00009C000031CE630031CE6300009C000018520000FF00FF00FF00
+            FF00009C0000009C000018520000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00009C000031CE630031CE630031CE630031CE6300009C000018520000FF00
+            FF00FF00FF00009C0000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00009C
+            0000009C0000009C000063FF9C0031CE6300009C000018520000185200001852
+            0000FF00FF00FF00FF00FF00FF0018520000FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00009C000063FF9C0063FF9C00009C000018520000FF00FF00FF00
+            FF00FF00FF00FF00FF001852000018520000FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00009C0000CEFFCE0063FF9C0063FF9C00009C0000185200001852
+            00001852000018520000009C000018520000FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00009C0000CEFFCE0063FF9C0063FF9C0031CE630031CE
+            630031CE6300009C0000009C0000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00009C0000CEFFCE0063FF9C0063FF9C0031CE
+            6300009C0000009C0000009C0000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF00009C0000009C0000009C0000009C
+            0000009C0000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
+          LookAndFeel.Kind = lfStandard
+          LookAndFeel.SkinName = 'LondonLiquidSky'
         end
       end
     end
@@ -1050,11 +304,11 @@ object frmLapBulanan4: TfrmLapBulanan4
   object TePanel3: TTePanel
     Left = 0
     Top = 0
-    Width = 1162
+    Width = 1022
     Height = 28
     Align = alTop
     Alignment = taLeftJustify
-    Caption = 'Laporan Sales Bulanan New'
+    Caption = 'List Penjualan per Item'
     Color = clWhite
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -1068,15 +322,15 @@ object frmLapBulanan4: TfrmLapBulanan4
   end
   object TePanel5: TTePanel
     Left = 0
-    Top = 551
-    Width = 1162
+    Top = 538
+    Width = 1022
     Height = 38
     Align = alBottom
     Color = clMoneyGreen
     TabOrder = 4
     ThemeObject = 'default'
     object cxButton8: TcxButton
-      Left = 1074
+      Left = 934
       Top = 1
       Width = 87
       Height = 36
@@ -1166,6 +420,18 @@ object frmLapBulanan4: TfrmLapBulanan4
         F700FFF7F700FFF7F700FFF7F700DEA57300FF00FF00FF00FF00F7E7D600F7C6
         AD00EFBD9C00EFBD9C00EFBD9C00EFBD9400E7B59400E7B58C00E7B58C00E7AD
         8400E7AD8400DEAD7B00DEA57B00E7B59400FF00FF00FF00FF00}
+      LookAndFeel.Kind = lfStandard
+      LookAndFeel.SkinName = 'LondonLiquidSky'
+    end
+    object cxButton5: TcxButton
+      Left = 88
+      Top = 1
+      Width = 87
+      Height = 36
+      Caption = '&Preview'
+      TabOrder = 2
+      OnClick = cxButton5Click
+      Align = alLeft
       LookAndFeel.Kind = lfStandard
       LookAndFeel.SkinName = 'LondonLiquidSky'
     end
@@ -4319,14 +3585,6 @@ object frmLapBulanan4: TfrmLapBulanan4
     Left = 411
     Top = 217
   end
-  object sqlqry2: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      '')
-    Left = 451
-    Top = 249
-  end
   object ds2: TDataSource
     DataSet = ds3
     Left = 475
@@ -4337,6 +3595,7 @@ object frmLapBulanan4: TfrmLapBulanan4
     FilterOptions = [foCaseInsensitive]
     Params = <>
     ProviderName = 'dtstprvdr1'
+    ReadOnly = True
     Left = 523
     Top = 225
   end
@@ -4344,17 +3603,16 @@ object frmLapBulanan4: TfrmLapBulanan4
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svColor]
-      Color = clSkyBlue
+      Color = clGradientActiveCaption
     end
     object cxstyl1: TcxStyle
-      AssignedValues = [svColor, svFont, svTextColor]
+      AssignedValues = [svColor, svFont]
       Color = clSilver
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
-      TextColor = clNone
     end
   end
   object cxVCLPrinter: TdxComponentPrinter
@@ -4363,6 +3621,7 @@ object frmLapBulanan4: TfrmLapBulanan4
     Left = 200
     Top = 432
     object cxVCLPrinterChart: TdxGridReportLink
+      Component = cxChart
       PrinterPage.DMPaper = 1
       PrinterPage.Footer = 200
       PrinterPage.GrayShading = True
@@ -4378,49 +3637,23 @@ object frmLapBulanan4: TfrmLapBulanan4
       BuiltInReportLink = True
     end
   end
-  object cxStyleRepository2: TcxStyleRepository
-    PixelsPerInch = 96
-    object cxStyle2: TcxStyle
-      AssignedValues = [svColor]
-      Color = clWhite
-    end
+  object MyConnection1: TMyConnection
+    Database = 'bsm'
+    Port = 1100
+    Username = 'root'
+    Password = 'Zainal_12345'
+    Server = '188.166.226.122'
+    LoginPrompt = False
+    Left = 638
+    Top = 310
   end
-  object cxStyleRepository3: TcxStyleRepository
-    Left = 336
-    Top = 161
-    PixelsPerInch = 96
-    object cxStyle3: TcxStyle
-      AssignedValues = [svFont]
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-    end
-    object cxStyle4: TcxStyle
-      AssignedValues = [svFont]
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clLime
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-    end
+  object MyQuery1: TMyQuery
+    Connection = MyConnection1
+    Left = 710
+    Top = 366
   end
   object sqlqry1: TMyQuery
-    Left = 496
-    Top = 272
-  end
-  object cxStyleRepository4: TcxStyleRepository
-    PixelsPerInch = 96
-    object cxStyle5: TcxStyle
-      AssignedValues = [svColor, svFont, svTextColor]
-      Color = clPurple
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      TextColor = clWhite
-    end
+    Left = 504
+    Top = 296
   end
 end

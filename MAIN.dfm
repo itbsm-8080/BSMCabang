@@ -10786,6 +10786,10 @@ object frmMenu: TfrmMenu
         Caption = 'Laporan Absensi'
         OnClick = LaporanAbsensi1Click
       end
+      object PenugasanDriver1: TMenuItem
+        Caption = 'Penugasan Driver'
+        OnClick = PenugasanDriver1Click
+      end
     end
     object Laporan1: TMenuItem
       Caption = 'Laporan'
@@ -10843,6 +10847,10 @@ object frmMenu: TfrmMenu
         Caption = 'Laporan Permintaan Barang vs Realisasi'
         OnClick = LaporanPermintaanBarangvsRealisasi1Click
       end
+      object LaporanDOvsRealisasi1: TMenuItem
+        Caption = 'Laporan DO vs Realisasi'
+        OnClick = LaporanDOvsRealisasi1Click
+      end
       object N3: TMenuItem
         Caption = '-'
       end
@@ -10894,6 +10902,10 @@ object frmMenu: TfrmMenu
       object LaporanPencapaianMarketing1: TMenuItem
         Caption = 'Laporan Pencapaian Marketing '
         OnClick = LaporanPencapaianMarketing1Click
+      end
+      object LaporanOmsetPenjualanvsOmsetKategori1: TMenuItem
+        Caption = 'Laporan Omset Penjualan vs Omset Kategori'
+        OnClick = LaporanOmsetPenjualanvsOmsetKategori1Click
       end
       object N4: TMenuItem
         Caption = '-'

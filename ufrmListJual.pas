@@ -557,10 +557,29 @@ s:=s
 + ' FROM zkunjungan x INNER JOIN tsalesman ON USER=sls_nama'
 + ' left JOIN tcustomer y ON x.cus_kode=y.cus_kode '
 + ' where tanggal between ' + QuotD(startdate.DateTime) + ' and date_add(' + QuotD(enddate.DateTime)+' , interval 1 day) ';
-  ds3.Close;
-        sqlqry1.Connection := frmmenu.conn;
-        sqlqry1.SQL.Text := s;
-        ds3.open;
+
+
+s:=s
++ ' union '
++ ' SELECT FP_nomor Nomor, date_format(FP_tanggal,"%Y-%m-%d") Tanggal,cast(date_format(FP_tanggal,"%m") as signed)  bulan , '
++ ' cast(date_format(FP_tanggal,"%Y") as signed)  Tahun, "" Group_produk, "" marketing, '
++ ' "" rayon, "" salesman, '
++ ' "" cus_nama,"" Golongan,"" Jeniscustomer,0 Kode,"" Nama,"" merk,"" kategori,"" subdepartemen,"" departemen,"" divisi, '
++ ' "" satuan , "Tidak" ISpf,"" eceran,"" iscatalog,0 fpd_cn, '
++ ' 1 qty,tehd_biaya nilai  ,tehd_biaya nilaiblmppn,0 kontrak '
++ smargin2
++ ' ,0 biaya_promosi,0 fee_marketing,0 Nilai_Net,0 pajak,"" status_het, '
++ ' 0 kunjunganmarketing,0 kunjungansales '
++ ' FROM ttagihanekspedisi_dtl '
+//+' INNER JOIN ttagihanekspedisi_dtl ON tehd_teh_nomor = teh_nomor '
++ ' INNER JOIN tfp_hdr ON FP_nomor = tehd_fp_nomor '
++ ' left JOIN tcustomer y ON fp_cus_kode=y.cus_kode '
++ ' where FP_tanggal between ' + QuotD(startdate.DateTime) + ' and date_add(' + QuotD(enddate.DateTime)+' , interval 1 day) ';
+
+ds3.Close;
+sqlqry1.Connection := frmmenu.conn;
+sqlqry1.SQL.Text := s;
+ds3.open;
 
 //
       if frmMenu.KDUSER = 'FINANCE' THEN

@@ -8,7 +8,8 @@ interface
   Math, IBQuery,cxLookupEdit, cxDBLookupEdit,
   cxDBExtLookupComboBox,cxgrid,cxGridDBTableView,cxGridFilterHelpers,cxCustomData,
   OleServer, ExcelXP,printers,WinSpool,DBGrids,cxDropDownEdit,cxCurrencyEdit,cxCalendar,
-  cxGridExportLink,cxFilter,cxGridTableView,cxGridCustomTableView,myaccess, dxNavBar;
+  cxGridExportLink,cxFilter,cxGridTableView,cxGridCustomTableView,myaccess, dxNavBar, cxImage,
+   IdHTTP, JPEG, PNGImage;
 type
  Tbutton1 = class(Tbutton)
   public
@@ -165,6 +166,7 @@ function Quot(aString : String) : String;
         procedure LoadMenu(const AUser: string);
     procedure ApplyNavBarItems(ANavBar: TdxNavBar);
     procedure ApplyNavBarGroups(ANavBar: TdxNavBar);
+    procedure cxLoadImageFromURL(const AURL: string; AImage: TcxImage);
 
 
 var
@@ -2319,6 +2321,27 @@ begin
       end;
 
     ANavBar.Groups.Items[g].Visible := HasVisible;
+  end;
+end;
+
+procedure cxLoadImageFromURL(const AURL: string; AImage: TcxImage);
+var
+  IdHTTP: TIdHTTP;
+  MS: TMemoryStream;
+  JpegImg: TJPEGImage;
+begin
+  IdHTTP := TIdHTTP.Create(nil);
+  MS := TMemoryStream.Create;
+  JpegImg := TJPEGImage.Create;
+  try
+    IdHTTP.Get(AURL, MS);
+    MS.Position := 0;
+    JpegImg.LoadFromStream(MS);
+    AImage.Picture.Assign(JpegImg);
+  finally
+    JpegImg.Free;
+    MS.Free;
+    IdHTTP.Free;
   end;
 end;
 

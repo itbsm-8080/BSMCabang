@@ -233,6 +233,9 @@ type
     DM: TMyQuery;
     LaporanPermintaanBarangvsRealisasi1: TMenuItem;
     dxBayarFeeMarketing: TdxNavBarItem;
+    LaporanDOvsRealisasi1: TMenuItem;
+    PenugasanDriver1: TMenuItem;
+    LaporanOmsetPenjualanvsOmsetKategori1: TMenuItem;
     procedure FileExit1Execute(Sender: TObject);
     function ShowForm(AFormClass: TFormClass): TForm;
     procedure Maximized1Click(Sender: TObject);
@@ -376,6 +379,9 @@ type
     procedure UpdateGroupVisibility;
     procedure LaporanPermintaanBarangvsRealisasi1Click(Sender: TObject);
     procedure dxBayarFeeMarketingClick(Sender: TObject);
+    procedure LaporanDOvsRealisasi1Click(Sender: TObject);
+    procedure PenugasanDriver1Click(Sender: TObject);
+    procedure LaporanOmsetPenjualanvsOmsetKategori1Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -449,7 +455,8 @@ ufrmBrowseInkasoBawahHet,ufrmLapBulananMarketing,ufrmLapKunjunganMarketing,
 ufrmListJualMarketing,ufrmBrowseEstimasiSales,ufrmPencapaianMarketing2,ufrmLapBulananMarketing2,
 ufrmupload,ufrmBrowsePermintaanBarang,ufrmBrowseTagihanEkspedisi,ufrmprosesgunggung,ufrmfakturpajak3,
 ufrmVerifikasiAbsensi,ufrmBrowseJenisKendaraan,ufrmBrowseEkspedisi,ufrmBrowseSerahTerimaFaktur2,
-ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing,ufrmBrowseBarangRealisasi,ufrmBrowseBayarFeeMarketing;
+ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing,ufrmBrowseBarangRealisasi,ufrmBrowseBayarFeeMarketing,
+ufrmLapDORealisasi, ufrmPenugasanDriver, ufrmOmsetvsOmsetKategori;
 {$R *.dfm}
 
 
@@ -527,7 +534,7 @@ begin
   DecimalSeparator := '.';
   Application.UpdateFormatSettings := True;
 
-  zVersi := '6.0.31';
+  zVersi := '6.0.33';
   StatusBar1.Panels[4].Text := 'Versi ' + zVersi;
 
   // cek ver si
@@ -1756,6 +1763,31 @@ begin
 if ActiveMDIChild.Caption <> 'Pembayaran Fee Marketing' then
  begin
     ShowForm(TfrmBrowseBayarFeeMarketing).Show;
+ end;
+end;
+
+procedure TfrmMenu.LaporanDOvsRealisasi1Click(Sender: TObject);
+begin
+ if ActiveMDIChild.Caption <> 'Laporan DO vs Realisasi' then
+ begin
+    ShowForm(TfrmLapDORealisasi).Show;
+ end;
+end;
+
+procedure TfrmMenu.PenugasanDriver1Click(Sender: TObject);
+begin
+ if ActiveMDIChild.Caption <> 'Penugasan Driver' then
+ begin
+    ShowForm(TfrmPenugasanDriver).Show;
+ end;
+end;
+
+procedure TfrmMenu.LaporanOmsetPenjualanvsOmsetKategori1Click(
+  Sender: TObject);
+begin
+ if ActiveMDIChild.Caption <> 'Laporan Omset Penjualan vs Omset Kategori' then
+ begin
+    ShowForm(TfrmOmsetvsOmsetKategori).Show;
  end;
 end;
 
