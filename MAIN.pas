@@ -236,6 +236,7 @@ type
     LaporanDOvsRealisasi1: TMenuItem;
     PenugasanDriver1: TMenuItem;
     LaporanOmsetPenjualanvsOmsetKategori1: TMenuItem;
+    dxSerahTerimaEkspedisi: TdxNavBarItem;
     procedure FileExit1Execute(Sender: TObject);
     function ShowForm(AFormClass: TFormClass): TForm;
     procedure Maximized1Click(Sender: TObject);
@@ -382,6 +383,7 @@ type
     procedure LaporanDOvsRealisasi1Click(Sender: TObject);
     procedure PenugasanDriver1Click(Sender: TObject);
     procedure LaporanOmsetPenjualanvsOmsetKategori1Click(Sender: TObject);
+    procedure dxSerahTerimaEkspedisiClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -456,7 +458,7 @@ ufrmListJualMarketing,ufrmBrowseEstimasiSales,ufrmPencapaianMarketing2,ufrmLapBu
 ufrmupload,ufrmBrowsePermintaanBarang,ufrmBrowseTagihanEkspedisi,ufrmprosesgunggung,ufrmfakturpajak3,
 ufrmVerifikasiAbsensi,ufrmBrowseJenisKendaraan,ufrmBrowseEkspedisi,ufrmBrowseSerahTerimaFaktur2,
 ufrmBrowseSetingFeeMarketing,ufrmProsesFeeMarketing,ufrmBrowseBarangRealisasi,ufrmBrowseBayarFeeMarketing,
-ufrmLapDORealisasi, ufrmPenugasanDriver, ufrmOmsetvsOmsetKategori;
+ufrmLapDORealisasi, ufrmPenugasanDriver, ufrmOmsetvsOmsetKategori, ufrmBrowseSerahTerimaEkspedisi;
 {$R *.dfm}
 
 
@@ -534,7 +536,7 @@ begin
   DecimalSeparator := '.';
   Application.UpdateFormatSettings := True;
 
-  zVersi := '6.0.33';
+  zVersi := '6.0.35';
   StatusBar1.Panels[4].Text := 'Versi ' + zVersi;
 
   // cek ver si
@@ -1788,6 +1790,14 @@ begin
  if ActiveMDIChild.Caption <> 'Laporan Omset Penjualan vs Omset Kategori' then
  begin
     ShowForm(TfrmOmsetvsOmsetKategori).Show;
+ end;
+end;
+
+procedure TfrmMenu.dxSerahTerimaEkspedisiClick(Sender: TObject);
+begin
+   if ActiveMDIChild.Caption <> 'Serah Terima Ekspedisi' then
+ begin
+    ShowForm(TfrmBrowseSerahTerimaEkspedisi).Show;
  end;
 end;
 

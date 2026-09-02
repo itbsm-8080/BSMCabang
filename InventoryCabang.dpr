@@ -175,7 +175,10 @@ uses
   ufrmLapDORealisasi in 'ufrmLapDORealisasi.pas' {frmLapDORealisasi},
   uFrmPreviewImage in 'bantu\uFrmPreviewImage.pas' {frmPrevImg},
   ufrmPenugasanDriver in 'ufrmPenugasanDriver.pas' {frmPenugasanDriver},
-  ufrmOmsetvsOmsetKategori in 'ufrmOmsetvsOmsetKategori.pas' {frmOmsetvsOmsetKategori};
+  ufrmOmsetvsOmsetKategori in 'ufrmOmsetvsOmsetKategori.pas' {frmOmsetvsOmsetKategori},
+  ufrmBrowseSerahTerimaEkspedisi in 'ufrmBrowseSerahTerimaEkspedisi.pas' {frmBrowseSerahTerimaEkspedisi},
+  ufrmSerahTerimaEkspedisi in 'ufrmSerahTerimaEkspedisi.pas' {frmSerahTerimaEkspedisi},
+  ufrmTagihanEkspedisi2 in 'ufrmTagihanEkspedisi2.pas' {frmTagihanEkspedisi2};
 
 {$R *.res}
 

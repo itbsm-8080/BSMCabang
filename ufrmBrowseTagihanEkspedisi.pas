@@ -24,12 +24,14 @@ type
     cxStyleRepository2: TcxStyleRepository;
     cxStyle2: TcxStyle;
     OpenDialog1: TOpenDialog;
+    cxButton5: TcxButton;
   procedure btnRefreshClick(Sender: TObject);
   procedure FormShow(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
   procedure cxButton6Click(Sender: TObject);
     procedure bacafile2;
     procedure cxButton3Click(Sender: TObject);
+    procedure cxButton5Click(Sender: TObject);
 
   private
     connpusat : TSQLConnection;
@@ -43,7 +45,7 @@ var
   frmBrowseTagihanEkspedisi: TfrmBrowseTagihanEkspedisi;
 
 implementation
-   uses ufrmTagihanEkspedisi,Ulib, MAIN, uModuleConnection;
+   uses ufrmTagihanEkspedisi,Ulib, MAIN, uModuleConnection, ufrmTagihanEkspedisi2;
 {$R *.dfm}
 
 procedure TfrmBrowseTagihanEkspedisi.btnRefreshClick(Sender: TObject);
@@ -176,6 +178,20 @@ procedure TfrmBrowseTagihanEkspedisi.cxButton3Click(Sender: TObject);
 begin
   inherited;
   frmTagihanEkspedisi.teslip(CDSMaster.FieldByname('Nomor').AsString);
+end;
+
+procedure TfrmBrowseTagihanEkspedisi.cxButton5Click(Sender: TObject);
+var
+  frmtagihanekspedisi2: Tfrmtagihanekspedisi2;
+begin
+  inherited;
+    if ActiveMDIChild.Caption <> 'Tagihan Ekspedisi v2' then
+   begin
+      frmtagihanekspedisi2  := frmmenu.ShowForm(Tfrmtagihanekspedisi2) as Tfrmtagihanekspedisi2;
+      frmtagihanekspedisi2.startdate.SetFocus;
+      frmtagihanekspedisi2.edtNomor.Text := frmtagihanekspedisi2.getmaxkode;
+   end;
+   frmtagihanekspedisi2.Show;
 end;
 
 end.

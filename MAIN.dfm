@@ -10267,6 +10267,9 @@ object frmMenu: TfrmMenu
               Item = dxListPersediaan
             end
             item
+              Item = dxSerahTerimaEkspedisi
+            end
+            item
               Item = dxtagihanekspedisi
             end
             item
@@ -10608,6 +10611,10 @@ object frmMenu: TfrmMenu
         object dxBayarFeeMarketing: TdxNavBarItem
           Caption = 'Fee Marketing'
           OnClick = dxBayarFeeMarketingClick
+        end
+        object dxSerahTerimaEkspedisi: TdxNavBarItem
+          Caption = 'Serah Terima Ekspedisi'
+          OnClick = dxSerahTerimaEkspedisiClick
         end
       end
     end
