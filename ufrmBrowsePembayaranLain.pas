@@ -100,8 +100,10 @@ var
 begin
   inherited;
   If CDSMaster.FieldByname('Nomor').IsNull then exit;
-    if (CDSMaster.FieldByname('Tanggal').AsDateTime <> Date) and ((UpperCase(frmMenu.KDUSER) <> 'FINANCE') OR (UpperCase(frmMenu.KDUSER) <> 'PIUTANG')) then
-  begin
+   if (CDSMaster.FieldByName('Tanggal').AsDateTime <> Date) and
+   (UpperCase(frmMenu.KDUSER) <> 'FINANCE') and
+   (UpperCase(frmMenu.KDUSER) <> 'PIUTANG') then
+   begin
     ShowMessage('Transaksi sudah melewati tanggal transaksi dan tidak dapat diedit.');
     Exit;
   end;
